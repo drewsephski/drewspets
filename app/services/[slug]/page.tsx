@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
+import { Button } from "@/components/ui/button"
 import { Check, ArrowUpRight } from "lucide-react"
 import { services, locations, site, money } from "@/lib/content"
 import {
@@ -70,7 +71,7 @@ export default async function ServicePage({
         />
         <div className="content-grid">
           <div>
-            <h2>Care for their kind of day.</h2>
+            <h2>Is this right for your pet?</h2>
             <p>{s.best}</p>
             <h2>What’s included</h2>
             <ul className="check-list">
@@ -126,21 +127,17 @@ export default async function ServicePage({
                   : "Personally quoted"}
               </h3>
               <p>
-                Share your dates and pet details. Drew will personally review
-                your request.
+                Send me your dates and a little about your pets. I’ll get back
+                to you personally.
               </p>
-              <Link
-                className="button"
-                style={{ marginTop: 20 }}
-                href={`/book?service=${slug}`}
-              >
+              <Button nativeButton={false} render={<Link href={`/book?service=${slug}`} />} className="site-button mt-5" size="lg">
                 Check availability <ArrowUpRight size={16} />
-              </Link>
+              </Button>
             </div>
           </aside>
         </div>
         <div style={{ paddingBottom: 60 }}>
-          <span className="eyebrow">OTHER WAYS WE CAN HELP</span>
+          <span className="eyebrow">OTHER WAYS I CAN HELP</span>
           <div className="service-link-list">
             {services
               .filter((x) => x.slug !== slug)

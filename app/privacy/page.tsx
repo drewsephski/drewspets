@@ -3,7 +3,7 @@ import { PageIntro } from "@/components/site/shared"
 export const metadata = {
   title: "Privacy",
   description:
-    "How Drew’s Pet Care handles your contact details, home address, and pet care information.",
+    "How Drew’s Pet Care handles your contact details and pet care requests.",
   alternates: { canonical: "/privacy" },
 }
 export default function Privacy() {
@@ -14,53 +14,31 @@ export default function Privacy() {
         title="Privacy policy"
         description="This page explains how Drew’s Pet Care handles information you share when asking about or arranging pet care."
       />
-      <h2>What we collect</h2>
+      <h2>What I collect</h2>
       <p>
-        Booking requests include your name, email, phone, address, requested
-        dates, and information about your pets and their care. We also save
-        inquiries, sitter applications, booking status, payment records, and
-        care notes. Please do not submit door codes, alarm codes, card numbers,
-        or other secrets through these forms.
+        Care requests include your contact details, city or ZIP, requested
+        dates, and a short description of your pets. Contact messages and future
+        sitter interest forms collect the information shown on those forms.
+        Please do not send door codes, medical records, or payment details.
       </p>
-      <h2>How we use it</h2>
+      <h2>How I use it</h2>
       <p>
-        We use your information to assess availability, discuss your request,
-        plan and deliver care, manage payment, and communicate with you. A
-        sitter application is used to consider you for future opportunities. We
-        do not sell your personal information.
+        I use your information to respond personally, check availability, and
+        discuss care. Sitter information is used only for possible future
+        opportunities. I do not sell your information.
       </p>
-      <h2>Who can access it</h2>
+      <h2>Storage and email</h2>
       <p>
-        Booking and care records are available through a private, authenticated
-        administration area. Drew personally provides care today. If an
-        additional sitter is involved in the future, we will discuss the
-        arrangement before confirming care and share only the information needed
-        for that care.
+        Requests are emailed to Drew and a confirmation is sent to you through
+        Resend. When database storage is configured, a copy is kept in Neon.
+        Vercel hosts the website. There are no customer accounts or online
+        checkout in the request flow.
       </p>
+      <h2>Analytics</h2>
       <p>
-        Our service providers may process information to host the website and
-        database, deliver email, or process payments. These integrations are
-        designed for Vercel, Neon, Resend, and Stripe. When online payment is
-        enabled, card information goes directly to Stripe. We do not store raw
-        card details.
-      </p>
-      <h2>Your private booking link</h2>
-      <p>
-        Your unguessable booking link shows a limited summary: service, dates,
-        pet names, status, prices, payment progress, and messages marked for
-        you. Anyone with that link can see the summary, so keep it private. It
-        does not show your address, contact details, pet medical information, or
-        private notes. Links expire 180 days after the requested stay and can be
-        revoked sooner.
-      </p>
-      <h2>Cookies and analytics</h2>
-      <p>
-        Admin sign-in uses necessary session cookies. Public booking requests do
-        not require an account. Optional analytics, when enabled, measure page
-        use and conversion events such as submitting a request. Form contents
-        are not sent with these events. Analytics scripts are excluded from
-        private booking and admin pages on initial load. Payment completion is
-        verified on the server.
+        Optional analytics measure page visits and form submissions. Form
+        contents are not included in analytics events. Basic request limits help
+        protect the forms from spam.
       </p>
       <h2>Retention and your choices</h2>
       <p>

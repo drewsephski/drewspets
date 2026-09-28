@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { Button } from "@/components/ui/button"
 import { ArrowUpRight } from "lucide-react"
 import { PageIntro } from "@/components/site/shared"
 import { InquiryForm } from "@/components/forms/inquiry-form"
@@ -24,9 +25,9 @@ export default function Contact() {
             The booking request collects the details I need to check
             availability. There’s no payment or commitment to get started.
           </p>
-          <Link href="/book" className="button" style={{ marginTop: 22 }}>
+          <Button nativeButton={false} render={<Link href="/book" />} className="site-button mt-5" size="lg">
             Request pet care <ArrowUpRight size={16} />
-          </Link>
+          </Button>
           <h3 style={{ marginTop: 35 }}>Close to home</h3>
           <p>
             Fox River Grove, Cary, Barrington, Crystal Lake, Algonquin, Lake in

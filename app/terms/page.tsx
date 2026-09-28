@@ -23,11 +23,11 @@ export default function Terms() {
       </p>
       <h2>Pricing and payment</h2>
       <p>
-        Published rates and online estimates are starting points. Holidays,
-        additional pets, puppies, travel, and special care may affect your
-        quote. Your total, any deposit, remaining balance, and payment deadlines
-        will be agreed before confirmation. Online card payments, when
-        available, are handled by Stripe.
+        Published rates are starting points. Holidays, additional pets, puppies,
+        travel, and special care may affect your quote. Your total, any deposit,
+        remaining balance, and payment deadlines will be agreed before
+        confirmation. No payment is collected with your request. Drew will
+        discuss payment arrangements personally after you agree on care.
       </p>
       <h2>Changes, cancellation, and refunds</h2>
       <p>
@@ -39,10 +39,10 @@ export default function Terms() {
       </p>
       <h2>Accurate care information</h2>
       <p>
-        Provide current feeding and medication instructions, behavior
-        information, emergency contacts, and any health or safety concerns that
-        affect care. You are responsible for supplying appropriate food,
-        equipment, and medications. Access arrangements and emergency
+        Before care begins, provide current feeding and medication instructions,
+        behavior information, emergency contacts, and any health or safety
+        concerns that affect care. You are responsible for supplying appropriate
+        food, equipment, and medications. Access arrangements and emergency
         permissions should be agreed before care begins.
       </p>
       <h2>Scope of care</h2>

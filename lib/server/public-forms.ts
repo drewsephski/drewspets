@@ -1,72 +1,105 @@
-import { after } from "next/server"
+import { createHash } from "node:crypto"
+import { eq } from "drizzle-orm"
 import { getDb } from "@/lib/db"
-import { applications, inquiries, emailOutbox } from "@/lib/db/schema"
-import { applicationSchema, inquirySchema } from "@/lib/validation"
-import { publicGuard, readJson, apiError } from "./security"
-import { flushEmails } from "./email"
-import { site } from "@/lib/content"
+import { inquiries } from "@/lib/db/schema"
+import {
+  applicationSchema,
+  inquirySchema,
+  bookingSchema,
+} from "@/lib/validation"
+import { services } from "@/lib/content"
+import { publicGuard, readJson, apiError, HttpError } from "./security"
+import { emailConfig, sendRequestEmails } from "./email"
 export async function submitPublicForm(
   request: Request,
-  kind: "application" | "inquiry"
+  kind: "booking" | "application" | "inquiry"
 ) {
   try {
     await publicGuard(request, kind)
     const raw = await readJson(request)
-    const id = await getDb().transaction(async (tx) => {
-      if (kind === "application") {
-        const input = applicationSchema.safeParse(raw)
-        if (!input.success) return null
-        const { consent, website, ...values } = input.data
-        void consent
-        void website
-        const [row] = await tx
-          .insert(applications)
-          .values(values)
-          .returning({ id: applications.id })
-        if (process.env.ADMIN_EMAIL)
-          await tx
-            .insert(emailOutbox)
-            .values({
-              dedupeKey: `application:${row.id}`,
-              to: process.env.ADMIN_EMAIL,
-              subject: "New sitter application",
-              body: `An application is ready to review: ${site.url}/admin/applications`,
-            })
-        return row.id
-      }
-      const input = inquirySchema.safeParse(raw)
-      if (!input.success) return null
-      const [row] = await tx
-        .insert(inquiries)
-        .values({
-          name: input.data.name,
-          email: input.data.email,
-          message: input.data.message,
-        })
-        .returning({ id: inquiries.id })
-      if (process.env.ADMIN_EMAIL)
-        await tx
-          .insert(emailOutbox)
-          .values({
-            dedupeKey: `inquiry:${row.id}`,
-            to: process.env.ADMIN_EMAIL,
-            subject: "New general inquiry",
-            body: `A message is ready to review: ${site.url}/admin/inquiries`,
-          })
-      return row.id
-    })
-    if (!id)
+    const parsed =
+      kind === "booking"
+        ? bookingSchema
+            .transform((data) => ({ ...data, kind: "booking" as const }))
+            .safeParse(raw)
+        : kind === "application"
+          ? applicationSchema
+              .transform((data) => ({ ...data, kind: "application" as const }))
+              .safeParse(raw)
+          : inquirySchema
+              .transform((data) => ({ ...data, kind: "inquiry" as const }))
+              .safeParse(raw)
+    if (!parsed.success)
       return Response.json(
-        {
-          error: "Please check your details and complete all required fields.",
-        },
+        { error: parsed.error.issues[0].message },
         { status: 400 }
       )
-    after(async () => {
-      await flushEmails().catch(() => {})
+    emailConfig()
+    const input = parsed.data
+    const subject =
+      kind === "booking"
+        ? "New pet care request"
+        : kind === "application"
+          ? "Future sitter interest"
+          : "New message for Drew"
+    const details =
+      input.kind === "booking"
+        ? [
+            `Service: ${services.find((s) => s.slug === input.service)!.name}`,
+            `Dates: ${input.startDate} to ${input.endDate}`,
+            `Pets: ${input.petCount} (${input.petType}) — ${input.petNames}`,
+            `About the pets: ${input.petDetails || "Not provided"}`,
+            `City / ZIP: ${input.cityZip}`,
+            `Phone: ${input.phone}`,
+          ]
+        : input.kind === "application"
+          ? [`City: ${input.city}`]
+          : []
+    const body = [
+      subject,
+      `Name: ${input.name}`,
+      `Email: ${input.email}`,
+      ...details,
+      `Message: ${input.message || "None"}`,
+    ].join("\n")
+    // One existing table, one record per request. Never create client/pet/account records.
+    if (process.env.DATABASE_URL) {
+      await getDb()
+        .insert(inquiries)
+        .values({
+          id: input.requestId,
+          name: input.name,
+          email: input.email,
+          message: body,
+        })
+        .onConflictDoNothing()
+      const [saved] = await getDb()
+        .select({ message: inquiries.message })
+        .from(inquiries)
+        .where(eq(inquiries.id, input.requestId))
+      if (saved?.message !== body)
+        throw new HttpError(
+          409,
+          "This request was already saved with different details. Refresh to start a new request, or contact Drew to update it."
+        )
+    }
+    const confirmation =
+      kind === "booking"
+        ? "Thanks — I’ll personally review your request and get back to you shortly.\n\nYour dates aren’t confirmed yet. We’ll discuss the details and price together. No payment is needed now.\n\nDrew"
+        : kind === "application"
+          ? "Thanks for introducing yourself. I’ll keep your information for possible future opportunities and reach out if there’s a fit.\n\nDrew"
+          : "Thanks for your message. I’ll get back to you personally shortly.\n\nDrew"
+    await sendRequestEmails({
+      id: createHash("sha256")
+        .update(`${input.requestId}:${body}`)
+        .digest("hex"),
+      email: input.email,
+      subject,
+      body,
+      confirmation,
     })
     return Response.json({ received: true }, { status: 201 })
-  } catch (e) {
-    return apiError(e)
+  } catch (error) {
+    return apiError(error)
   }
 }

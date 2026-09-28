@@ -3,7 +3,7 @@ import { InquiryForm } from "@/components/forms/inquiry-form"
 export const metadata = {
   title: "Join Our Future Sitter Network",
   description:
-    "Introduce yourself to Drew’s Pet Care. We’re building a trusted local sitter network around Fox River Grove.",
+    "Introduce yourself to Drew’s Pet Care. Leave your information for possible future sitter opportunities around Fox River Grove.",
   alternates: { canonical: "/apply" },
 }
 export default function Apply() {
@@ -11,8 +11,8 @@ export default function Apply() {
     <div className="shell">
       <PageIntro
         eyebrow="GOOD PEOPLE. GOOD CARE."
-        title="Let’s grow something local."
-        description="We’re building a trusted local sitter network. If you’d like to be considered as we grow, you can apply below."
+        title="Love looking after pets, too?"
+        description="We may grow our local sitter network in the future. If you’d like to be considered, leave your information."
       />
       <div className="content-grid">
         <InquiryForm application />
@@ -23,15 +23,14 @@ export default function Apply() {
             and a real interest in animals matter here.
           </p>
           <p style={{ marginTop: 18 }}>
-            Drew personally provides care today. This application is an
-            expression of interest, not a promise of work or an announcement of
-            an open position.
+            It’s just me looking after pets for now. There isn’t an open
+            position today, but I’d love to hear from you if you’re interested
+            in helping in the future.
           </p>
           <h3 style={{ marginTop: 25 }}>What happens next?</h3>
           <p>
-            Your application stays private. If there’s a suitable opportunity,
-            Drew will get in touch to discuss experience, references, and next
-            steps.
+            I’ll keep your details private and reach out if there’s a good fit.
+            We can talk about your experience and get to know each other then.
           </p>
         </aside>
       </div>

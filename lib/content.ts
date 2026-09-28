@@ -43,7 +43,7 @@ export const services = [
     best: "Workdays, short trips, cats who prefer home, and pets who need a little extra attention.",
     question: "Can I request more than one visit a day?",
     answer:
-      "Yes. Add your preferred visit times and daily frequency to your request. Your final quote will reflect the number and length of visits.",
+      "Yes. Mention preferred visit times and frequency in the optional message, or we can discuss them when we talk. Your final quote will reflect the number and length of visits.",
   },
   {
     slug: "dog-walking",
@@ -237,11 +237,11 @@ export const faqs = [
   ],
   [
     "Will you meet my pet before the booking?",
-    "A meet & greet is available and is especially helpful for first-time care. We’ll go through routines, temperament, access, and any questions so everyone feels comfortable before confirming.",
+    "Of course. A meet & greet is a lovely way for us to get comfortable, especially the first time. You can show me your pet’s routine and ask anything on your mind.",
   ],
   [
     "Who will be looking after my pet?",
-    "Drew personally handles care today. If the business grows to include other trusted sitters, you’ll know who is caring for your pet before you confirm.",
+    "Me — Drew. I handle every visit and stay myself, so you’ll know exactly who’s caring for your pets.",
   ],
   [
     "Will I receive photos and updates?",
@@ -249,11 +249,11 @@ export const faqs = [
   ],
   [
     "Can you help with medication or special care?",
-    "Include medication instructions and special needs in your request. I’ll review what’s involved before accepting care. Services don’t replace veterinary attention, and I won’t accept a task I’m not comfortable providing.",
+    "Let me know briefly if your pet needs extra help. We’ll talk through the details together before making plans — no need to write out medication schedules in the form. I’ll be honest about what I can safely help with.",
   ],
   [
     "When do I pay?",
-    "There’s no payment to send a request. After we discuss the details and approve a booking, you’ll receive the agreed price and payment instructions. Holiday rates, extra pets, and special care are confirmed in advance.",
+    "There’s no payment to send a request. We’ll talk first, agree on care and a price, then I’ll send you payment details. Holiday rates, extra pets, and special care are confirmed in advance.",
   ],
 ]
 export type Testimonial = {

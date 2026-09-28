@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { Button } from "@/components/ui/button"
 export default function NotFound() {
   return (
     <div className="shell success-card">
@@ -8,9 +9,9 @@ export default function NotFound() {
         This page isn’t available. If you’re opening a private booking link,
         check that you copied the whole link.
       </p>
-      <Link className="button" href="/">
+      <Button nativeButton={false} render={<Link href="/" />} className="site-button" size="lg">
         Back to home
-      </Link>
+      </Button>
     </div>
   )
 }

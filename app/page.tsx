@@ -1,18 +1,16 @@
 import Image from "next/image"
 import Link from "next/link"
+import { Button } from "@/components/ui/button"
 import {
   ArrowUpRight,
   ArrowRight,
   MapPin,
-  Camera,
   Heart,
-  Check,
   House,
   Sun,
   Footprints,
   Moon,
   Cat,
-  ShieldCheck,
 } from "lucide-react"
 import { services, locations, testimonials, site, money } from "@/lib/content"
 import { FAQ, FinalCTA, JsonLd } from "@/components/site/shared"
@@ -47,26 +45,20 @@ export default function Home() {
       />
       <section className="shell hero">
         <div className="hero-copy">
-          <span className="eyebrow hero-eyebrow">
-            <span className="status-dot" /> YOUR LOCAL PET PERSON
-          </span>
           <h1>
-            Happy pets.
+            Local pet care.
             <br />
-            Familiar routines.
-            <br />
-            <span className="serif-italic">Peace of mind.</span>
+            <span className="serif-italic">Personally, by Drew.</span>
           </h1>
           <p>
-            Reliable, personalized pet care while you’re away.
-            <br className="wide-only" /> From daily walks to overnight company,
-            a little
-            <br className="wide-only" /> extra love for the ones you love most.
+            I’m Drew, your local pet sitter in Fox River Grove. From daily walks
+            to overnight stays, I personally care for your pets and keep you
+            updated while you’re away.
           </p>
           <div className="hero-buttons">
-            <Link href="/book" className="button">
+            <Button nativeButton={false} render={<Link href="/book" />} className="site-button" size="lg">
               Check availability <ArrowUpRight size={18} />
-            </Link>
+            </Button>
             <Link href="#services" className="text-link">
               Explore services <ArrowRight size={17} />
             </Link>
@@ -74,20 +66,6 @@ export default function Home() {
           <div className="hero-local">
             <MapPin size={17} />
             <span>Fox River Grove & nearby communities</span>
-          </div>
-          <div className="hero-personal">
-            <span className="initial-avatar">D</span>
-            <span>
-              Hi, I’m Drew. <span>Your pet’s new familiar face.</span>
-            </span>
-            <svg viewBox="0 0 55 27" aria-hidden="true">
-              <path
-                d="M2 6c20 22 32 16 44 0m-13 1 14-3-2 13"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.5"
-              />
-            </svg>
           </div>
         </div>
         <div className="hero-visual">
@@ -99,57 +77,13 @@ export default function Home() {
               priority
               sizes="(max-width: 760px) 100vw, 52vw"
             />
-            <span className="photo-label">
-              <Heart size={14} /> Good days start with good care.
-            </span>
-          </div>
-          <div className="care-stamp">
-            <Heart size={21} />
-            <span>
-              PERSONAL CARE.
-              <br />
-              HAPPY TAILS.
-            </span>
-          </div>
-          <div className="photo-update">
-            <span className="update-icon">
-              <Camera size={21} />
-            </span>
-            <div>
-              <strong>A little update. A lot of reassurance.</strong>
-              <span>Photos & messages, while you’re away.</span>
-            </div>
-            <span className="update-check">
-              <Check size={14} />
-            </span>
           </div>
         </div>
       </section>
-      <div className="shell trust-band">
-        {[
-          [Heart, "Care built around your pet"],
-          [Camera, "Regular photo updates"],
-          [House, "Locally & independently owned"],
-          [ShieldCheck, "Meet & greets available"],
-        ].map(([Icon, text]) => {
-          const I = Icon as typeof Heart
-          return (
-            <div key={String(text)}>
-              <I size={19} strokeWidth={1.5} />
-              <span>{String(text)}</span>
-            </div>
-          )
-        })}
-      </div>
       <section className="shell section" id="services">
         <div className="section-heading">
           <div>
-            <span className="eyebrow">A LITTLE HELP. A LOT OF CARE.</span>
-            <h2>
-              For all the ways
-              <br />
-              you need to be away.
-            </h2>
+            <h2>A little help with your pet’s day.</h2>
           </div>
           <p>
             Long weekends. Busy workdays. Everyday life.
@@ -159,7 +93,6 @@ export default function Home() {
         </div>
         <div className="featured-services">
           {services.slice(0, 3).map((s, i) => {
-            const Icon = icons[s.icon]
             return (
               <Link
                 href={`/services/${s.slug}`}
@@ -181,9 +114,6 @@ export default function Home() {
                     fill
                     sizes="(max-width: 700px) 100vw, 33vw"
                   />
-                  <span className="service-photo-icon">
-                    <Icon size={19} />
-                  </span>
                 </div>
                 <div className="service-card-body">
                   <div className="card-title">
@@ -191,14 +121,6 @@ export default function Home() {
                     <ArrowUpRight size={21} />
                   </div>
                   <p>{s.short}</p>
-                  <ul>
-                    {s.includes.slice(0, 2).map((item) => (
-                      <li key={item}>
-                        <Check size={12} />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
                   <div className="service-rate">
                     From <strong>{money(s.price!)}</strong> / {s.unit}
                     <span>
@@ -230,138 +152,10 @@ export default function Home() {
           })}
         </div>
       </section>
-      <section className="how-section" id="how-it-works">
-        <div className="shell">
-          <div className="section-heading">
-            <div>
-              <span className="eyebrow">LESS WORRY, FROM THE FIRST HELLO.</span>
-              <h2>
-                Good care starts
-                <br />
-                with a conversation.
-              </h2>
-            </div>
-            <Link href="/book" className="text-link">
-              Let’s get to know your pet <ArrowUpRight size={18} />
-            </Link>
-          </div>
-          <div className="steps">
-            {[
-              [
-                "Tell me what you need",
-                "Choose your care, pick your dates, and share a little about your pet.",
-              ],
-              [
-                "Meet. Talk. Make a plan.",
-                "We’ll talk through routines, meet when needed, and confirm the details together.",
-              ],
-              [
-                "Go enjoy your day.",
-                "Your pet gets personal attention. You get photos, updates, and peace of mind.",
-              ],
-            ].map(([title, copy], i) => (
-              <div key={title}>
-                <span className="step-number">0{i + 1}</span>
-                <h3>{title}</h3>
-                <p>{copy}</p>
-              </div>
-            ))}
-          </div>
-          <p className="quiet-note">
-            No payment to request. No booking confirmed until we’ve talked.
-          </p>
-        </div>
-      </section>
-      <section id="about" className="shell section about-section">
-        <div className="about-photo">
-          <Image
-            src="/images/dogs-walking.jpg"
-            alt="Two dogs running together along a green path"
-            fill
-            sizes="(max-width: 760px) 100vw, 45vw"
-          />
-          <div className="about-photo-caption">
-            More sniffing. More sunshine. More good days.
-          </div>
-        </div>
-        <div className="about-copy">
-          <span className="eyebrow">
-            A NEIGHBOR. A PET PERSON. YOUR SITTER.
-          </span>
-          <h2>
-            Hi, I’m Drew.
-            <br />
-            <span className="serif-italic">It’s personal to me.</span>
-          </h2>
-          <p>
-            I started Drew’s Pet Care to offer the kind of care I’d want for an
-            animal I love: thoughtful, reliable, and built around the little
-            things that make them feel at home.
-          </p>
-          <p>
-            Right now, I personally handle every visit and stay. That means a
-            familiar face for your pet, clear communication for you, and someone
-            who takes the feeding notes seriously.
-          </p>
-          <div className="founder-signature">
-            Drew <Heart size={22} strokeWidth={1.2} />
-          </div>
-          <span className="founder-label">FOUNDER & YOUR LOCAL PET SITTER</span>
-          <Link href="/contact" className="text-link">
-            Say hello <ArrowUpRight size={16} />
-          </Link>
-        </div>
-      </section>
-      <section id="service-area" className="area-section">
-        <div className="shell area-grid">
-          <div>
-            <span className="eyebrow">CLOSE TO HOME.</span>
-            <h2>
-              Local care.
-              <br />
-              Neighboring communities.
-            </h2>
-            <p>
-              Based in Fox River Grove and caring for pets
-              <br className="wide-only" /> throughout the surrounding area.
-            </p>
-            <Link href="/contact" className="text-link">
-              Not sure if you’re in range? Ask. <ArrowUpRight size={17} />
-            </Link>
-          </div>
-          <div className="area-list">
-            {locations.map((l, i) => (
-              <Link href={`/locations/${l.slug}`} key={l.slug}>
-                <span>
-                  {i === 0 ? (
-                    <MapPin size={17} />
-                  ) : (
-                    <span className="area-dot" />
-                  )}
-                  {l.name}
-                </span>
-                {i === 0 ? (
-                  <small>HOME BASE</small>
-                ) : (
-                  <ArrowUpRight size={16} />
-                )}
-              </Link>
-            ))}
-            <span className="area-footnote">
-              And nearby neighborhoods. Let’s see what works.
-            </span>
-          </div>
-        </div>
-      </section>
       <section id="rates" className="shell section">
         <div className="section-heading">
           <div>
-            <span className="eyebrow">CLEAR PRICING. NO SURPRISES.</span>
-            <h2>
-              A little clarity
-              <br />
-              before you make plans.
-            </h2>
+            <h2>What does care cost?</h2>
           </div>
           <p>
             Simple starting rates. A personal quote
@@ -417,7 +211,6 @@ export default function Home() {
       </section>
       <section id="reviews" className="shell review-section">
         <Heart size={28} strokeWidth={1.3} />
-        <span className="eyebrow">TRUST IS EARNED, ONE VISIT AT A TIME.</span>
         {testimonials.length ? (
           testimonials.map((t) => (
             <blockquote key={t.name}>
@@ -430,16 +223,11 @@ export default function Home() {
           ))
         ) : (
           <>
-            <h2>
-              Your pet’s next chapter.
-              <br />
-              Our first stories together.
-            </h2>
+            <h2>Get to know your sitter first.</h2>
             <p>
-              Drew’s Pet Care is growing locally. Real client stories will
-              appear here
-              <br className="wide-only" /> as they’re shared—with permission, in
-              their own words.
+              You’ll speak directly with me before confirming care. We can
+              arrange a meet & greet so you and your pets feel comfortable.
+              Client reviews will be shared here with permission.
             </p>
             <Link href="/book" className="text-link">
               Start with a meet & greet <ArrowRight size={16} />
@@ -447,14 +235,119 @@ export default function Home() {
           </>
         )}
       </section>
+      <section className="how-section" id="how-it-works">
+        <div className="shell">
+          <div className="section-heading">
+            <div>
+              <h2>
+                Good care starts
+                <br />
+                with a conversation.
+              </h2>
+            </div>
+            <Link href="/book" className="text-link">
+              Let’s get to know your pet <ArrowUpRight size={18} />
+            </Link>
+          </div>
+          <div className="steps">
+            {[
+              ["Request care", "Send your dates and a little about your pets."],
+              ["I’ll contact you", "We’ll talk by phone, text, or email."],
+              [
+                "Meet if needed",
+                "A chance for you and your pets to get comfortable.",
+              ],
+              ["Confirm together", "We’ll agree on care, dates, and price."],
+              [
+                "Stay in the loop",
+                "Receive photos and updates while you’re away.",
+              ],
+            ].map(([title, copy], i) => (
+              <div key={title}>
+                <span className="step-number">0{i + 1}</span>
+                <h3>{title}</h3>
+                <p>{copy}</p>
+              </div>
+            ))}
+          </div>
+          <p className="quiet-note">
+            No payment to request. No booking confirmed until we’ve talked.
+          </p>
+        </div>
+      </section>
+      <section id="about" className="shell section about-section">
+        <div className="about-photo">
+          <Image
+            src="/images/dogs-walking.jpg"
+            alt="Two dogs running together along a green path"
+            fill
+            sizes="(max-width: 760px) 100vw, 45vw"
+          />
+        </div>
+        <div className="about-copy">
+          <h2>
+            Hi, I’m Drew.
+            <br />
+            <span className="serif-italic">It’s personal to me.</span>
+          </h2>
+          <p>
+            I started Drew’s Pet Care to offer the kind of care I’d want for an
+            animal I love: thoughtful, reliable, and built around the little
+            things that make them feel at home.
+          </p>
+          <p>
+            I personally handle every visit and stay. That means a familiar face
+            for your pet, clear communication for you, and someone who takes the
+            feeding notes seriously.
+          </p>
+          <div className="founder-signature">
+            Drew <Heart size={22} strokeWidth={1.2} />
+          </div>
+          <span className="founder-label">FOUNDER & YOUR LOCAL PET SITTER</span>
+          <Link href="/contact" className="text-link">
+            Say hello <ArrowUpRight size={16} />
+          </Link>
+        </div>
+      </section>
+      <section id="service-area" className="area-section">
+        <div className="shell area-grid">
+          <div>
+            <h2>Close to home.</h2>
+            <p>
+              Based in Fox River Grove and caring for pets
+              <br className="wide-only" /> throughout the surrounding area.
+            </p>
+            <Link href="/contact" className="text-link">
+              Not sure if you’re in range? Ask. <ArrowUpRight size={17} />
+            </Link>
+          </div>
+          <div className="area-list">
+            {locations.map((l, i) => (
+              <Link href={`/locations/${l.slug}`} key={l.slug}>
+                <span>
+                  {i === 0 ? (
+                    <MapPin size={17} />
+                  ) : (
+                    <span className="area-dot" />
+                  )}
+                  {l.name}
+                </span>
+                {i === 0 ? (
+                  <small>HOME BASE</small>
+                ) : (
+                  <ArrowUpRight size={16} />
+                )}
+              </Link>
+            ))}
+            <span className="area-footnote">
+              And nearby neighborhoods. Let’s see what works.
+            </span>
+          </div>
+        </div>
+      </section>
       <section id="faq" className="shell section faq-section">
         <div>
-          <span className="eyebrow">A FEW THINGS YOU MIGHT WONDER.</span>
-          <h2>
-            Good questions.
-            <br />
-            Straight answers.
-          </h2>
+          <h2>A few things you might be wondering.</h2>
           <p>Something else on your mind?</p>
           <Link href="/contact" className="text-link">
             I’m happy to help <ArrowUpRight size={16} />

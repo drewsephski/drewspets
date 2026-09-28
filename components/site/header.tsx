@@ -1,7 +1,9 @@
 "use client"
 import Link from "next/link"
 import { useState } from "react"
-import { ArrowUpRight, Menu, X } from "lucide-react"
+import { ArrowUpRight, Menu } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 export function Brand() {
   return (
     <Link href="/" className="brand" aria-label="Drew’s Pet Care home">
@@ -34,8 +36,8 @@ export function Brand() {
 }
 const links = [
   ["Services", "/#services"],
-  ["About", "/#about"],
-  ["Service Area", "/#service-area"],
+  ["About Drew", "/#about"],
+  ["Nearby towns", "/#service-area"],
   ["Rates", "/#rates"],
   ["Reviews", "/#reviews"],
   ["FAQ", "/#faq"],
@@ -54,36 +56,28 @@ export function Header() {
           ))}
         </nav>
         <div className="header-actions">
-          <Link href="/book" className="button small">
-            Request a booking <ArrowUpRight size={15} />
-          </Link>
-          <button
-            className="menu-button"
-            aria-label={open ? "Close navigation" : "Open navigation"}
-            aria-expanded={open}
-            aria-controls="mobile-menu"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <X /> : <Menu />}
-          </button>
+          <Button nativeButton={false} render={<Link href="/book" />} className="site-button" size="lg">
+            Check availability <ArrowUpRight size={15} />
+          </Button>
+          <Sheet open={open} onOpenChange={setOpen}>
+            <SheetTrigger render={<Button variant="ghost" size="icon-lg" className="menu-button" aria-label="Open navigation" />}>
+              <Menu />
+            </SheetTrigger>
+            <SheetContent className="mobile-menu-sheet">
+              <SheetHeader>
+                <SheetTitle>Explore Drew’s Pet Care</SheetTitle>
+              </SheetHeader>
+              <nav className="mobile-nav" aria-label="Mobile navigation">
+                {[...links, ["Contact", "/contact"]].map(([name, href]) => (
+                  <Link onClick={() => setOpen(false)} key={name} href={href}>
+                    {name}<ArrowUpRight size={18} />
+                  </Link>
+                ))}
+              </nav>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
-      {open && (
-        <nav
-          className="mobile-nav shell"
-          id="mobile-menu"
-          aria-label="Mobile navigation"
-        >
-          {[...links, ["Apply to be a sitter", "/apply"]].map(
-            ([name, href]) => (
-              <Link onClick={() => setOpen(false)} key={name} href={href}>
-                {name}
-                <ArrowUpRight size={18} />
-              </Link>
-            )
-          )}
-        </nav>
-      )}
     </header>
   )
 }

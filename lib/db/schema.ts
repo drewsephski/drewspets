@@ -11,8 +11,20 @@ import {
   pgEnum,
   uniqueIndex,
 } from "drizzle-orm/pg-core"
-import type { BookingInput } from "../validation"
-import { statuses } from "../validation"
+// Historical tables are retained to preserve existing records and migration history.
+// V1 writes only inquiries and rateLimits; no account or booking lifecycle is active.
+const statuses = [
+  "new",
+  "contacted",
+  "meet_and_greet",
+  "approved",
+  "payment_pending",
+  "confirmed",
+  "in_progress",
+  "completed",
+  "cancelled",
+  "declined",
+] as const
 const created = () =>
   timestamp("created_at", { withTimezone: true }).defaultNow().notNull()
 export const bookingStatus = pgEnum("booking_status", statuses)
@@ -103,7 +115,7 @@ export const pets = pgTable(
       .references(() => clients.id),
     name: text("name").notNull(),
     species: text("species").notNull(),
-    details: jsonb("details").$type<BookingInput["pets"][number]>().notNull(),
+    details: jsonb("details").$type<Record<string, unknown>>().notNull(),
     createdAt: created(),
   },
   (t) => [index("pets_client_idx").on(t.clientId)]
@@ -131,8 +143,8 @@ export const bookingRequests = pgTable(
     duration: integer("duration").notNull(),
     visitsPerDay: integer("visits_per_day").notNull(),
     preferredTime: text("preferred_time"),
-    location: jsonb("location").$type<BookingInput["location"]>().notNull(),
-    care: jsonb("care").$type<BookingInput["care"]>().notNull(),
+    location: jsonb("location").$type<Record<string, unknown>>().notNull(),
+    care: jsonb("care").$type<Record<string, unknown>>().notNull(),
     outsideArea: boolean("outside_area").notNull(),
     estimatedCents: integer("estimated_cents"),
     finalCents: integer("final_cents"),
@@ -167,7 +179,7 @@ export const bookingPets = pgTable(
     petId: uuid("pet_id")
       .notNull()
       .references(() => pets.id),
-    snapshot: jsonb("snapshot").$type<BookingInput["pets"][number]>().notNull(),
+    snapshot: jsonb("snapshot").$type<Record<string, unknown>>().notNull(),
   },
   (t) => [uniqueIndex("booking_pet_unique").on(t.requestId, t.petId)]
 )

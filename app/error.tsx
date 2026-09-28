@@ -1,4 +1,5 @@
 "use client"
+import { Button } from "@/components/ui/button"
 export default function Error({ reset }: { reset: () => void }) {
   return (
     <div className="shell success-card">
@@ -7,9 +8,9 @@ export default function Error({ reset }: { reset: () => void }) {
         This page couldn’t load. Your submitted requests are safe. Refresh the
         page or try again in a moment.
       </p>
-      <button onClick={reset} className="button">
+      <Button onClick={reset} className="site-button" size="lg">
         Try again
-      </button>
+      </Button>
     </div>
   )
 }

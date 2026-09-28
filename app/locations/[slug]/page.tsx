@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation"
 import Link from "next/link"
+import { Button } from "@/components/ui/button"
 import { ArrowUpRight, MapPin } from "lucide-react"
 import { locations } from "@/lib/content"
 import {
@@ -53,8 +54,8 @@ export default async function Location({
             </div>
             <h2>Services in {l.name}</h2>
             <p>
-              Choose the care that fits your household. All requests are
-              personally reviewed for availability and fit.
+              Take a look at the options below. If you’re not sure what would
+              suit your pet, I’m happy to help you choose.
             </p>
             <ServiceLinks />
             <h2>A few local details</h2>
@@ -63,11 +64,11 @@ export default async function Location({
                 [l.faq, l.answer],
                 [
                   "What information do you need to check availability?",
-                  "Start with your dates, service, pets, and address. Addresses are kept private. Please don’t send keys, alarm codes, or payment details in the request.",
+                  "Start with your dates, service, pets, and city or ZIP. No street address is needed yet. Please don’t send keys, alarm codes, or payment details in the request.",
                 ],
                 [
                   "Is a request a confirmed booking?",
-                  "No. Drew will review the details, discuss the price, and confirm the arrangements with you before care is booked.",
+                  "Not yet. I’ll get in touch to talk through your dates and price. We’ll confirm together once you’re happy with the plan.",
                 ],
               ]}
             />
@@ -79,9 +80,9 @@ export default async function Location({
               Tell me what a good day looks like for them. We’ll work out the
               rest together.
             </p>
-            <Link href="/book" className="button" style={{ marginTop: 22 }}>
+            <Button nativeButton={false} render={<Link href="/book" />} className="site-button mt-5" size="lg">
               Request your dates <ArrowUpRight size={16} />
-            </Link>
+            </Button>
             <h3 style={{ marginTop: 35, fontSize: 15 }}>Nearby communities</h3>
             {locations
               .filter((x) => l.nearby.some((n) => n === x.name))

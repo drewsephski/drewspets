@@ -1,26 +1,30 @@
 "use client"
-import { useState, type FormEvent } from "react"
+import { FormFeedback } from "./form-feedback"
+import { useRef, useState, type FormEvent } from "react"
 import Link from "next/link"
 import { ArrowUpRight, Check } from "lucide-react"
 import { applicationSchema, inquirySchema } from "@/lib/validation"
 import { conversion } from "@/components/site/analytics"
-import { Field, Textarea, Select, Honeypot } from "./fields"
+import { Field, Textarea, Honeypot } from "./fields"
+import { Button } from "@/components/ui/button"
 export function InquiryForm({
   application = false,
 }: {
   application?: boolean
 }) {
+  const requestId = useRef("")
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState("")
   const [success, setSuccess] = useState(false)
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    if (busy) return
     setError("")
+    requestId.current ||= crypto.randomUUID()
     const fd = new FormData(e.currentTarget)
     const input = {
       ...Object.fromEntries(fd),
-      consent: fd.get("consent") === "on",
-      ...(application ? { petTypes: fd.getAll("petTypes") } : {}),
+      requestId: requestId.current,
     }
     const parsed = (application ? applicationSchema : inquirySchema).safeParse(
       input
@@ -57,24 +61,24 @@ export function InquiryForm({
   }
   if (success)
     return (
-      <div className="panel" role="status">
+      <FormFeedback className="panel" role="status">
         <span className="success-icon">
           <Check />
         </span>
         <h2 style={{ fontSize: 30 }}>
           {application
             ? "Thanks for introducing yourself."
-            : "Your message is received."}
+            : "Thanks for saying hello."}
         </h2>
         <p style={{ marginTop: 18 }}>
           {application
-            ? "Your application is saved. Drew will keep it on file and reach out if there’s a suitable opportunity as the business grows."
-            : "Thanks for reaching out. Drew will review your message and respond personally."}
+            ? "I’ll keep your details for the future and get in touch if there’s an opportunity that feels like a good fit."
+            : "I’ve got your message and will get back to you personally. Talk soon!"}
         </p>
         <Link className="text-link" href="/" style={{ marginTop: 20 }}>
           Back to home <ArrowUpRight size={16} />
         </Link>
-      </div>
+      </FormFeedback>
     )
   return (
     <form className="form-card" onSubmit={submit}>
@@ -96,92 +100,41 @@ export function InquiryForm({
       />
       {application ? (
         <>
-          <div className="field-row">
-            <Field
-              label="Phone"
-              name="phone"
-              type="tel"
-              autoComplete="tel"
-              maxLength={30}
-              required
-            />
-            <Field label="City" name="city" maxLength={100} required />
-          </div>
+          <Field label="City" name="city" maxLength={100} required />
           <Textarea
-            label="Availability"
-            name="availability"
+            label="A little about your pet care experience"
+            name="message"
             maxLength={2000}
-            placeholder="Days, times, and any regular commitments"
             required
-          />
-          <Textarea
-            label="Pet care experience"
-            name="experience"
-            maxLength={4000}
-            required
-          />
-          <fieldset style={{ border: 0, padding: 0, margin: "0 0 20px" }}>
-            <legend style={{ fontSize: 12, marginBottom: 9 }}>
-              Pets you’re comfortable caring for *
-            </legend>
-            <div style={{ display: "flex", gap: 15, flexWrap: "wrap" }}>
-              {["dogs", "cats", "puppies", "senior pets"].map((p) => (
-                <label key={p} style={{ fontSize: 12 }}>
-                  <input type="checkbox" name="petTypes" value={p} /> {p}
-                </label>
-              ))}
-            </div>
-          </fieldset>
-          <div className="field-row">
-            <Select label="Reliable transportation" name="transportation">
-              <option value="yes">Yes</option>
-              <option value="no">No</option>
-            </Select>
-            <Select label="Overnight availability" name="overnights">
-              <option value="yes">Yes</option>
-              <option value="sometimes">Sometimes</option>
-              <option value="no">No</option>
-            </Select>
-          </div>
-          <Textarea
-            label="Why would you like to join?"
-            name="why"
-            maxLength={3000}
-            required
-          />
-          <Textarea
-            label="References (optional)"
-            hint="Please get permission before sharing someone’s contact details."
-            name="references"
-            maxLength={3000}
           />
         </>
       ) : (
         <Textarea
           label="How can I help?"
           name="message"
-          maxLength={4000}
+          maxLength={2000}
           required
-          hint="For care requests, use the booking form so I have everything I need. Don’t include door codes or sensitive information here."
+          hint="Have dates in mind? The care request form is the quickest place to start. Please leave out door codes and other private details."
         />
       )}
-      <label className="consent">
-        <input type="checkbox" name="consent" required />
-        <span>
-          I agree to the <Link href="/privacy">privacy policy</Link> and consent
-          to being contacted about this{" "}
-          {application ? "application" : "inquiry"}.
-        </span>
-      </label>
+      <p className="request-privacy">
+        By sending this form, you agree that Drew may contact you about your{" "}
+        {application ? "interest" : "message"}.{" "}
+        <Link href="/privacy">Privacy policy</Link>.
+      </p>
       {error && (
-        <div className="form-error" role="alert">
+        <FormFeedback className="form-error" role="alert">
           {error}
-        </div>
+        </FormFeedback>
       )}
-      <button disabled={busy} className="button" style={{ marginTop: 23 }}>
-        {busy ? "Sending…" : application ? "Send application" : "Send message"}
+      <Button type="submit" disabled={busy} className="site-button mt-6" size="lg">
+        {busy
+          ? "Sending…"
+          : application
+            ? "Send my information"
+            : "Send message"}
         <ArrowUpRight size={17} />
-      </button>
+      </Button>
     </form>
   )
 }

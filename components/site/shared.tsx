@@ -1,7 +1,8 @@
 import Link from "next/link"
 import { ArrowUpRight, ArrowRight, MapPin } from "lucide-react"
 import { Brand } from "./header"
-import { faqs, services, site } from "@/lib/content"
+import { Button } from "@/components/ui/button"
+import { services, site } from "@/lib/content"
 export function Footer() {
   return (
     <footer className="site-footer">
@@ -18,18 +19,18 @@ export function Footer() {
         </div>
         <div>
           <span className="eyebrow">EXPLORE</span>
-          <Link href="/#services">Our services</Link>
+          <Link href="/#services">Services</Link>
           <Link href="/#rates">Rates</Link>
           <Link href="/#about">About Drew</Link>
           <Link href="/#service-area">Service area</Link>
         </div>
         <div>
           <span className="eyebrow">LET’S TALK</span>
-          <Link href="/book">Request a booking</Link>
+          <Link href="/book">Request care</Link>
           <Link href="/contact">Contact</Link>
           <Link href="/#faq">Common questions</Link>
           <Link href="/apply">
-            Apply to be a sitter <ArrowUpRight size={13} />
+            Future sitter opportunities <ArrowUpRight size={13} />
           </Link>
         </div>
         <div className="footer-note">
@@ -59,45 +60,23 @@ export function FinalCTA() {
   return (
     <section className="shell final-cta">
       <div>
-        <span className="eyebrow">HERE FOR THEM. HERE FOR YOU.</span>
-        <h2>
-          A familiar face.
-          <br />A little more peace of mind.
-        </h2>
+        <h2>Have dates in mind?</h2>
         <p>
-          Tell me about your pet and your plans.
+          Tell me a little about your pets and when you need a hand.
           <br />
-          I’ll take it from there, personally.
+          I’ll be in touch so we can work out the rest together.
         </p>
       </div>
       <div>
-        <Link href="/book" className="button cream">
-          Request a booking <ArrowUpRight size={18} />
-        </Link>
+        <Button nativeButton={false} render={<Link href="/book" />} className="site-button site-button-inverse" variant="secondary" size="lg">
+          Request care <ArrowUpRight size={18} />
+        </Button>
         <span className="cta-note">No commitment. Just a conversation.</span>
       </div>
     </section>
   )
 }
-export function FAQ({
-  items = faqs,
-}: {
-  items?: readonly (readonly string[])[]
-}) {
-  return (
-    <div className="faq-list">
-      {items.map(([q, a]) => (
-        <details key={q}>
-          <summary>
-            {q}
-            <span aria-hidden="true">+</span>
-          </summary>
-          <p>{a}</p>
-        </details>
-      ))}
-    </div>
-  )
-}
+export { FAQ } from "./faq"
 export function PageIntro({
   eyebrow,
   title,

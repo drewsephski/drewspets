@@ -1,6 +1,6 @@
 import "server-only"
-import { createHash, createHmac } from "node:crypto"
-import { sql } from "drizzle-orm"
+import { createHash } from "node:crypto"
+import { lt, sql } from "drizzle-orm"
 import { getDb } from "@/lib/db"
 import { rateLimits } from "@/lib/db/schema"
 import { site } from "@/lib/content"
@@ -12,71 +12,72 @@ export class HttpError extends Error {
     super(message)
   }
 }
-export function hashToken(token: string) {
-  return createHash("sha256").update(token).digest("hex")
-}
-export function bookingToken(id: string) {
-  const secret = process.env.BOOKING_TOKEN_SECRET
-  if (!secret || secret.length < 32)
-    throw new HttpError(
-      503,
-      "Booking requests aren’t available just yet. Please try again soon."
-    )
-  return createHmac("sha256", secret)
-    .update(`booking:${id}`)
-    .digest("base64url")
-}
-export function requireSameOrigin(request: Request) {
-  const allowed = new Set([
-    new URL(site.url).origin,
-    ...(process.env.BETTER_AUTH_URL
-      ? [new URL(process.env.BETTER_AUTH_URL).origin]
-      : []),
-  ])
+const localLimits = new Map<string, { count: number; expires: number }>()
+export async function publicGuard(request: Request, bucket: string) {
+  const allowed = new Set([new URL(site.url).origin])
   if (process.env.NODE_ENV !== "production") {
     allowed.add("http://localhost:3000")
     allowed.add("http://127.0.0.1:3000")
   }
-  const origin = request.headers.get("origin")
-  if (!origin || !allowed.has(origin))
-    throw new HttpError(
-      403,
-      "This request could not be verified. Refresh the page and try again."
-    )
-}
-export async function publicGuard(request: Request, bucket: string) {
-  requireSameOrigin(request)
-  if (!process.env.DATABASE_URL)
-    throw new HttpError(
-      503,
-      "Requests aren’t available just yet. Please try again soon."
-    )
-  if (Number(request.headers.get("content-length") || 0) > 60000)
-    throw new HttpError(413, "This request is too large.")
+  if (!allowed.has(request.headers.get("origin") || ""))
+    throw new HttpError(403, "Refresh the page and try again.")
+  if (!request.headers.get("content-type")?.includes("application/json"))
+    throw new HttpError(415, "Please submit using the website form.")
+  const now = Date.now()
   const ip = process.env.VERCEL
     ? request.headers.get("x-vercel-forwarded-for") || "unknown"
     : "local"
-  const key = hashToken(`${bucket}:${ip}:${Math.floor(Date.now() / 600000)}`)
-  const [row] = await getDb()
-    .insert(rateLimits)
-    .values({ key, expiresAt: new Date(Date.now() + 1200000) })
-    .onConflictDoUpdate({
-      target: rateLimits.key,
-      set: { count: sql`${rateLimits.count}+1` },
-    })
-    .returning()
-  if (row.count > 8)
+  const key = createHash("sha256")
+    .update(`${bucket}:${ip}:${Math.floor(now / 600000)}`)
+    .digest("hex")
+  let count: number
+  if (process.env.DATABASE_URL) {
+    await getDb()
+      .delete(rateLimits)
+      .where(lt(rateLimits.expiresAt, new Date(now)))
+    const [row] = await getDb()
+      .insert(rateLimits)
+      .values({ key, expiresAt: new Date(now + 1200000) })
+      .onConflictDoUpdate({
+        target: rateLimits.key,
+        set: { count: sql`${rateLimits.count}+1` },
+      })
+      .returning()
+    count = row.count
+  } else {
+    // Best effort per-instance protection when running without optional storage.
+    for (const [entry, value] of localLimits)
+      if (value.expires < now) localLimits.delete(entry)
+    count = (localLimits.get(key)?.count || 0) + 1
+    if (localLimits.size >= 10000 && !localLimits.has(key))
+      throw new HttpError(429, "Please try again later.")
+    localLimits.set(key, { count, expires: now + 1200000 })
+  }
+  if (count > 8)
     throw new HttpError(
       429,
-      "A few too many requests. Please wait 10 minutes and try again."
+      "Please wait 10 minutes before trying again, or contact Drew directly."
     )
 }
 export async function readJson(request: Request) {
-  const body = await request.text()
-  if (body.length > 60000)
+  if (Number(request.headers.get("content-length") || 0) > 16000)
     throw new HttpError(413, "This request is too large.")
+  const reader = request.body?.getReader()
+  if (!reader) throw new HttpError(400, "Please complete the form.")
+  const chunks: Uint8Array[] = []
+  let size = 0
+  while (true) {
+    const { value, done } = await reader.read()
+    if (done) break
+    size += value.byteLength
+    if (size > 16000) {
+      await reader.cancel()
+      throw new HttpError(413, "This request is too large.")
+    }
+    chunks.push(value)
+  }
   try {
-    return JSON.parse(body) as unknown
+    return JSON.parse(Buffer.concat(chunks).toString("utf8")) as unknown
   } catch {
     throw new HttpError(400, "Please check your form and try again.")
   }
@@ -91,7 +92,7 @@ export function apiError(error: unknown) {
   return Response.json(
     {
       error:
-        "Your request could not be saved. Please try again. Nothing has been confirmed.",
+        "Your request couldn’t be completed. Please retry or contact Drew directly. Nothing has been confirmed.",
     },
     { status: 503 }
   )
