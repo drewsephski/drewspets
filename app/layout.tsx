@@ -1,31 +1,65 @@
-import { Geist, Geist_Mono, Outfit } from "next/font/google"
-
+import type { Metadata } from "next"
+import { DM_Sans, Manrope, Lora } from "next/font/google"
+import { Header } from "@/components/site/header"
+import { Footer } from "@/components/site/shared"
+import { site } from "@/lib/content"
+import { AnalyticsProvider } from "@/components/site/analytics"
 import "./globals.css"
-import { ThemeProvider } from "@/components/theme-provider"
-import { cn } from "@/lib/utils";
-
-const outfitHeading = Outfit({subsets:['latin'],variable:'--font-heading'});
-
-const geist = Geist({subsets:['latin'],variable:'--font-sans'})
-
-const fontMono = Geist_Mono({
+const body = DM_Sans({ subsets: ["latin"], variable: "--font-body" })
+const heading = Manrope({ subsets: ["latin"], variable: "--font-display" })
+const editorial = Lora({
   subsets: ["latin"],
-  variable: "--font-mono",
+  style: ["normal", "italic"],
+  variable: "--font-editorial",
 })
-
+export const metadata: Metadata = {
+  metadataBase: new URL(site.url),
+  title: {
+    default:
+      "Drew’s Pet Care | Pet Sitting & Dog Walking in Fox River Grove, IL",
+    template: "%s | Drew’s Pet Care",
+  },
+  description: site.description,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: site.name,
+    title: "Your local pet person. Drew’s Pet Care",
+    description: site.description,
+    images: [{ url: "/opengraph-image", width: 1200, height: 630 }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: site.name,
+    description: site.description,
+    images: ["/opengraph-image"],
+  },
+  verification: {
+    google: process.env.GOOGLE_SITE_VERIFICATION,
+    other: process.env.BING_SITE_VERIFICATION
+      ? { "msvalidate.01": process.env.BING_SITE_VERIFICATION }
+      : undefined,
+  },
+}
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode
-}>) {
+}) {
   return (
     <html
       lang="en"
-      suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", geist.variable, outfitHeading.variable)}
+      className={`${body.variable} ${heading.variable} ${editorial.variable}`}
     >
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <a href="#main" className="skip-link">
+          Skip to content
+        </a>
+        <Header />
+        <main id="main">{children}</main>
+        <Footer />
+        <AnalyticsProvider />
       </body>
     </html>
   )
