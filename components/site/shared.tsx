@@ -1,5 +1,6 @@
+import { ArrowRight, ArrowUpRight } from "@/components/site/arrows"
 import Link from "next/link"
-import { ArrowUpRight, ArrowRight, MapPin } from "lucide-react"
+import { MapPin } from "lucide-react"
 import { Brand } from "./header"
 import { Button } from "@/components/ui/button"
 import { services, site } from "@/lib/content"

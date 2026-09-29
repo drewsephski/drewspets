@@ -1,6 +1,6 @@
+import { ArrowUpRight } from "@/components/site/arrows"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowUpRight } from "lucide-react"
 import { PageIntro } from "@/components/site/shared"
 import { InquiryForm } from "@/components/forms/inquiry-form"
 export const metadata = {

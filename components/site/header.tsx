@@ -1,10 +1,18 @@
 "use client"
+
+import { ArrowUpRight } from "@/components/site/arrows"
 import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
-import { ArrowUpRight, Menu } from "lucide-react"
+import { Menu } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet"
 export function Brand() {
   return (
     <Link href="/" className="brand" aria-label="Drew’s Pet Care home">
@@ -44,11 +52,25 @@ export function Header() {
           ))}
         </nav>
         <div className="header-actions">
-          <Button nativeButton={false} render={<Link href="/book" />} className="site-button" size="lg">
+          <Button
+            nativeButton={false}
+            render={<Link href="/book" />}
+            className="site-button"
+            size="lg"
+          >
             Check availability <ArrowUpRight size={15} />
           </Button>
           <Sheet open={open} onOpenChange={setOpen}>
-            <SheetTrigger render={<Button variant="ghost" size="icon-lg" className="menu-button" aria-label="Open navigation" />}>
+            <SheetTrigger
+              render={
+                <Button
+                  variant="ghost"
+                  size="icon-lg"
+                  className="menu-button"
+                  aria-label="Open navigation"
+                />
+              }
+            >
               <Menu />
             </SheetTrigger>
             <SheetContent className="mobile-menu-sheet">
@@ -58,7 +80,8 @@ export function Header() {
               <nav className="mobile-nav" aria-label="Mobile navigation">
                 {[...links, ["Contact", "/contact"]].map(([name, href]) => (
                   <Link onClick={() => setOpen(false)} key={name} href={href}>
-                    {name}<ArrowUpRight size={18} />
+                    {name}
+                    <ArrowUpRight size={18} />
                   </Link>
                 ))}
               </nav>

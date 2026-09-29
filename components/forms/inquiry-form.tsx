@@ -1,8 +1,10 @@
 "use client"
+
+import { ArrowUpRight } from "@/components/site/arrows"
 import { FormFeedback } from "./form-feedback"
 import { useRef, useState, type FormEvent } from "react"
 import Link from "next/link"
-import { ArrowUpRight, Check } from "lucide-react"
+import { Check } from "lucide-react"
 import { applicationSchema, inquirySchema } from "@/lib/validation"
 import { conversion } from "@/components/site/analytics"
 import { Field, Textarea, Honeypot } from "./fields"
@@ -127,7 +129,12 @@ export function InquiryForm({
           {error}
         </FormFeedback>
       )}
-      <Button type="submit" disabled={busy} className="site-button mt-6" size="lg">
+      <Button
+        type="submit"
+        disabled={busy}
+        className="site-button mt-6"
+        size="lg"
+      >
         {busy
           ? "Sending…"
           : application

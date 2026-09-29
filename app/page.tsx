@@ -1,17 +1,8 @@
+import { ArrowRight, ArrowUpRight } from "@/components/site/arrows"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import {
-  ArrowUpRight,
-  ArrowRight,
-  MapPin,
-  Heart,
-  House,
-  Sun,
-  Footprints,
-  Moon,
-  Cat,
-} from "lucide-react"
+import { MapPin, Heart, House, Sun, Footprints, Moon, Cat } from "lucide-react"
 import { services, locations, testimonials, site, money } from "@/lib/content"
 import { FAQ, FinalCTA, JsonLd } from "@/components/site/shared"
 const icons = {

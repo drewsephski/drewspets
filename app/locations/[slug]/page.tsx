@@ -1,7 +1,8 @@
+import { ArrowUpRight } from "@/components/site/arrows"
 import { notFound } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowUpRight, MapPin } from "lucide-react"
+import { MapPin } from "lucide-react"
 import { locations } from "@/lib/content"
 import {
   Breadcrumbs,
@@ -80,7 +81,12 @@ export default async function Location({
               Tell me what a good day looks like for them. We’ll work out the
               rest together.
             </p>
-            <Button nativeButton={false} render={<Link href="/book" />} className="site-button mt-5" size="lg">
+            <Button
+              nativeButton={false}
+              render={<Link href="/book" />}
+              className="site-button mt-5"
+              size="lg"
+            >
               Request your dates <ArrowUpRight size={16} />
             </Button>
             <h3 style={{ marginTop: 35, fontSize: 15 }}>Nearby communities</h3>

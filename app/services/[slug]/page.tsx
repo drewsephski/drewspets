@@ -1,8 +1,9 @@
+import { ArrowUpRight } from "@/components/site/arrows"
 import { notFound } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { Check, ArrowUpRight } from "lucide-react"
+import { Check } from "lucide-react"
 import { services, locations, site, money } from "@/lib/content"
 import {
   Breadcrumbs,
