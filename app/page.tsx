@@ -305,10 +305,10 @@ export default function Home() {
       <section id="about" className="shell section about-section">
         <div className="about-photo">
           <Image
-            src="/images/drew-with-phoenix-and-macy.jpg"
-            alt="Drew at home with his dog and cat"
-            width={1254}
-            height={1254}
+            src="/images/drew-and-dog-at-home.jpg"
+            alt="Drew relaxing at home with a dog"
+            width={2200}
+            height={1650}
             sizes="(max-width: 760px) 100vw, 45vw"
           />
         </div>
@@ -335,6 +335,15 @@ export default function Home() {
           <Link href="/contact" className="text-link">
             Say hello <ArrowUpRight size={16} />
           </Link>
+          <div className="about-photo-small">
+            <Image
+              src="/images/drew-with-phoenix-and-macy.jpg"
+              alt="Drew with a dog and cat"
+              width={1254}
+              height={1254}
+              sizes="96px"
+            />
+          </div>
         </div>
       </section>
       <section

@@ -535,6 +535,18 @@ summary:focus-visible {
   width: 100%;
   height: auto;
 }
+.about-photo-small {
+  width: 96px;
+  margin-top: 28px;
+  overflow: hidden;
+  border-radius: 6px;
+  line-height: 0;
+}
+.about-photo-small img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 .photo-gallery-grid {
   columns: 3;
   column-gap: 14px;
