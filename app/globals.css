@@ -1223,6 +1223,185 @@ summary:focus-visible {
   animation: spin 1s linear infinite;
   margin: 0 auto 20px;
 }
+
+/* Page-level finishing details: quieter introductions, clearer reading width,
+   and more deliberate form and detail-page surfaces. */
+.page-intro {
+  max-width: 760px;
+  padding-top: 72px;
+  padding-bottom: 44px;
+}
+.page-intro .eyebrow {
+  margin-bottom: 15px;
+  letter-spacing: 0.13em;
+}
+.page-intro h1 {
+  max-width: 13ch;
+  font-size: clamp(40px, 4.7vw, 58px);
+  line-height: 1.08;
+  letter-spacing: -0.06em;
+}
+.page-intro p {
+  max-width: 570px;
+  margin-top: 18px;
+  font-size: 15px;
+  line-height: 1.8;
+}
+.breadcrumbs {
+  padding-top: 25px;
+  font-size: 10px;
+  letter-spacing: 0.015em;
+}
+.breadcrumbs a:hover {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.content-grid {
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.8fr);
+  gap: clamp(38px, 6vw, 76px);
+}
+.content-grid h2 {
+  margin-top: 30px;
+  font-size: 27px;
+  letter-spacing: -0.045em;
+}
+.content-grid > :first-child > h2:first-child {
+  margin-top: 0;
+}
+.panel {
+  border-radius: 10px;
+  padding: 30px;
+  background: #f8f7f1;
+}
+.panel .eyebrow {
+  margin-bottom: 13px;
+}
+.panel h3 {
+  letter-spacing: -0.025em;
+}
+.panel .site-button {
+  width: 100%;
+}
+.prose {
+  max-width: 780px;
+  padding-bottom: 100px;
+}
+.prose .page-intro {
+  padding-bottom: 43px;
+}
+.prose h2 {
+  margin-top: 36px;
+  font-size: 23px;
+  letter-spacing: -0.04em;
+}
+.prose p {
+  max-width: 68ch;
+  font-size: 14px;
+  line-height: 1.85;
+}
+.form-heading {
+  max-width: 660px;
+  margin: 0 auto 34px;
+}
+.form-heading h1 {
+  max-width: 14ch;
+  margin-inline: auto;
+  font-size: clamp(38px, 4.5vw, 51px);
+  line-height: 1.1;
+  letter-spacing: -0.055em;
+}
+.form-heading p {
+  max-width: 520px;
+  margin: 16px auto 0;
+  line-height: 1.8;
+}
+.form-card {
+  border-radius: 10px;
+  box-shadow: 0 12px 40px rgb(50 60 43 / 4%);
+}
+.form-card fieldset {
+  min-width: 0;
+  margin: 0 0 26px;
+  padding: 0;
+  border: 0;
+}
+.form-card fieldset + fieldset {
+  padding-top: 23px;
+  border-top: 1px solid var(--border);
+}
+.form-card legend {
+  float: left;
+  width: 100%;
+  margin-bottom: 17px;
+  color: #394a30;
+  font-family: var(--font-display), sans-serif;
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+.form-card legend + * {
+  clear: both;
+}
+.request-privacy {
+  font-size: 11px;
+  line-height: 1.7;
+}
+.request-privacy a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.service-link-list a,
+.area-list > a {
+  transition:
+    color 160ms ease,
+    border-color 160ms ease;
+}
+.service-link-list a:hover,
+.area-list > a:hover {
+  color: var(--primary);
+  border-color: #9aa68c;
+}
+@media (max-width: 700px) {
+  .page-intro {
+    padding-top: 48px;
+    padding-bottom: 32px;
+  }
+  .page-intro h1 {
+    max-width: 15ch;
+    font-size: clamp(38px, 10vw, 48px);
+  }
+  .page-intro p {
+    margin-top: 15px;
+    font-size: 14px;
+  }
+  .content-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    padding-bottom: 58px;
+  }
+  .content-grid h2 {
+    font-size: 25px;
+  }
+  .panel {
+    padding: 24px;
+  }
+  .prose {
+    padding-bottom: 68px;
+  }
+  .prose .page-intro {
+    padding-bottom: 30px;
+  }
+  .form-heading {
+    margin-bottom: 26px;
+  }
+  .form-heading h1 {
+    font-size: 39px;
+  }
+  .form-card fieldset {
+    margin-bottom: 20px;
+  }
+}
 @keyframes spin {
   to {
     transform: rotate(360deg);

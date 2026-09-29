@@ -89,9 +89,9 @@ export default function Home() {
             <span className="serif-italic">Personally, by Drew.</span>
           </h1>
           <p>
-            I’m Drew, your local pet sitter in Fox River Grove. From daily walks
-            to overnight stays, I personally care for your pets and keep you
-            updated while you’re away.
+            I’m Drew, a pet sitter in Fox River Grove. I look after pets in
+            their own routines and send you a photo and update while you’re
+            away.
           </p>
           <div className="hero-buttons">
             <Button
@@ -129,9 +129,8 @@ export default function Home() {
             <h2>A little help with your pet’s day.</h2>
           </div>
           <p>
-            Long weekends. Busy workdays. Everyday life.
-            <br />
-            Thoughtful care that fits your pet’s world.
+            Dog walks, drop-ins, and overnight stays, planned around the way
+            your pet is used to being cared for.
           </p>
         </div>
         <div className="featured-services">
@@ -328,9 +327,9 @@ export default function Home() {
             <span className="serif-italic">It’s personal to me.</span>
           </h2>
           <p>
-            I started Drew’s Pet Care to offer the kind of care I’d want for an
-            animal I love: thoughtful, reliable, and built around the little
-            things that make them feel at home.
+            I started Drew’s Pet Care to give local pets steady, familiar care.
+            I follow their routines, take note of the small details, and make
+            sure you know how things are going.
           </p>
           <p>
             I personally handle every visit and stay. That means a familiar face

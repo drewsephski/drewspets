@@ -10,9 +10,9 @@ export default function Apply() {
   return (
     <div className="shell">
       <PageIntro
-        eyebrow="GOOD PEOPLE. GOOD CARE."
-        title="Love looking after pets, too?"
-        description="We may grow our local sitter network in the future. If you’d like to be considered, leave your information."
+        eyebrow="FUTURE SITTER OPPORTUNITIES"
+        title="Interested in pet care work?"
+        description="I’m not hiring right now, but I’m glad to hear from people who may be interested if the business grows."
       />
       <div className="content-grid">
         <InquiryForm application />

@@ -10,7 +10,7 @@ export default function Privacy() {
   return (
     <div className="shell prose">
       <PageIntro
-        eyebrow="YOUR DETAILS DESERVE CARE, TOO."
+        eyebrow="PRIVACY"
         title="Privacy policy"
         description="This page explains how Drew’s Pet Care handles information you share when asking about or arranging pet care."
       />

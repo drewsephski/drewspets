@@ -13,9 +13,9 @@ export default function Contact() {
   return (
     <div className="shell">
       <PageIntro
-        eyebrow="LET’S TALK."
-        title="A real person, right here."
-        description="Questions about a routine, your neighborhood, or finding the right care? I’m happy to talk it through."
+        eyebrow="CONTACT DREW"
+        title="Questions about pet care?"
+        description="Ask about dates, services, or whether I cover your neighborhood. I’ll get back to you personally."
       />
       <div className="content-grid">
         <InquiryForm />
@@ -25,7 +25,12 @@ export default function Contact() {
             The booking request collects the details I need to check
             availability. There’s no payment or commitment to get started.
           </p>
-          <Button nativeButton={false} render={<Link href="/book" />} className="site-button mt-5" size="lg">
+          <Button
+            nativeButton={false}
+            render={<Link href="/book" />}
+            className="site-button mt-5"
+            size="lg"
+          >
             Request pet care <ArrowUpRight size={16} />
           </Button>
           <h3 style={{ marginTop: 35 }}>Close to home</h3>
