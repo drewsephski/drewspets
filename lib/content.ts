@@ -1,6 +1,6 @@
 export const site = {
   name: "Drew’s Pet Care",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://drewspets.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.drewspets.com",
   description:
     "Reliable local pet sitting, house sitting, dog walking, drop-ins, boarding, daycare, and cat care in Fox River Grove, Cary, Barrington, and nearby communities.",
 }
@@ -14,7 +14,10 @@ export const services = [
     price: 5500,
     unit: "night",
     icon: "house",
-    image: "/images/golden-retriever.jpg",
+    image: "/images/cats-resting-together.jpg",
+    imageAlt: "Two cats settled at home",
+    imageWidth: 2200,
+    imageHeight: 1238,
     includes: [
       "Overnight care in your home",
       "Meals, walks & familiar routines",
@@ -34,7 +37,10 @@ export const services = [
     price: 2200,
     unit: "visit",
     icon: "sun",
-    image: "/images/cat.jpg",
+    image: "/images/drew-and-dog-at-home.jpg",
+    imageAlt: "Drew relaxing at home with a dog",
+    imageWidth: 2200,
+    imageHeight: 1650,
     includes: [
       "30- or 60-minute visits",
       "Feeding, fresh water & potty breaks",
@@ -54,7 +60,10 @@ export const services = [
     price: 2200,
     unit: "walk",
     icon: "walk",
-    image: "/images/dogs-walking.jpg",
+    image: "/images/dog-walk-in-the-park.jpg",
+    imageAlt: "A dog enjoying a walk in the park",
+    imageWidth: 828,
+    imageHeight: 535,
     includes: [
       "30- or 60-minute walks",
       "A pace that suits your dog",
@@ -74,6 +83,10 @@ export const services = [
     price: null,
     unit: "day",
     icon: "sun",
+    image: "/images/dogs-resting-by-the-window.jpg",
+    imageAlt: "Two dogs resting together at home",
+    imageWidth: 1650,
+    imageHeight: 2200,
     includes: [
       "An agreed daytime care window",
       "Play, potty breaks & downtime",
@@ -93,6 +106,10 @@ export const services = [
     price: null,
     unit: "night",
     icon: "moon",
+    image: "/images/dogs-relaxing-at-home.jpg",
+    imageAlt: "Two dogs relaxing together at home",
+    imageWidth: 1650,
+    imageHeight: 2200,
     includes: [
       "Individually reviewed stays",
       "Familiar food & bedtime routines",
@@ -112,7 +129,10 @@ export const services = [
     price: 2200,
     unit: "visit",
     icon: "cat",
-    image: "/images/cat.jpg",
+    image: "/images/orange-cat-resting.jpg",
+    imageAlt: "An orange cat relaxing at home",
+    imageWidth: 1650,
+    imageHeight: 2200,
     includes: [
       "Food, water & litter refresh",
       "Play or quiet companionship",
@@ -132,6 +152,10 @@ export const services = [
     price: 6000,
     unit: "night",
     icon: "heart",
+    image: "/images/puppy-in-the-garden.jpg",
+    imageAlt: "A young puppy exploring the garden",
+    imageWidth: 600,
+    imageHeight: 450,
     includes: [
       "Age-appropriate breaks & play",
       "Your feeding and nap schedule",

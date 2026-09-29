@@ -2,6 +2,7 @@ import { afterAll, beforeEach, expect, mock, test } from "bun:test"
 import { PGlite } from "@electric-sql/pglite"
 import { drizzle } from "drizzle-orm/pglite"
 import { readFile } from "node:fs/promises"
+import { site } from "../lib/content"
 import { inquiries } from "../lib/db/schema"
 const pg = new PGlite()
 for (const file of ["0000_silent_robin_chapel.sql", "0001_blushing_sumo.sql"]) {
@@ -55,8 +56,7 @@ const input = {
 }
 function request(
   body: unknown,
-  origin = new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://drewspets.com")
-    .origin
+  origin = new URL(site.url).origin
 ) {
   return new Request(`${origin}/api/bookings`, {
     method: "POST",

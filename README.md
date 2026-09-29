@@ -5,11 +5,11 @@ A local pet-care website for Drew in Fox River Grove. The site helps people disc
 ## Run
 
 Use Bun: `bun install`, copy `.env.example` to `.env.local`, then `bun dev`.
-Set `NEXT_PUBLIC_SITE_URL` to `http://localhost:3000` locally and the canonical HTTPS domain in production.
+Set `NEXT_PUBLIC_SITE_URL` to `http://localhost:3000` locally and `https://www.drewspets.com` in production. The bare domain redirects to `www.drewspets.com`, which is the origin accepted by the public forms.
 
 Forms require `RESEND_API_KEY`, a verified `EMAIL_FROM`, and `ADMIN_EMAIL` (Drew’s inbox). Set public contact email/phone so visitors also have a direct fallback. Without email configuration the form reports unavailable; it never pretends a request was delivered.
 
-`DATABASE_URL` is optional. When set, apply existing migrations with `bun run db:migrate` before accepting requests. All three forms store a single record in the existing `inquiries` table (name, email, readable request summary). No new migration is required. Storage failures return an error rather than silently losing the record.
+`DATABASE_URL` is optional. When set, apply existing migrations with `bun --env-file=.env.local run db:migrate` before accepting requests. Bun does not load Next.js's `.env.local` automatically for the migration script. All three forms store a single record in the existing `inquiries` table (name, email, readable request summary). No new migration is required. Storage failures return an error rather than silently losing the record.
 
 ## Request flow
 
@@ -31,7 +31,7 @@ Deferred: payment links sent personally after agreement; more detailed intake af
 
 `lib/content.ts` owns services, starting prices, locations, FAQs and approved testimonials. Keep its established prices until Drew changes them. The current assets include pet photos, but no verified founder photo; replace an existing photo with Drew’s own approved photo when available. Do not invent client reviews. Google Business Profile verification, real reviews, and profile/site consistency require work outside this repository; source code alone does not establish Search or Maps rankings.
 
-Before launch, verify the canonical domain, public phone/email, Resend domain and sender, Drew/customer inbox delivery, and database migrations when enabled. No production deployment or provider changes are part of this refactor.
+Before launch, verify the canonical domain, public phone/email, Resend domain and sender, Drew/customer inbox delivery, and database migrations when enabled.
 
 ## Checks
 

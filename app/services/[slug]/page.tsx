@@ -105,20 +105,14 @@ export default async function ServicePage({
             />
           </div>
           <aside>
-            {"image" in s && (
-              <div className="content-image">
-                <Image
-                  src={s.image}
-                  alt={
-                    s.name === "Cat Sitting"
-                      ? "A relaxed cat at home"
-                      : "A happy pet enjoying a familiar day"
-                  }
-                  fill
-                  sizes="(max-width:700px) 100vw, 40vw"
-                />
-              </div>
-            )}
+            <div className="content-image">
+              <Image
+                src={s.image}
+                alt={s.imageAlt}
+                fill
+                sizes="(max-width:700px) 100vw, 40vw"
+              />
+            </div>
             <div className="panel">
               <span className="eyebrow">LET’S MAKE A PLAN.</span>
               <h3>
@@ -130,7 +124,12 @@ export default async function ServicePage({
                 Send me your dates and a little about your pets. I’ll get back
                 to you personally.
               </p>
-              <Button nativeButton={false} render={<Link href={`/book?service=${slug}`} />} className="site-button mt-5" size="lg">
+              <Button
+                nativeButton={false}
+                render={<Link href={`/book?service=${slug}`} />}
+                className="site-button mt-5"
+                size="lg"
+              >
                 Check availability <ArrowUpRight size={16} />
               </Button>
             </div>

@@ -53,12 +53,18 @@ html {
 }
 body {
   margin: 0;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-body), sans-serif;
   font-size: 15px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
+}
+#main {
+  flex: 1 0 auto;
 }
 a {
   text-decoration: none;
@@ -225,9 +231,11 @@ summary:focus-visible {
   color: #33452e;
   line-height: 1.02;
 }
-.brand svg {
-  width: 35px;
-  height: 42px;
+.brand-portrait {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  flex: none;
 }
 .brand > span {
   font-family: var(--font-editorial), serif;
@@ -344,10 +352,10 @@ summary:focus-visible {
   height: 540px;
   border-radius: 100px 12px 12px 12px;
   overflow: hidden;
-  background: #ddd9ca;
+  background: #e8e4da;
 }
 .hero-image img {
-  object-fit: cover;
+  object-fit: contain;
   object-position: 50% 48%;
 }
 .section-heading {
@@ -367,6 +375,7 @@ summary:focus-visible {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 22px;
+  align-items: start;
 }
 .service-card {
   border: 1px solid var(--border);
@@ -382,22 +391,16 @@ summary:focus-visible {
   box-shadow: 0 12px 24px #344b350c;
 }
 .service-photo {
-  height: 220px;
-  position: relative;
-  overflow: hidden;
+  line-height: 0;
 }
 .service-photo img {
-  object-fit: cover;
-  transition: transform 0.4s;
+  display: block;
+  width: 100%;
+  height: auto;
 }
-.service-card:hover img {
-  transform: scale(1.025);
-}
-.service-photo-0 img {
-  object-position: center 40%;
-}
+.service-photo-0 img,
 .service-photo-1 img {
-  object-position: center 46%;
+  object-position: center;
 }
 .service-photo-icon {
   position: absolute;
@@ -522,14 +525,38 @@ summary:focus-visible {
   align-items: center;
 }
 .about-photo {
-  height: 475px;
-  position: relative;
+  width: 100%;
   border-radius: 10px 10px 100px 10px;
   overflow: hidden;
+  line-height: 0;
 }
 .about-photo img {
-  object-fit: cover;
-  object-position: 45%;
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.photo-gallery-grid {
+  columns: 3;
+  column-gap: 14px;
+}
+.photo-gallery-item {
+  display: block;
+  width: 100%;
+  margin-bottom: 14px;
+  break-inside: avoid;
+  overflow: hidden;
+  border-radius: 8px;
+}
+.photo-gallery-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.photo-gallery-item:nth-child(3n + 2) {
+  border-radius: 42px 8px 8px;
+}
+.photo-gallery-item:nth-child(3n) {
+  border-radius: 8px 8px 42px;
 }
 .about-copy > p {
   font-size: 14px;
@@ -839,9 +866,10 @@ summary:focus-visible {
   border-radius: 13px;
   overflow: hidden;
   margin-bottom: 25px;
+  background: #e8e4da;
 }
 .content-image img {
-  object-fit: cover;
+  object-fit: contain;
 }
 .panel {
   border: 1px solid var(--border);
@@ -1304,9 +1332,6 @@ summary:focus-visible {
   .section-heading > p {
     font-size: 12px;
   }
-  .service-photo {
-    height: 185px;
-  }
   .card-title h3 {
     font-size: 17px;
   }
@@ -1325,9 +1350,6 @@ summary:focus-visible {
   }
   .about-section {
     gap: 40px;
-  }
-  .about-photo {
-    height: 440px;
   }
   .about-copy .eyebrow {
     font-size: 8px;
@@ -1374,9 +1396,9 @@ summary:focus-visible {
     height: 78px;
     gap: 10px;
   }
-  .brand svg {
-    width: 29px;
-    height: 36px;
+  .brand-portrait {
+    width: 40px;
+    height: 40px;
   }
   .brand > span {
     font-size: 24px;
@@ -1458,9 +1480,6 @@ summary:focus-visible {
     grid-template-columns: 1fr;
     gap: 23px;
   }
-  .service-photo {
-    height: 230px;
-  }
   .service-card-body {
     padding: 21px 23px;
   }
@@ -1521,8 +1540,12 @@ summary:focus-visible {
     grid-template-columns: 1fr;
     gap: 33px;
   }
-  .about-photo {
-    height: 360px;
+  .photo-gallery-grid {
+    columns: 2;
+    column-gap: 10px;
+  }
+  .photo-gallery-item {
+    margin-bottom: 10px;
   }
   .about-copy {
     padding: 0 4px;

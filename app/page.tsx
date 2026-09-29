@@ -22,6 +22,44 @@ const icons = {
   cat: Cat,
   heart: Heart,
 }
+const galleryPhotos = [
+  {
+    src: "/images/drew-with-dog-outdoors.jpg",
+    alt: "Drew spending time outdoors with a dog",
+    width: 620,
+    height: 947,
+  },
+  {
+    src: "/images/cats-resting-together.jpg",
+    alt: "Two cats curled up together at home",
+    width: 2200,
+    height: 1238,
+  },
+  {
+    src: "/images/pets-at-home.jpg",
+    alt: "A quiet, pet-friendly living space",
+    width: 1238,
+    height: 2200,
+  },
+  {
+    src: "/images/cats-together-at-home.jpg",
+    alt: "Two cats sharing a relaxed moment at home",
+    width: 1650,
+    height: 2200,
+  },
+  {
+    src: "/images/fluffy-dog-at-home.jpg",
+    alt: "A fluffy dog settling in at home",
+    width: 1650,
+    height: 2200,
+  },
+  {
+    src: "/images/small-dog-outdoors.jpg",
+    alt: "A small dog enjoying time outside",
+    width: 1650,
+    height: 2200,
+  },
+]
 export default function Home() {
   return (
     <>
@@ -32,7 +70,7 @@ export default function Home() {
           name: site.name,
           url: site.url,
           description: site.description,
-          image: site.url + "/images/golden-retriever.jpg",
+          image: site.url + "/images/drew-walking-with-dog.jpg",
           address: {
             "@type": "PostalAddress",
             addressLocality: "Fox River Grove",
@@ -56,7 +94,12 @@ export default function Home() {
             updated while you’re away.
           </p>
           <div className="hero-buttons">
-            <Button nativeButton={false} render={<Link href="/book" />} className="site-button" size="lg">
+            <Button
+              nativeButton={false}
+              render={<Link href="/book" />}
+              className="site-button"
+              size="lg"
+            >
               Check availability <ArrowUpRight size={18} />
             </Button>
             <Link href="#services" className="text-link">
@@ -71,8 +114,8 @@ export default function Home() {
         <div className="hero-visual">
           <div className="hero-image">
             <Image
-              src="/images/golden-retriever.jpg"
-              alt="Golden retriever enjoying a quiet afternoon outside"
+              src="/images/drew-walking-with-dog.jpg"
+              alt="Drew spending time with a dog outdoors"
               fill
               priority
               sizes="(max-width: 760px) 100vw, 52vw"
@@ -101,17 +144,10 @@ export default function Home() {
               >
                 <div className={`service-photo service-photo-${i}`}>
                   <Image
-                    src={
-                      "image" in s ? s.image : "/images/golden-retriever.jpg"
-                    }
-                    alt={
-                      i === 0
-                        ? "An attentive golden retriever"
-                        : i === 1
-                          ? "A cat relaxing comfortably at home"
-                          : "Two dogs enjoying a grassy walking trail"
-                    }
-                    fill
+                    src={s.image}
+                    alt={s.imageAlt}
+                    width={s.imageWidth}
+                    height={s.imageHeight}
                     sizes="(max-width: 700px) 100vw, 33vw"
                   />
                 </div>
@@ -278,9 +314,10 @@ export default function Home() {
       <section id="about" className="shell section about-section">
         <div className="about-photo">
           <Image
-            src="/images/dogs-walking.jpg"
-            alt="Two dogs running together along a green path"
-            fill
+            src="/images/drew-with-phoenix-and-macy.jpg"
+            alt="Drew at home with his dog and cat"
+            width={1254}
+            height={1254}
             sizes="(max-width: 760px) 100vw, 45vw"
           />
         </div>
@@ -307,6 +344,33 @@ export default function Home() {
           <Link href="/contact" className="text-link">
             Say hello <ArrowUpRight size={16} />
           </Link>
+        </div>
+      </section>
+      <section
+        className="shell section photo-gallery"
+        aria-labelledby="photo-gallery-title"
+      >
+        <div className="section-heading">
+          <div>
+            <h2 id="photo-gallery-title">A few familiar faces.</h2>
+          </div>
+          <p>
+            Every pet has their own little routines, favorite spots, and way of
+            settling in.
+          </p>
+        </div>
+        <div className="photo-gallery-grid">
+          {galleryPhotos.map((photo) => (
+            <div className="photo-gallery-item" key={photo.src}>
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                width={photo.width}
+                height={photo.height}
+                sizes="(max-width: 700px) 50vw, 33vw"
+              />
+            </div>
+          ))}
         </div>
       </section>
       <section id="service-area" className="area-section">
