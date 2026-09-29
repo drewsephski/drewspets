@@ -1,6 +1,12 @@
+const configuredSiteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL || "https://drewspets.com"
+const canonicalSiteUrl = new URL(configuredSiteUrl)
+if (canonicalSiteUrl.hostname === "www.drewspets.com")
+  canonicalSiteUrl.hostname = "drewspets.com"
+
 export const site = {
   name: "Drew’s Pet Care",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.drewspets.com",
+  url: canonicalSiteUrl.origin,
   description:
     "Reliable local pet sitting, house sitting, dog walking, drop-ins, boarding, daycare, and cat care in Fox River Grove, Cary, Barrington, and nearby communities.",
 }
@@ -288,6 +294,17 @@ export type Testimonial = {
   source?: "direct" | "google"
 }
 export const testimonials: Testimonial[] = []
+const referralCredit = "$10"
+export const referral = {
+  credit: referralCredit,
+  followUpMessage: (pet: string) =>
+    `Thanks again for trusting me with ${pet}. If you know someone nearby who could use reliable pet care, I’d really appreciate the referral. When they complete their first paid booking, I’ll add a ${referralCredit} credit to your next booking.`,
+}
+export const reviewRequest = {
+  url: process.env.NEXT_PUBLIC_GOOGLE_REVIEW_URL || "",
+  message:
+    "If you’d like to share your experience, an honest Google review helps local pet owners find Drew’s Pet Care.",
+}
 export const money = (cents: number) =>
   new Intl.NumberFormat("en-US", {
     style: "currency",

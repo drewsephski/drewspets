@@ -11,12 +11,11 @@ export function conversion(name: string) {
 }
 export function AnalyticsProvider() {
   const path = usePathname()
-  const privatePage = path.startsWith("/admin") || path.startsWith("/booking/")
   const ga = process.env.NEXT_PUBLIC_GA_ID
   useEffect(() => {
     if (path.startsWith("/services/")) conversion("service_page_viewed")
+    if (path === "/refer") conversion("referral_page_viewed")
   }, [path])
-  if (privatePage) return null
   return (
     <>
       {process.env.NEXT_PUBLIC_VERCEL_ANALYTICS === "true" && <Analytics />}

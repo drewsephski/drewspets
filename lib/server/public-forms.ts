@@ -51,6 +51,7 @@ export async function submitPublicForm(
             `About the pets: ${input.petDetails || "Not provided"}`,
             `City / ZIP: ${input.cityZip}`,
             `Phone: ${input.phone}`,
+            `Referred by: ${input.referredBy || "Not provided"}`,
           ]
         : input.kind === "application"
           ? [`City: ${input.city}`]

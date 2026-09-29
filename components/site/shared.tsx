@@ -29,6 +29,7 @@ export function Footer() {
           <Link href="/book">Request care</Link>
           <Link href="/contact">Contact</Link>
           <Link href="/#faq">Common questions</Link>
+          <Link href="/refer">Refer a friend</Link>
           <Link href="/apply">
             Future sitter opportunities <ArrowUpRight size={13} />
           </Link>
@@ -68,7 +69,13 @@ export function FinalCTA() {
         </p>
       </div>
       <div>
-        <Button nativeButton={false} render={<Link href="/book" />} className="site-button site-button-inverse" variant="secondary" size="lg">
+        <Button
+          nativeButton={false}
+          render={<Link href="/book" />}
+          className="site-button site-button-inverse"
+          variant="secondary"
+          size="lg"
+        >
           Request care <ArrowUpRight size={18} />
         </Button>
         <span className="cta-note">No commitment. Just a conversation.</span>

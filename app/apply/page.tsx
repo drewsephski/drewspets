@@ -5,6 +5,7 @@ export const metadata = {
   description:
     "Introduce yourself to Drew’s Pet Care. Leave your information for possible future sitter opportunities around Fox River Grove.",
   alternates: { canonical: "/apply" },
+  robots: { index: false, follow: true },
 }
 export default function Apply() {
   return (

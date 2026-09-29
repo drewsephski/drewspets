@@ -66,7 +66,8 @@ export default function Home() {
       <JsonLd
         data={{
           "@context": "https://schema.org",
-          "@type": "PetSitting",
+          "@type": "LocalBusiness",
+          "@id": `${site.url}/#business`,
           name: site.name,
           url: site.url,
           description: site.description,
@@ -261,8 +262,8 @@ export default function Home() {
             <h2>Get to know your sitter first.</h2>
             <p>
               You’ll speak directly with me before confirming care. We can
-              arrange a meet & greet so you and your pets feel comfortable.
-              Client reviews will be shared here with permission.
+              arrange a meet & greet so you and your pets feel comfortable. I’m
+              happy to answer questions before you decide.
             </p>
             <Link href="/book" className="text-link">
               Start with a meet & greet <ArrowRight size={16} />

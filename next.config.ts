@@ -1,6 +1,16 @@
 import type { NextConfig } from "next"
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  async redirects() {
+    return [
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.drewspets.com" }],
+        destination: "https://drewspets.com/:path*",
+        permanent: true,
+      },
+    ]
+  },
   async headers() {
     return [
       {
@@ -13,21 +23,6 @@ const nextConfig: NextConfig = {
             key: "Permissions-Policy",
             value: "camera=(), microphone=(), geolocation=()",
           },
-        ],
-      },
-      {
-        source: "/booking/:path*",
-        headers: [
-          { key: "Referrer-Policy", value: "no-referrer" },
-          { key: "Cache-Control", value: "private, no-store, max-age=0" },
-          { key: "X-Robots-Tag", value: "noindex, nofollow" },
-        ],
-      },
-      {
-        source: "/admin/:path*",
-        headers: [
-          { key: "Cache-Control", value: "private, no-store, max-age=0" },
-          { key: "X-Robots-Tag", value: "noindex, nofollow" },
         ],
       },
       {

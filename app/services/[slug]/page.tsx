@@ -52,7 +52,7 @@ export default async function ServicePage({
             name: s.name,
             description: s.description,
             provider: {
-              "@type": "LocalBusiness",
+              "@id": `${site.url}/#business`,
               name: site.name,
               url: site.url,
             },

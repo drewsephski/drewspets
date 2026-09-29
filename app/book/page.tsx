@@ -9,12 +9,13 @@ export const metadata = {
 export default async function Book({
   searchParams,
 }: {
-  searchParams: Promise<{ service?: string }>
+  searchParams: Promise<{ service?: string; ref?: string }>
 }) {
-  const { service } = await searchParams
+  const { service, ref } = await searchParams
   return (
     <BookingForm
       initialService={services.find((s) => s.slug === service)?.slug}
+      initialReferral={ref?.slice(0, 100)}
     />
   )
 }

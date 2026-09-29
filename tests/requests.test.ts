@@ -35,6 +35,16 @@ describe("short care request", () => {
         endDate: valid.startDate,
       }).success
     ).toBe(true))
+  test("referral attribution is optional and bounded", () => {
+    expect(bookingSchema.safeParse(valid).success).toBe(true)
+    expect(
+      bookingSchema.safeParse({ ...valid, referredBy: " Jamie " }).data
+        ?.referredBy
+    ).toBe("Jamie")
+    expect(
+      bookingSchema.safeParse({ ...valid, referredBy: "x".repeat(101) }).success
+    ).toBe(false)
+  })
   test("rejects past, impossible and reversed dates and zero-night stays", () => {
     for (const dates of [
       { startDate: "2000-01-01" },

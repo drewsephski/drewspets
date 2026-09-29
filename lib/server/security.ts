@@ -15,6 +15,8 @@ export class HttpError extends Error {
 const localLimits = new Map<string, { count: number; expires: number }>()
 export async function publicGuard(request: Request, bucket: string) {
   const allowed = new Set([new URL(site.url).origin])
+  if (site.url === "https://drewspets.com")
+    allowed.add("https://www.drewspets.com")
   if (process.env.NODE_ENV !== "production") {
     allowed.add("http://localhost:3000")
     allowed.add("http://127.0.0.1:3000")

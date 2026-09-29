@@ -54,10 +54,7 @@ const input = {
   cityZip: "Cary",
   phone: "3125550123",
 }
-function request(
-  body: unknown,
-  origin = new URL(site.url).origin
-) {
+function request(body: unknown, origin = new URL(site.url).origin) {
   return new Request(`${origin}/api/bookings`, {
     method: "POST",
     headers: { origin, "content-type": "application/json" },
@@ -86,6 +83,17 @@ test("retry reuses provider idempotency keys", async () => {
   await submitPublicForm(request(input), "booking")
   expect(send.mock.calls[0][1]).toEqual(send.mock.calls[2][1])
   expect(send.mock.calls[1][1]).toEqual(send.mock.calls[3][1])
+})
+test("optional referral attribution reaches Drew's email", async () => {
+  const response = await submitPublicForm(
+    request({ ...input, referredBy: "Jamie" }),
+    "booking"
+  )
+  expect(response.status).toBe(201)
+  expect(send.mock.calls[0][0]).toHaveProperty(
+    "text",
+    expect.stringContaining("Referred by: Jamie")
+  )
 })
 test("delivery failures are visible, including customer confirmation failure", async () => {
   send
@@ -142,12 +150,18 @@ test("contact and future sitter interest notify Drew without dashboard links", a
 
 test("configured storage saves one readable record and deduplicates retries", async () => {
   process.env.DATABASE_URL = "test-only-in-memory"
-  expect((await submitPublicForm(request(input), "booking")).status).toBe(201)
-  expect((await submitPublicForm(request(input), "booking")).status).toBe(201)
+  const attributedInput = { ...input, referredBy: "Jamie" }
+  expect(
+    (await submitPublicForm(request(attributedInput), "booking")).status
+  ).toBe(201)
+  expect(
+    (await submitPublicForm(request(attributedInput), "booking")).status
+  ).toBe(201)
   const rows = await db.select().from(inquiries)
   expect(rows).toHaveLength(1)
   expect(rows[0].message).toContain("City / ZIP: Cary")
   expect(rows[0].message).toContain("Phone: 3125550123")
+  expect(rows[0].message).toContain("Referred by: Jamie")
   expect(
     (
       await submitPublicForm(

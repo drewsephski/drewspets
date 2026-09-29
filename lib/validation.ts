@@ -61,6 +61,11 @@ export const bookingSchema = z
     petDetails: note,
     cityZip: required("City or ZIP", 100),
     phone,
+    referredBy: z
+      .string()
+      .trim()
+      .max(100, "Please keep the referral name under 100 characters.")
+      .default(""),
     message: note,
   })
   .superRefine((value, ctx) => {

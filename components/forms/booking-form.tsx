@@ -11,8 +11,10 @@ import { DateField, Field, Select, Textarea, Honeypot } from "./fields"
 import { Button } from "@/components/ui/button"
 export function BookingForm({
   initialService,
+  initialReferral,
 }: {
   initialService?: ServiceSlug
+  initialReferral?: string
 }) {
   const [service, setService] = useState(initialService || "house-sitting")
   const [startDate, setStartDate] = useState("")
@@ -20,10 +22,14 @@ export function BookingForm({
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState("")
   const [success, setSuccess] = useState(false)
+  const [started, setStarted] = useState(false)
   const requestId = useRef("")
   const selected = services.find((s) => s.slug === service)!
   const earliestEnd = startDate
-    ? format(addDays(parseISO(startDate), overnight(service) ? 1 : 0), "yyyy-MM-dd")
+    ? format(
+        addDays(parseISO(startDate), overnight(service) ? 1 : 0),
+        "yyyy-MM-dd"
+      )
     : today()
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
@@ -91,6 +97,12 @@ export function BookingForm({
           <form
             className="form-card request-form"
             onSubmit={submit}
+            onFocus={() => {
+              if (!started) {
+                setStarted(true)
+                conversion("booking_request_started")
+              }
+            }}
             aria-busy={busy}
           >
             <Honeypot />
@@ -104,7 +116,10 @@ export function BookingForm({
                 onValueChange={(value) => {
                   if (value) setService(value as ServiceSlug)
                 }}
-                options={services.map((s) => ({ value: s.slug, label: s.name }))}
+                options={services.map((s) => ({
+                  value: s.slug,
+                  label: s.name,
+                }))}
               />
               <p className="request-rate">
                 {selected.price
@@ -152,7 +167,9 @@ export function BookingForm({
                   name="petType"
                   defaultValue="Dogs"
                   required
-                  options={["Dogs", "Cats", "Dogs and cats", "Other"].map((value) => ({ value, label: value }))}
+                  options={["Dogs", "Cats", "Dogs and cats", "Other"].map(
+                    (value) => ({ value, label: value })
+                  )}
                 />
               </div>
               <Field
@@ -202,6 +219,12 @@ export function BookingForm({
                   required
                 />
               </div>
+              <Field
+                label="Referred by someone? Their name (optional)"
+                name="referredBy"
+                maxLength={100}
+                defaultValue={initialReferral}
+              />
               <Textarea
                 label="Anything else? (optional)"
                 name="message"
@@ -218,7 +241,12 @@ export function BookingForm({
                 {error} <Link href="/contact">Contact Drew</Link>
               </FormFeedback>
             )}
-            <Button type="submit" className="site-button" size="lg" disabled={busy}>
+            <Button
+              type="submit"
+              className="site-button"
+              size="lg"
+              disabled={busy}
+            >
               {busy ? "Sending…" : "Send care request"}
               <ArrowUpRight size={17} />
             </Button>
