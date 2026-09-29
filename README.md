@@ -48,9 +48,19 @@ endorsement is currently published.
 NEXT_PUBLIC_SITE_URL defaults to https://drewspets.com; use
 http://localhost:3000 for local development. Next.js permanently redirects
 requests with the www.drewspets.com host to the apex while preserving paths
-and query strings. Verify the www domain is attached to the Vercel project
-and that its DNS reaches the deployment; provider-level redirects may still
-need to be aligned in Vercel.
+and query strings. Keep Vercel Project Settings → Domains aligned:
+
+- `drewspets.com`: connected to Production, with no domain redirect.
+- `www.drewspets.com`: permanent **308** redirect to `drewspets.com`.
+- Production `NEXT_PUBLIC_SITE_URL`: `https://drewspets.com`.
+
+The Next.js redirect is a fallback in the same direction. Never configure an
+apex-to-www redirect in Vercel: it conflicts with the app and causes
+`ERR_TOO_MANY_REDIRECTS`. Both domains must remain verified with valid DNS.
+After domain or deployment changes, check HTTPS and HTTP on both hosts,
+including `/book?service=dog-walking`, and confirm they finish at the HTTPS
+apex with the path and query intact. Also check `/sitemap.xml` and canonical
+metadata use the apex.
 
 Service, location, rate, FAQ, testimonial, referral, and review-copy data live
 in lib/content.ts. Public booking, service, and location pages use the apex
