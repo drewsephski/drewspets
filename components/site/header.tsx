@@ -4,11 +4,13 @@ import { ArrowUpRight } from "@/components/site/arrows"
 import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
-import { Menu } from "lucide-react"
+import { Menu, X, MapPin } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
   SheetContent,
+  SheetClose,
+  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -73,18 +75,59 @@ export function Header() {
             >
               <Menu />
             </SheetTrigger>
-            <SheetContent className="mobile-menu-sheet">
-              <SheetHeader>
-                <SheetTitle>Explore Drew’s Pet Care</SheetTitle>
-              </SheetHeader>
-              <nav className="mobile-nav" aria-label="Mobile navigation">
-                {[...links, ["Contact", "/contact"]].map(([name, href]) => (
-                  <Link onClick={() => setOpen(false)} key={name} href={href}>
-                    {name}
-                    <ArrowUpRight size={18} />
-                  </Link>
-                ))}
-              </nav>
+            <SheetContent className="mobile-menu-sheet" showCloseButton={false}>
+              <div className="mobile-menu-toolbar">
+                <span className="eyebrow">DREW’S PET CARE</span>
+                <SheetClose
+                  render={
+                    <Button
+                      variant="ghost"
+                      size="icon-lg"
+                      className="mobile-menu-close"
+                    />
+                  }
+                  aria-label="Close navigation"
+                >
+                  <X size={20} />
+                </SheetClose>
+              </div>
+              <div className="mobile-menu-body">
+                <SheetHeader className="mobile-menu-intro">
+                  <Image
+                    src="/brand/dog-portrait.png"
+                    alt=""
+                    width={64}
+                    height={64}
+                  />
+                  <SheetTitle>Care close to home.</SheetTitle>
+                  <SheetDescription>
+                    A familiar face for your pet. A little peace of mind for
+                    you.
+                  </SheetDescription>
+                </SheetHeader>
+                <nav className="mobile-nav" aria-label="Mobile navigation">
+                  {[...links, ["Contact", "/contact"]].map(([name, href]) => (
+                    <Link onClick={() => setOpen(false)} key={name} href={href}>
+                      <span>{name}</span>
+                      <ArrowUpRight size={18} />
+                    </Link>
+                  ))}
+                </nav>
+                <div className="mobile-menu-footer">
+                  <Button
+                    nativeButton={false}
+                    render={<Link href="/book" />}
+                    className="site-button"
+                    size="lg"
+                    onClick={() => setOpen(false)}
+                  >
+                    Let’s plan your pet’s care <ArrowUpRight size={18} />
+                  </Button>
+                  <p>
+                    <MapPin size={14} /> Fox River Grove & nearby towns
+                  </p>
+                </div>
+              </div>
             </SheetContent>
           </Sheet>
         </div>

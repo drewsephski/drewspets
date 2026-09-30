@@ -1,0 +1,221 @@
+export type GalleryPhoto = {
+  src: string
+  alt: string
+  width: number
+  height: number
+  position?: string
+}
+
+export const aboutPhoto: GalleryPhoto = {
+  src: "/images/gallery/drew-with-poodle.webp",
+  alt: "Drew holding a black poodle in a car",
+  width: 1500,
+  height: 2000,
+  position: "50% 60%",
+}
+
+export const galleryPhotos: GalleryPhoto[] = [
+  {
+    src: "/images/gallery/doodle-in-garden.webp",
+    alt: "A black and white puppy sitting on the grass",
+    width: 1125,
+    height: 2000,
+    position: "50% 70%",
+  },
+  {
+    src: "/images/gallery/white-puppy-on-sofa.webp",
+    alt: "A white puppy resting on a sofa",
+    width: 914,
+    height: 1706,
+    position: "50% 50%",
+  },
+  {
+    src: "/images/gallery/golden-retriever-closeup.webp",
+    alt: "A golden retriever looking at the camera",
+    width: 1092,
+    height: 2000,
+    position: "50% 60%",
+  },
+  {
+    src: "/images/fluffy-dog-at-home.jpg",
+    alt: "A fluffy dog settling in at home",
+    width: 1650,
+    height: 2200,
+  },
+  {
+    src: "/images/gallery/poodle-bandana.webp",
+    alt: "A black poodle wearing a purple bandana",
+    width: 1092,
+    height: 2000,
+    position: "50% 65%",
+  },
+  {
+    src: "/images/gallery/saint-bernards-at-door.webp",
+    alt: "Two Saint Bernards waiting by a door",
+    width: 914,
+    height: 1706,
+    position: "50% 80%",
+  },
+  {
+    src: "/images/orange-cat-resting.jpg",
+    alt: "An orange and white cat resting on a cushion",
+    width: 1650,
+    height: 2200,
+  },
+  {
+    src: "/images/golden-retriever.jpg",
+    alt: "A golden retriever enjoying the sunshine on a deck",
+    width: 1500,
+    height: 2405,
+  },
+  {
+    src: "/images/gallery/puppy-on-lap.webp",
+    alt: "A brown and white puppy sitting on a lap",
+    width: 914,
+    height: 1706,
+    position: "50% 75%",
+  },
+  {
+    src: "/images/gallery/white-retriever-at-home.webp",
+    alt: "A white retriever sitting at home",
+    width: 1092,
+    height: 2000,
+    position: "50% 55%",
+  },
+  {
+    src: "/images/gallery/pug-at-riverside-park.webp",
+    alt: "A pug exploring the grass at a riverside park",
+    width: 1125,
+    height: 2000,
+    position: "50% 85%",
+  },
+  {
+    src: "/images/gallery/three-dogs-patio.webp",
+    alt: "Three black dogs relaxing on a patio",
+    width: 1092,
+    height: 2000,
+    position: "50% 80%",
+  },
+  {
+    src: "/images/small-dog-outdoors.jpg",
+    alt: "A small dog enjoying time outside",
+    width: 1650,
+    height: 2200,
+  },
+  {
+    src: "/images/gallery/drew-with-puppy.webp",
+    alt: "Drew holding a black and white puppy",
+    width: 582,
+    height: 1067,
+    position: "50% 50%",
+  },
+  {
+    src: "/images/gallery/two-dogs-playing.webp",
+    alt: "Two dogs playing together with a green toy",
+    width: 1125,
+    height: 2000,
+    position: "50% 65%",
+  },
+  {
+    src: "/images/gallery/drew-with-dog-on-grass.webp",
+    alt: "Drew sitting on the grass with a black and white dog",
+    width: 1125,
+    height: 2000,
+    position: "75% 65%",
+  },
+  {
+    src: "/images/drew-with-phoenix-and-macy.jpg",
+    alt: "Drew with a dog and cat",
+    width: 1254,
+    height: 1254,
+  },
+  {
+    src: "/images/gallery/doodle-woodland-walk.webp",
+    alt: "A black and white dog exploring a leafy path",
+    width: 1125,
+    height: 2000,
+    position: "50% 55%",
+  },
+  {
+    src: "/images/gallery/three-dogs-at-home.webp",
+    alt: "Three black dogs sitting together inside a doorway",
+    width: 1126,
+    height: 2000,
+    position: "50% 65%",
+  },
+  {
+    src: "/images/puppy-in-the-garden.jpg",
+    alt: "A black and white puppy sitting in the garden",
+    width: 600,
+    height: 450,
+  },
+  {
+    src: "/images/cats-together-at-home.jpg",
+    alt: "Two cats sharing a relaxed moment at home",
+    width: 1650,
+    height: 2200,
+  },
+  {
+    src: "/images/gallery/poodle-at-park.webp",
+    alt: "A black poodle on a walk in a grassy park",
+    width: 914,
+    height: 1706,
+    position: "80% 90%",
+  },
+  {
+    src: "/images/gallery/terrier-cuddle.webp",
+    alt: "A brown and white terrier being held indoors",
+    width: 1092,
+    height: 2000,
+    position: "50% 65%",
+  },
+  {
+    src: "/images/gallery/three-dogs-sunroom.webp",
+    alt: "A poodle and two Saint Bernards together in a sunroom",
+    width: 1093,
+    height: 2000,
+    position: "50% 65%",
+  },
+  {
+    src: "/images/gallery/poodle-on-lap.webp",
+    alt: "A black poodle resting on a lap",
+    width: 1092,
+    height: 2000,
+    position: "50% 80%",
+  },
+  {
+    src: "/images/gallery/poodle-portrait.webp",
+    alt: "A black poodle enjoying a gentle scratch",
+    width: 1092,
+    height: 2000,
+    position: "40% 65%",
+  },
+  {
+    src: "/images/gallery/golden-at-home.webp",
+    alt: "A golden retriever looking up indoors",
+    width: 1092,
+    height: 2000,
+    position: "50% 70%",
+  },
+  {
+    src: "/images/gallery/doodle-evening-walk.webp",
+    alt: "A black and white dog on an evening walk",
+    width: 1125,
+    height: 2000,
+    position: "40% 80%",
+  },
+  {
+    src: "/images/gallery/golden-in-motion.webp",
+    alt: "A golden retriever walking toward the camera",
+    width: 1125,
+    height: 2000,
+    position: "50% 50%",
+  },
+  {
+    src: "/images/gallery/small-white-dog-walk.webp",
+    alt: "A small white dog on a sunny walk",
+    width: 1125,
+    height: 2000,
+    position: "50% 80%",
+  },
+]

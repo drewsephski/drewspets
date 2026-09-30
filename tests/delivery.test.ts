@@ -95,6 +95,25 @@ test("optional referral attribution reaches Drew's email", async () => {
     expect.stringContaining("Referred by: Jamie")
   )
 })
+test("service-specific timing reaches Drew's email", async () => {
+  const response = await submitPublicForm(
+    request({
+      ...input,
+      preferredStartWindow: "Midday",
+      visitFrequency: "Weekly",
+    }),
+    "booking"
+  )
+  expect(response.status).toBe(201)
+  expect(send.mock.calls[0][0]).toHaveProperty(
+    "text",
+    expect.stringContaining("Preferred visit time: Midday")
+  )
+  expect(send.mock.calls[0][0]).toHaveProperty(
+    "text",
+    expect.stringContaining("How often: Weekly")
+  )
+})
 test("delivery failures are visible, including customer confirmation failure", async () => {
   send
     .mockResolvedValueOnce({ error: null })

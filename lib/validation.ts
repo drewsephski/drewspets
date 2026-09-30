@@ -47,6 +47,21 @@ const base = {
 }
 export const overnight = (service: string) =>
   ["house-sitting", "boarding", "puppy-care"].includes(service)
+export const visitService = (service: string) =>
+  ["drop-ins", "dog-walking", "cat-sitting"].includes(service)
+export const timeWindows = [
+  "Morning",
+  "Midday",
+  "Afternoon",
+  "Evening",
+  "Flexible",
+] as const
+export const visitFrequencies = [
+  "Just this time",
+  "A few times that week",
+  "Weekly",
+  "Not sure yet",
+] as const
 export const bookingSchema = z
   .object({
     ...base,
@@ -61,6 +76,9 @@ export const bookingSchema = z
     petDetails: note,
     cityZip: required("City or ZIP", 100),
     phone,
+    preferredStartWindow: z.enum(timeWindows).optional(),
+    preferredEndWindow: z.enum(timeWindows).optional(),
+    visitFrequency: z.enum(visitFrequencies).optional(),
     referredBy: z
       .string()
       .trim()
@@ -69,6 +87,18 @@ export const bookingSchema = z
     message: note,
   })
   .superRefine((value, ctx) => {
+    if (visitService(value.service) && value.preferredEndWindow)
+      ctx.addIssue({
+        code: "custom",
+        path: ["preferredEndWindow"],
+        message: "Choose a visit time instead of an end time.",
+      })
+    if (!visitService(value.service) && value.visitFrequency)
+      ctx.addIssue({
+        code: "custom",
+        path: ["visitFrequency"],
+        message: "Frequency is only used for visits and walks.",
+      })
     if (value.startDate < today())
       ctx.addIssue({
         code: "custom",

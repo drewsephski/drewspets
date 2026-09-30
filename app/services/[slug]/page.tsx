@@ -40,7 +40,7 @@ export default async function ServicePage({
   if (!s) notFound()
   return (
     <>
-      <div className="shell">
+      <div className="shell inner-page">
         <Breadcrumbs
           name={s.name}
           path={`/services/${slug}`}
@@ -109,6 +109,7 @@ export default async function ServicePage({
                 alt={s.imageAlt}
                 fill
                 sizes="(max-width:700px) 100vw, 40vw"
+                style={{ objectPosition: s.imagePosition ?? "center" }}
               />
             </div>
             <div className="panel">

@@ -35,6 +35,34 @@ describe("short care request", () => {
         endDate: valid.startDate,
       }).success
     ).toBe(true))
+  test("accepts relevant optional timing without requiring it", () => {
+    expect(bookingSchema.safeParse(valid).success).toBe(true)
+    expect(
+      bookingSchema.safeParse({
+        ...valid,
+        service: "dog-walking",
+        endDate: valid.startDate,
+        preferredStartWindow: "Midday",
+        visitFrequency: "Weekly",
+      }).success
+    ).toBe(true)
+    expect(
+      bookingSchema.safeParse({
+        ...valid,
+        preferredStartWindow: "Morning",
+        preferredEndWindow: "Evening",
+      }).success
+    ).toBe(true)
+    expect(
+      bookingSchema.safeParse({
+        ...valid,
+        preferredStartWindow: "5:30 sharp",
+      }).success
+    ).toBe(false)
+    expect(
+      bookingSchema.safeParse({ ...valid, visitFrequency: "Weekly" }).success
+    ).toBe(false)
+  })
   test("referral attribution is optional and bounded", () => {
     expect(bookingSchema.safeParse(valid).success).toBe(true)
     expect(

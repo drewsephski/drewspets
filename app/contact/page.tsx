@@ -11,13 +11,13 @@ export const metadata = {
 }
 export default function Contact() {
   return (
-    <div className="shell">
+    <div className="shell inner-page reading-page">
       <PageIntro
         eyebrow="CONTACT DREW"
         title="Questions about pet care?"
         description="Ask about dates, services, or whether I cover your neighborhood. I’ll get back to you personally."
       />
-      <div className="content-grid">
+      <div className="content-grid reading-grid">
         <InquiryForm />
         <aside className="panel">
           <h3>Have dates in mind?</h3>

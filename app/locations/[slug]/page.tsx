@@ -39,7 +39,7 @@ export default async function Location({
   if (!l) notFound()
   return (
     <>
-      <div className="shell">
+      <div className="shell inner-page reading-page">
         <Breadcrumbs
           name={`${l.name}, IL`}
           path={`/locations/${slug}`}
@@ -50,7 +50,7 @@ export default async function Location({
           title={`Pet sitting & dog walking in ${l.name}, IL`}
           description={l.copy}
         />
-        <div className="content-grid">
+        <div className="content-grid reading-grid">
           <div>
             <h2>{l.intro}</h2>
             <p>

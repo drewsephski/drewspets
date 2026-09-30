@@ -18,7 +18,7 @@ export const metadata = pageMetadata(
 export default function Services() {
   return (
     <>
-      <div className="shell">
+      <div className="shell inner-page">
         <Breadcrumbs name="Services" path="/services" />
         <PageIntro
           eyebrow="PERSONAL CARE BY DREW"
@@ -36,10 +36,10 @@ export default function Services() {
             })),
           }}
         />
-        <div className="content-grid">
-          <div>
+        <div className="content-grid directory-layout">
+          <div className="directory-grid">
             {services.map((service) => (
-              <section key={service.slug} className="panel mb-6">
+              <section key={service.slug} className="panel directory-card">
                 <h2>
                   <Link href={`/services/${service.slug}`}>{service.name}</Link>
                 </h2>

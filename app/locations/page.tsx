@@ -12,17 +12,17 @@ export const metadata = pageMetadata(
 export default function Locations() {
   return (
     <>
-      <div className="shell">
+      <div className="shell inner-page">
         <Breadcrumbs name="Service area" path="/locations" />
         <PageIntro
           eyebrow="YOUR LOCAL PET PERSON"
           title="Looking for a pet sitter near you?"
           description="Drew’s Pet Care is based in Fox River Grove, Illinois (60021). Fox River Grove and Cary are the core service area. Nearby requests depend on travel time, the care you need, and current availability."
         />
-        <div className="content-grid">
-          <div>
+        <div className="content-grid directory-layout">
+          <div className="directory-grid">
             {locations.map((location, index) => (
-              <section key={location.slug} className="panel mb-6">
+              <section key={location.slug} className="panel directory-card">
                 <h2>
                   <Link href={`/locations/${location.slug}`}>
                     Pet sitting in {location.name}, IL

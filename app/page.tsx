@@ -4,6 +4,8 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { MapPin, Heart, House, Sun, Footprints, Moon, Cat } from "lucide-react"
 import { services, locations, testimonials, money } from "@/lib/content"
+import { PhotoGallery } from "@/components/site/photo-gallery"
+import { aboutPhoto } from "@/lib/gallery"
 import { FAQ, FinalCTA } from "@/components/site/shared"
 const icons = {
   house: House,
@@ -13,58 +15,22 @@ const icons = {
   cat: Cat,
   heart: Heart,
 }
-const galleryPhotos = [
-  {
-    src: "/images/drew-with-dog-outdoors.jpg",
-    alt: "Drew spending time outdoors with a dog",
-    width: 620,
-    height: 947,
-  },
-  {
-    src: "/images/cats-resting-together.jpg",
-    alt: "Two cats curled up together at home",
-    width: 2200,
-    height: 1238,
-  },
-  {
-    src: "/images/pets-at-home.jpg",
-    alt: "A quiet, pet-friendly living space",
-    width: 1238,
-    height: 2200,
-  },
-  {
-    src: "/images/cats-together-at-home.jpg",
-    alt: "Two cats sharing a relaxed moment at home",
-    width: 1650,
-    height: 2200,
-  },
-  {
-    src: "/images/fluffy-dog-at-home.jpg",
-    alt: "A fluffy dog settling in at home",
-    width: 1650,
-    height: 2200,
-  },
-  {
-    src: "/images/small-dog-outdoors.jpg",
-    alt: "A small dog enjoying time outside",
-    width: 1650,
-    height: 2200,
-  },
-]
+
 export default function Home() {
   return (
     <>
       <section className="shell hero">
         <div className="hero-copy">
+          <span className="eyebrow">YOUR LOCAL PET PERSON</span>
           <h1>
-            Pet sitting in Fox River Grove.
+            Good care. Familiar routines.
             <br />
             <span className="serif-italic">Personally, by Drew.</span>
           </h1>
           <p>
-            I’m Drew, your local pet sitter and dog walker in Fox River Grove,
-            Cary, and nearby Illinois towns. From overnight house sitting to cat
-            visits, I follow your pet’s routine and send photos and updates.
+            Pet sitting and dog walking in Fox River Grove, Cary, and nearby
+            towns. I’m Drew — here for the familiar walks, favorite spots, and
+            little things that make your pet feel at home.
           </p>
           <div className="hero-buttons">
             <Button
@@ -84,17 +50,21 @@ export default function Home() {
             <span>Fox River Grove & nearby communities</span>
           </div>
         </div>
-        <div className="hero-visual">
+        <figure className="hero-visual">
           <div className="hero-image">
             <Image
               src="/images/drew-walking-with-dog.jpg"
               alt="Drew spending time with a dog outdoors"
               fill
-              priority
-              sizes="(max-width: 760px) 100vw, 52vw"
+              preload
+              sizes="(max-width: 700px) calc(100vw - 40px), (max-width: 1100px) 90vw, 960px"
             />
           </div>
-        </div>
+          <figcaption className="hero-caption">
+            <span>A familiar face. A little fresh air.</span>
+            <span>Care personally by Drew.</span>
+          </figcaption>
+        </figure>
       </section>
       <section className="shell section" id="services">
         <div className="section-heading">
@@ -107,20 +77,21 @@ export default function Home() {
           </p>
         </div>
         <div className="featured-services">
-          {services.slice(0, 3).map((s, i) => {
+          {services.slice(0, 3).map((s) => {
             return (
               <Link
                 href={`/services/${s.slug}`}
                 className="service-card"
                 key={s.slug}
               >
-                <div className={`service-photo service-photo-${i}`}>
+                <div className="service-photo">
                   <Image
                     src={s.image}
                     alt={s.imageAlt}
                     width={s.imageWidth}
                     height={s.imageHeight}
                     sizes="(max-width: 700px) 100vw, 33vw"
+                    style={{ objectPosition: s.imagePosition }}
                   />
                 </div>
                 <div className="service-card-body">
@@ -286,10 +257,10 @@ export default function Home() {
       <section id="about" className="shell section about-section">
         <div className="about-photo">
           <Image
-            src="/images/drew-and-dog-at-home.jpg"
-            alt="Drew relaxing at home with a dog"
-            width={2200}
-            height={1650}
+            src={aboutPhoto.src}
+            alt={aboutPhoto.alt}
+            width={aboutPhoto.width}
+            height={aboutPhoto.height}
             sizes="(max-width: 760px) 100vw, 45vw"
           />
         </div>
@@ -316,15 +287,6 @@ export default function Home() {
           <Link href="/contact" className="text-link">
             Say hello <ArrowUpRight size={16} />
           </Link>
-          <div className="about-photo-small">
-            <Image
-              src="/images/drew-with-phoenix-and-macy.jpg"
-              alt="Drew with a dog and cat"
-              width={1254}
-              height={1254}
-              sizes="96px"
-            />
-          </div>
         </div>
       </section>
       <section
@@ -340,19 +302,7 @@ export default function Home() {
             settling in.
           </p>
         </div>
-        <div className="photo-gallery-grid">
-          {galleryPhotos.map((photo) => (
-            <div className="photo-gallery-item" key={photo.src}>
-              <Image
-                src={photo.src}
-                alt={photo.alt}
-                width={photo.width}
-                height={photo.height}
-                sizes="(max-width: 700px) 50vw, 33vw"
-              />
-            </div>
-          ))}
-        </div>
+        <PhotoGallery />
       </section>
       <section id="service-area" className="area-section">
         <div className="shell area-grid">

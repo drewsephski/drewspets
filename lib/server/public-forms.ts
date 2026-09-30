@@ -6,6 +6,7 @@ import {
   applicationSchema,
   inquirySchema,
   bookingSchema,
+  visitService,
 } from "@/lib/validation"
 import { services } from "@/lib/content"
 import { publicGuard, readJson, apiError, HttpError } from "./security"
@@ -47,6 +48,17 @@ export async function submitPublicForm(
         ? [
             `Service: ${services.find((s) => s.slug === input.service)!.name}`,
             `Dates: ${input.startDate} to ${input.endDate}`,
+            ...(input.preferredStartWindow
+              ? [
+                  `${visitService(input.service) ? "Preferred visit time" : "Preferred start time"}: ${input.preferredStartWindow}`,
+                ]
+              : []),
+            ...(input.preferredEndWindow
+              ? [`Preferred end time: ${input.preferredEndWindow}`]
+              : []),
+            ...(input.visitFrequency
+              ? [`How often: ${input.visitFrequency}`]
+              : []),
             `Pets: ${input.petCount} (${input.petType}) — ${input.petNames}`,
             `About the pets: ${input.petDetails || "Not provided"}`,
             `City / ZIP: ${input.cityZip}`,

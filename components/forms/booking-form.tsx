@@ -6,7 +6,14 @@ import { useRef, useState, type FormEvent } from "react"
 import { addDays, format, parseISO } from "date-fns"
 import Link from "next/link"
 import { services, money, type ServiceSlug } from "@/lib/content"
-import { bookingSchema, overnight, today } from "@/lib/validation"
+import {
+  bookingSchema,
+  overnight,
+  today,
+  timeWindows,
+  visitFrequencies,
+  visitService,
+} from "@/lib/validation"
 import { conversion } from "@/components/site/analytics"
 import { DateField, Field, Select, Textarea, Honeypot } from "./fields"
 import { Button } from "@/components/ui/button"
@@ -150,6 +157,49 @@ export function BookingForm({
                   required={overnight(service)}
                 />
               </div>
+              {visitService(service) ? (
+                <div className="field-row" key="visit-details">
+                  <Select
+                    label="Preferred visit time (optional)"
+                    name="preferredStartWindow"
+                    options={timeWindows.map((value) => ({
+                      value,
+                      label: value,
+                    }))}
+                  />
+                  <Select
+                    label="How often? (optional)"
+                    name="visitFrequency"
+                    options={visitFrequencies.map((value) => ({
+                      value,
+                      label: value,
+                    }))}
+                  />
+                </div>
+              ) : (
+                <div className="field-row" key="care-times">
+                  <Select
+                    label="Preferred start time (optional)"
+                    name="preferredStartWindow"
+                    options={timeWindows.map((value) => ({
+                      value,
+                      label: value,
+                    }))}
+                  />
+                  <Select
+                    label="Preferred end time (optional)"
+                    name="preferredEndWindow"
+                    options={timeWindows.map((value) => ({
+                      value,
+                      label: value,
+                    }))}
+                  />
+                </div>
+              )}
+              <p className="request-detail-hint">
+                Rough timing is fine. I’ll confirm the schedule with you before
+                care is booked.
+              </p>
             </fieldset>
             <fieldset disabled={busy}>
               <legend>Your pets</legend>

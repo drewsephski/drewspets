@@ -12,7 +12,7 @@ export const metadata = pageMetadata(
 export default function RatesGuide() {
   return (
     <>
-      <article className="shell">
+      <article className="shell inner-page reading-page">
         <Breadcrumbs
           name="Rates & care guide"
           path="/guides/pet-sitting-rates"
@@ -22,7 +22,7 @@ export default function RatesGuide() {
           title="How much does pet sitting cost near Fox River Grove?"
           description="At Drew’s Pet Care, house sitting starts at $55 per night, while dog walks, drop-ins, and cat visits start at $22. These are my starting rates for local care, with your exact quote agreed before booking."
         />
-        <div className="content-grid">
+        <div className="content-grid reading-grid">
           <div>
             <h2>Compare my starting rates.</h2>
             <p>

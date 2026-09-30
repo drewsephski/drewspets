@@ -15,13 +15,13 @@ export const metadata = {
 
 export default function Refer() {
   return (
-    <div className="shell">
+    <div className="shell inner-page reading-page">
       <PageIntro
         eyebrow="A THANK-YOU FOR THE INTRODUCTION"
         title="Good care is worth sharing."
         description="Know someone nearby looking for a thoughtful, familiar face for their pet? I’d be grateful if you passed my name along."
       />
-      <div className="content-grid">
+      <div className="content-grid reading-grid">
         <section>
           <h2>How it works</h2>
           <p>

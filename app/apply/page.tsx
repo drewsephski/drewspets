@@ -9,13 +9,13 @@ export const metadata = {
 }
 export default function Apply() {
   return (
-    <div className="shell">
+    <div className="shell inner-page reading-page">
       <PageIntro
         eyebrow="FUTURE SITTER OPPORTUNITIES"
         title="Interested in pet care work?"
         description="I’m not hiring right now, but I’m glad to hear from people who may be interested if the business grows."
       />
-      <div className="content-grid">
+      <div className="content-grid reading-grid">
         <InquiryForm application />
         <aside className="panel">
           <h3>Care starts with people.</h3>
