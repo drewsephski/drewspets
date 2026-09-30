@@ -3,8 +3,8 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { MapPin, Heart, House, Sun, Footprints, Moon, Cat } from "lucide-react"
-import { services, locations, testimonials, site, money } from "@/lib/content"
-import { FAQ, FinalCTA, JsonLd } from "@/components/site/shared"
+import { services, locations, testimonials, money } from "@/lib/content"
+import { FAQ, FinalCTA } from "@/components/site/shared"
 const icons = {
   house: House,
   sun: Sun,
@@ -54,36 +54,17 @@ const galleryPhotos = [
 export default function Home() {
   return (
     <>
-      <JsonLd
-        data={{
-          "@context": "https://schema.org",
-          "@type": "LocalBusiness",
-          "@id": `${site.url}/#business`,
-          name: site.name,
-          url: site.url,
-          description: site.description,
-          image: site.url + "/images/drew-walking-with-dog.jpg",
-          address: {
-            "@type": "PostalAddress",
-            addressLocality: "Fox River Grove",
-            addressRegion: "IL",
-            addressCountry: "US",
-          },
-          areaServed: locations.map((l) => ({ "@type": "City", name: l.name })),
-          priceRange: "$$",
-        }}
-      />
       <section className="shell hero">
         <div className="hero-copy">
           <h1>
-            Local pet care.
+            Pet sitting in Fox River Grove.
             <br />
             <span className="serif-italic">Personally, by Drew.</span>
           </h1>
           <p>
-            I’m Drew, a pet sitter in Fox River Grove. I look after pets in
-            their own routines and send you a photo and update while you’re
-            away.
+            I’m Drew, your local pet sitter and dog walker in Fox River Grove,
+            Cary, and nearby Illinois towns. From overnight house sitting to cat
+            visits, I follow your pet’s routine and send photos and updates.
           </p>
           <div className="hero-buttons">
             <Button
@@ -376,11 +357,14 @@ export default function Home() {
       <section id="service-area" className="area-section">
         <div className="shell area-grid">
           <div>
-            <h2>Close to home.</h2>
+            <h2>Pet care near Fox River Grove.</h2>
             <p>
               Based in Fox River Grove and caring for pets
               <br className="wide-only" /> throughout the surrounding area.
             </p>
+            <Link href="/locations" className="text-link">
+              Explore the service area <ArrowUpRight size={17} />
+            </Link>
             <Link href="/contact" className="text-link">
               Not sure if you’re in range? Ask. <ArrowUpRight size={17} />
             </Link>

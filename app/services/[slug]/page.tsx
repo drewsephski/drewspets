@@ -4,7 +4,8 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Check } from "lucide-react"
-import { services, locations, site, money } from "@/lib/content"
+import { pageMetadata, serviceSchema } from "@/lib/seo"
+import { services, locations, money } from "@/lib/content"
 import {
   Breadcrumbs,
   PageIntro,
@@ -22,11 +23,11 @@ export async function generateMetadata({
   const { slug } = await params
   const s = services.find((s) => s.slug === slug)
   return s
-    ? {
-        title: `${s.name} in Fox River Grove, IL`,
-        description: s.description,
-        alternates: { canonical: `/services/${slug}` },
-      }
+    ? pageMetadata(
+        `${s.name} in Fox River Grove & Cary, IL`,
+        `${s.name} by Drew in Fox River Grove, Cary and nearby Illinois towns. ${s.price ? `From ${money(s.price)} per ${s.unit}.` : "Personally quoted."} Request dates and a meet & greet.`,
+        `/services/${slug}`
+      )
     : {}
 }
 export default async function ServicePage({
@@ -40,35 +41,18 @@ export default async function ServicePage({
   return (
     <>
       <div className="shell">
-        <Breadcrumbs name={s.name} path={`/services/${slug}`} />
+        <Breadcrumbs
+          name={s.name}
+          path={`/services/${slug}`}
+          parent={{ name: "Services", path: "/services" }}
+        />
         <PageIntro
           eyebrow="PERSONAL CARE, AT THEIR PACE."
-          title={s.name}
+          title={`${s.name} in Fox River Grove & Cary`}
           description={s.description}
         />
         <JsonLd
-          data={{
-            "@context": "https://schema.org",
-            "@type": "Service",
-            name: s.name,
-            description: s.description,
-            provider: {
-              "@id": `${site.url}/#business`,
-              name: site.name,
-              url: site.url,
-            },
-            areaServed: locations.map((l) => l.name),
-            ...(s.price
-              ? {
-                  offers: {
-                    "@type": "Offer",
-                    price: s.price / 100,
-                    priceCurrency: "USD",
-                    description: `Starting rate per ${s.unit}; final quote required.`,
-                  },
-                }
-              : {}),
-          }}
+          data={{ "@context": "https://schema.org", ...serviceSchema(s) }}
         />
         <div className="content-grid">
           <div>
@@ -83,6 +67,19 @@ export default async function ServicePage({
                 </li>
               ))}
             </ul>
+            <h2>Where I offer {s.name.toLowerCase()}</h2>
+            <p>
+              Based in Fox River Grove, Illinois, with Cary in the core service
+              area. Requests from nearby towns are reviewed for travel time and
+              availability.
+            </p>
+            <div className="service-link-list">
+              {locations.map((location) => (
+                <Link key={location.slug} href={`/locations/${location.slug}`}>
+                  {location.name}, IL <ArrowUpRight size={16} />
+                </Link>
+              ))}
+            </div>
             <h2>Before we confirm</h2>
             <p>
               We’ll talk through your pet’s routine, any special needs, and your

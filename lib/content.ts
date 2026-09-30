@@ -8,7 +8,7 @@ export const site = {
   name: "Drew’s Pet Care",
   url: canonicalSiteUrl.origin,
   description:
-    "Reliable local pet sitting, house sitting, dog walking, drop-ins, boarding, daycare, and cat care in Fox River Grove, Cary, Barrington, and nearby communities.",
+    "Pet sitting and dog walking by Drew in Fox River Grove, Cary, Barrington and nearby Illinois towns. House sitting from $55/night; dog walks and cat visits from $22.",
 }
 export const services = [
   {
@@ -210,12 +210,12 @@ export const locations = [
     intro: "Thoughtful care for days away in Barrington.",
     copy: "From a workday away to a longer trip, pet care should fit the home and routine you already have. Drew’s Pet Care considers Barrington requests individually, including overnight stays and scheduled visits.",
     context:
-      "Barrington addresses cover a broad area. Include your exact address privately in the booking request so I can check travel time and give you a realistic answer about your dates and preferred visit windows.",
+      "Barrington addresses cover a broad area. Start with your city or ZIP and dates. We’ll discuss your exact address privately when checking travel time and preferred visit windows.",
     tip: "For properties with gates or longer driveways, mention access arrangements during planning. Please save gate codes and keys for a secure conversation after confirmation.",
     nearby: ["Fox River Grove", "Cary"],
     faq: "Does my address fall within the service area?",
     answer:
-      "The town name is a starting point, not a guarantee. Submit your address and dates; I’ll review travel time before we confirm any care.",
+      "The town name is a starting point, not a guarantee. Send your city or ZIP and dates; we’ll discuss your address privately and review travel time before confirming care.",
   },
   {
     slug: "crystal-lake-il",
@@ -261,6 +261,14 @@ export const locations = [
   },
 ] as const
 export const faqs = [
+  [
+    "Where does Drew offer pet sitting near me?",
+    "Drew’s Pet Care is based in Fox River Grove, Illinois (60021). Fox River Grove and Cary are the core service area; requests from Barrington, Crystal Lake, Algonquin, and Lake in the Hills are reviewed for travel time and availability. Send your city or ZIP, service, and dates to check coverage.",
+  ],
+  [
+    "How much does pet sitting cost?",
+    "House sitting starts at $55 per night. Dog walks, drop-in visits, and cat sitting start at $22 per walk or visit; puppy care starts at $60 per night. Boarding and daycare are personally quoted. Holidays, extra pets, visit length, and special care can change the total. Drew confirms an exact quote before you book.",
+  ],
   [
     "How do I book pet care?",
     "Choose a service, share your dates, and tell me a little about your pets. I’ll personally review your request, follow up with availability and pricing, and arrange a meet & greet when needed. Your request is free and comes with no obligation.",

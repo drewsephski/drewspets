@@ -1,3 +1,5 @@
+import { JsonLd } from "./json-ld"
+export { JsonLd } from "./json-ld"
 import { ArrowRight, ArrowUpRight } from "@/components/site/arrows"
 import Link from "next/link"
 import { MapPin } from "lucide-react"
@@ -20,10 +22,10 @@ export function Footer() {
         </div>
         <div>
           <span className="eyebrow">EXPLORE</span>
-          <Link href="/#services">Services</Link>
-          <Link href="/#rates">Rates</Link>
+          <Link href="/services">Services</Link>
+          <Link href="/guides/pet-sitting-rates">Rates & care guide</Link>
           <Link href="/#about">About Drew</Link>
-          <Link href="/#service-area">Service area</Link>
+          <Link href="/locations">Service area</Link>
         </div>
         <div>
           <span className="eyebrow">LET’S TALK</span>
@@ -100,16 +102,6 @@ export function PageIntro({
       <h1>{title}</h1>
       <p>{description}</p>
     </div>
-  )
-}
-export function JsonLd({ data }: { data: Record<string, unknown> }) {
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{
-        __html: JSON.stringify(data).replace(/</g, "\\u003c"),
-      }}
-    />
   )
 }
 export function Breadcrumbs({

@@ -2,6 +2,8 @@ import type { Metadata } from "next"
 import { DM_Sans, Manrope, Lora } from "next/font/google"
 import { Header } from "@/components/site/header"
 import { Footer } from "@/components/site/shared"
+import { JsonLd } from "@/components/site/shared"
+import { businessSchema } from "@/lib/seo"
 import { site } from "@/lib/content"
 import { AnalyticsProvider } from "@/components/site/analytics"
 import "./globals.css"
@@ -35,6 +37,17 @@ export const metadata: Metadata = {
     description: site.description,
     images: ["/opengraph-image"],
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
   verification: {
     google: process.env.GOOGLE_SITE_VERIFICATION,
     other: process.env.BING_SITE_VERIFICATION
@@ -56,6 +69,7 @@ export default function RootLayout({
         <a href="#main" className="skip-link">
           Skip to content
         </a>
+        <JsonLd data={businessSchema()} />
         <Header />
         <main id="main">{children}</main>
         <Footer />

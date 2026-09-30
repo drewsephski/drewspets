@@ -1,24 +1,26 @@
-"use client"
-
 import { faqs } from "@/lib/content"
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
+import { JsonLd } from "./json-ld"
+import { FAQAccordion } from "./faq-accordion"
 
-export function FAQ({ items = faqs }: { items?: readonly (readonly string[])[] }) {
+export function FAQ({
+  items = faqs,
+}: {
+  items?: readonly (readonly string[])[]
+}) {
   return (
-    <Accordion className="faq-list">
-      {items.map(([question, answer]) => (
-        <AccordionItem key={question} value={question} className="faq-item">
-          <AccordionTrigger className="faq-trigger">{question}</AccordionTrigger>
-          <AccordionContent className="faq-answer">
-            <p>{answer}</p>
-          </AccordionContent>
-        </AccordionItem>
-      ))}
-    </Accordion>
+    <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: items.map(([question, answer]) => ({
+            "@type": "Question",
+            name: question,
+            acceptedAnswer: { "@type": "Answer", text: answer },
+          })),
+        }}
+      />
+      <FAQAccordion items={items} />
+    </>
   )
 }

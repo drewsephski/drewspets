@@ -45,6 +45,11 @@ endorsement is currently published.
 
 ## SEO and operations
 
+See [the organic discovery launch guide](docs/organic-discovery.md) for local
+search and AI discovery implementation, indexing, Business Profile work,
+review practices, and measurement. Source improvements must be deployed and
+recrawled before they can affect organic discovery.
+
 NEXT_PUBLIC_SITE_URL defaults to https://drewspets.com; use
 http://localhost:3000 for local development. Next.js permanently redirects
 requests with the www.drewspets.com host to the apex while preserving paths

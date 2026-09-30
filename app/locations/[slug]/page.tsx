@@ -3,6 +3,7 @@ import { notFound } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { MapPin } from "lucide-react"
+import { pageMetadata } from "@/lib/seo"
 import { locations } from "@/lib/content"
 import {
   Breadcrumbs,
@@ -21,11 +22,11 @@ export async function generateMetadata({
   const { slug } = await params
   const l = locations.find((l) => l.slug === slug)
   return l
-    ? {
-        title: `Pet Sitting & Dog Walking in ${l.name}, IL`,
-        description: l.copy,
-        alternates: { canonical: `/locations/${slug}` },
-      }
+    ? pageMetadata(
+        `Pet Sitting & Dog Walking in ${l.name}, IL`,
+        `Pet sitter Drew welcomes requests in ${l.name}, IL ${l.zip}. House sitting from $55/night, dog walking and cat visits from $22. Check dates and coverage.`,
+        `/locations/${slug}`
+      )
     : {}
 }
 export default async function Location({
@@ -39,14 +40,29 @@ export default async function Location({
   return (
     <>
       <div className="shell">
-        <Breadcrumbs name={`${l.name}, IL`} path={`/locations/${slug}`} />
+        <Breadcrumbs
+          name={`${l.name}, IL`}
+          path={`/locations/${slug}`}
+          parent={{ name: "Service area", path: "/locations" }}
+        />
         <PageIntro
           eyebrow={`DREW’S PET CARE · ${l.name.toUpperCase()}, ILLINOIS`}
-          title={l.intro}
+          title={`Pet sitting & dog walking in ${l.name}, IL`}
           description={l.copy}
         />
         <div className="content-grid">
           <div>
+            <h2>{l.intro}</h2>
+            <p>
+              Looking for a pet sitter near {l.name} ({l.zip})? Drew personally
+              handles every visit and stay. House sitting starts at $55 per
+              night; dog walks, drop-ins, and cat visits start at $22. Coverage
+              depends on your address, dates, and travel time, and your exact
+              price is agreed before confirming.
+            </p>
+            <Link href="/guides/pet-sitting-rates" className="text-link">
+              See rates and care options <ArrowUpRight size={16} />
+            </Link>
             <h2>Plan care around your day.</h2>
             <p>{l.context}</p>
             <div className="form-info">
