@@ -66,8 +66,8 @@ export default async function Location({
             <h2>Plan care around your day.</h2>
             <p>{l.context}</p>
             <div className="form-info">
-              <MapPin size={19} />
-              <p style={{ margin: "10px 0 0" }}>{l.tip}</p>
+              <MapPin size={19} aria-hidden="true" />
+              <p>{l.tip}</p>
             </div>
             <h2>Services in {l.name}</h2>
             <p>

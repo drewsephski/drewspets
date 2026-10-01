@@ -431,10 +431,9 @@ summary:focus-visible {
   height: 540px;
   border-radius: 100px 12px 12px 12px;
   overflow: hidden;
-  background: #e8e4da;
 }
 .hero-image img {
-  object-fit: contain;
+  object-fit: cover;
   object-position: 50% 48%;
 }
 .section-heading {
@@ -935,10 +934,9 @@ summary:focus-visible {
   border-radius: 13px;
   overflow: hidden;
   margin-bottom: 25px;
-  background: #e8e4da;
 }
 .content-image img {
-  object-fit: contain;
+  object-fit: cover;
 }
 .panel {
   border: 1px solid var(--border);
@@ -1078,12 +1076,22 @@ summary:focus-visible {
   margin: 18px 0;
 }
 .form-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
   background: #edf0e4;
   padding: 14px 17px;
   border-radius: 7px;
   color: #5d6e4c;
   font-size: 12px;
   margin: 18px 0;
+}
+.form-info > svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.content-grid .form-info > p {
+  margin: 0;
 }
 .form-actions {
   display: flex;
@@ -2115,6 +2123,7 @@ summary:focus-visible {
   margin: 24px auto 0;
   font-size: 16px;
   line-height: 1.8;
+  text-wrap: balance;
 }
 .hero-buttons {
   justify-content: center;
@@ -2209,7 +2218,6 @@ summary:focus-visible {
   aspect-ratio: 4 / 5;
   margin: 0;
   border-radius: 12px;
-  background: var(--muted);
 }
 .photo-gallery-item img {
   width: 100%;

@@ -28,9 +28,9 @@ export default function Home() {
             <span className="serif-italic">Personally, by Drew.</span>
           </h1>
           <p>
-            Pet sitting and dog walking in Fox River Grove, Cary, and nearby
-            towns. I’m Drew — here for the familiar walks, favorite spots, and
-            little things that make your pet feel at home.
+            More walks, more belly rubs, less worry while you’re away. I’m
+            Drew, your local pet sitter and dog walker in Fox River Grove,
+            Cary, and nearby towns.
           </p>
           <div className="hero-buttons">
             <Button
