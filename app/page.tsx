@@ -28,9 +28,9 @@ export default function Home() {
             <span className="serif-italic">Personally, by Drew.</span>
           </h1>
           <p>
-            More walks, more belly rubs, less worry while you’re away. I’m
-            Drew, your local pet sitter and dog walker in Fox River Grove,
-            Cary, and nearby towns.
+            I’m Drew, a pet sitter and dog walker serving Fox River Grove,
+            Cary, and nearby towns. I personally handle every visit, follow
+            your pet’s routine, and keep you updated.
           </p>
           <div className="hero-buttons">
             <Button
