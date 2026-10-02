@@ -3,10 +3,16 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { MapPin, Heart, House, Sun, Footprints, Moon, Cat } from "lucide-react"
-import { services, locations, testimonials, money } from "@/lib/content"
+import { services, locations, testimonials, money, site } from "@/lib/content"
+import { pageMetadata } from "@/lib/seo"
 import { PhotoGallery } from "@/components/site/photo-gallery"
 import { aboutPhoto } from "@/lib/gallery"
 import { FAQ, FinalCTA } from "@/components/site/shared"
+export const metadata = pageMetadata(
+  "Dog Sitting & Pet Sitting in Fox River Grove & Cary, IL",
+  site.description,
+  "/"
+)
 const icons = {
   house: House,
   sun: Sun,
@@ -28,9 +34,9 @@ export default function Home() {
             <span className="serif-italic">Personally, by Drew.</span>
           </h1>
           <p>
-            I’m Drew, a pet sitter and dog walker serving Fox River Grove,
-            Cary, and nearby towns. I personally handle every visit, follow
-            your pet’s routine, and keep you updated.
+            I’m Drew, a dog sitter, pet sitter, and dog walker serving Fox River
+            Grove, Cary, and nearby towns. I personally handle every visit,
+            follow your pet’s routine, and keep you updated.
           </p>
           <div className="hero-buttons">
             <Button
@@ -307,10 +313,11 @@ export default function Home() {
       <section id="service-area" className="area-section">
         <div className="shell area-grid">
           <div>
-            <h2>Pet care near Fox River Grove.</h2>
+            <h2>Dog sitting near Fox River Grove.</h2>
             <p>
-              Based in Fox River Grove and caring for pets
-              <br className="wide-only" /> throughout the surrounding area.
+              Fox River Grove and Cary are the core area. Huntley, Wauconda, and
+              the other towns listed here are reviewed for travel time and
+              availability.
             </p>
             <Link href="/locations" className="text-link">
               Explore the service area <ArrowUpRight size={17} />
@@ -338,7 +345,7 @@ export default function Home() {
               </Link>
             ))}
             <span className="area-footnote">
-              And nearby neighborhoods. Let’s see what works.
+              Nearby coverage is confirmed before booking.
             </span>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { locations, services, site } from "./content"
+import type { Location } from "./content"
 
 export function pageMetadata(
   title: string,
@@ -34,6 +35,40 @@ export const serviceAreas = locations.map((location) => ({
   name: `${location.name}, Illinois`,
   url: `${site.url}/locations/${location.slug}`,
 }))
+
+export function locationMetadata(location: Location): Metadata {
+  return pageMetadata(
+    `Dog Sitting & Pet Care in ${location.name}, IL`,
+    `Dog sitter Drew welcomes requests in ${location.name}, IL ${location.zip}. Overnight house sitting from $55/night; walks and cat visits from $22. Check coverage.`,
+    `/locations/${location.slug}`
+  )
+}
+
+export function locationSchema(location: Location) {
+  const url = `${site.url}/locations/${location.slug}`
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "@id": `${url}#webpage`,
+    url,
+    name: `Dog Sitting & Pet Care in ${location.name}, IL`,
+    description: location.copy,
+    isPartOf: { "@id": `${site.url}/#website` },
+    mainEntity: {
+      "@type": "Service",
+      "@id": `${url}#service`,
+      url,
+      name: `Dog sitting and pet care in ${location.name}, IL`,
+      description: location.copy,
+      serviceType: ["Dog sitting", "Pet sitting", "Dog walking", "Cat sitting"],
+      provider: { "@id": `${site.url}/#business` },
+      areaServed: {
+        "@type": "City",
+        name: `${location.name}, Illinois`,
+      },
+    },
+  }
+}
 
 export function serviceSchema(service: (typeof services)[number]) {
   const url = `${site.url}/services/${service.slug}`

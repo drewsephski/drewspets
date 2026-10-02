@@ -1,8 +1,20 @@
 import { expect, test } from "bun:test"
 import sitemap from "../app/sitemap"
 import robots from "../app/robots"
-import { businessSchema, pageMetadata, serviceSchema } from "../lib/seo"
-import { services, locations, site } from "../lib/content"
+import {
+  businessSchema,
+  locationMetadata,
+  locationSchema,
+  pageMetadata,
+  serviceSchema,
+} from "../lib/seo"
+import {
+  services,
+  locations,
+  site,
+  coverageSummary,
+  faqs,
+} from "../lib/content"
 
 test("public canonical origin is the apex domain", () => {
   expect(site.url).toBe("https://drewspets.com")
@@ -81,4 +93,69 @@ test("business identity uses real service-area facts without invented endorsemen
   expect(
     business && "address" in business ? business.address : undefined
   ).not.toHaveProperty("streetAddress")
+})
+
+test("expanded towns are discoverable with accurate coverage and no broken nearby links", () => {
+  for (const [name, zip] of [
+    ["Huntley", "60142"],
+    ["Wauconda", "60084"],
+    ["Island Lake", "60042"],
+    ["Lake Barrington", "60010"],
+  ]) {
+    const location = locations.find((entry) => entry.name === name)
+    expect(location).toMatchObject({ zip, core: false })
+    expect(coverageSummary).toContain(name)
+    expect(faqs[0][1]).toContain(name)
+    expect(
+      locations.some((entry) => entry.nearby.some((nearby) => nearby === name))
+    ).toBe(true)
+  }
+  expect(
+    locations.filter((entry) => entry.core).map((entry) => entry.name)
+  ).toEqual(["Fox River Grove", "Cary"])
+  const names = new Set<string>(locations.map((entry) => entry.name))
+  for (const location of locations) {
+    for (const nearby of location.nearby) {
+      expect(names.has(nearby)).toBe(true)
+      expect(nearby).not.toBe(location.name)
+    }
+  }
+  for (const field of ["slug", "copy", "context", "faq", "answer"] as const) {
+    expect(new Set(locations.map((entry) => entry[field])).size).toBe(
+      locations.length
+    )
+  }
+})
+
+test("town metadata and markup identify the service without inventing local branches", () => {
+  const business = businessSchema()["@graph"].find(
+    (node) => node["@type"] === "LocalBusiness"
+  )
+  const areas = business && "areaServed" in business ? business.areaServed : []
+  expect(areas).toHaveLength(locations.length)
+  for (const location of locations) {
+    const url = `${site.url}/locations/${location.slug}`
+    const metadata = locationMetadata(location)
+    expect(metadata.title).toBe(
+      `Dog Sitting & Pet Care in ${location.name}, IL`
+    )
+    expect(metadata.description).toContain(location.zip)
+    expect(metadata.alternates?.canonical).toBe(`/locations/${location.slug}`)
+    expect(locationSchema(location)).toMatchObject({
+      "@type": "WebPage",
+      url,
+      description: location.copy,
+      mainEntity: {
+        "@type": "Service",
+        provider: { "@id": site.url + "/#business" },
+        areaServed: { name: `${location.name}, Illinois` },
+      },
+    })
+    expect(locationSchema(location).mainEntity).not.toHaveProperty("address")
+    expect(areas).toContainEqual({
+      "@type": "City",
+      name: `${location.name}, Illinois`,
+      url,
+    })
+  }
 })

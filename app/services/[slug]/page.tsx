@@ -5,7 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Check } from "lucide-react"
 import { pageMetadata, serviceSchema } from "@/lib/seo"
-import { services, locations, money } from "@/lib/content"
+import { services, locations, money, coverageSummary } from "@/lib/content"
 import {
   Breadcrumbs,
   PageIntro,
@@ -13,6 +13,7 @@ import {
   FinalCTA,
   JsonLd,
 } from "@/components/site/shared"
+export const dynamicParams = false
 export const generateStaticParams = () =>
   services.map((s) => ({ slug: s.slug }))
 export async function generateMetadata({
@@ -22,13 +23,12 @@ export async function generateMetadata({
 }) {
   const { slug } = await params
   const s = services.find((s) => s.slug === slug)
-  return s
-    ? pageMetadata(
-        `${s.name} in Fox River Grove & Cary, IL`,
-        `${s.name} by Drew in Fox River Grove, Cary and nearby Illinois towns. ${s.price ? `From ${money(s.price)} per ${s.unit}.` : "Personally quoted."} Request dates and a meet & greet.`,
-        `/services/${slug}`
-      )
-    : {}
+  if (!s) notFound()
+  return pageMetadata(
+    `${s.name} in Fox River Grove & Cary, IL`,
+    `${s.name} by Drew in Fox River Grove, Cary and nearby Illinois towns. ${s.price ? `From ${money(s.price)} per ${s.unit}.` : "Personally quoted."} Request dates and a meet & greet.`,
+    `/services/${slug}`
+  )
 }
 export default async function ServicePage({
   params,
@@ -97,7 +97,7 @@ export default async function ServicePage({
                 ],
                 [
                   "Where do you offer care?",
-                  "Drew’s Pet Care is based in Fox River Grove and considers requests from Cary, Barrington, Crystal Lake, Algonquin, Lake in the Hills, and nearby communities. Address and schedule determine availability.",
+                  `Drew’s Pet Care is based in Fox River Grove. ${coverageSummary} Address and schedule determine availability.`,
                 ],
               ]}
             />

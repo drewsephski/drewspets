@@ -8,7 +8,7 @@ export const site = {
   name: "Drew’s Pet Care",
   url: canonicalSiteUrl.origin,
   description:
-    "Pet sitting and dog walking by Drew in Fox River Grove, Cary, Barrington and nearby Illinois towns. House sitting from $55/night; dog walks and cat visits from $22.",
+    "Dog sitting, pet sitting and dog walking by Drew in Fox River Grove and Cary, IL. Huntley, Wauconda and nearby towns by request. Overnight care from $55/night.",
 }
 export const services = [
   {
@@ -185,13 +185,14 @@ export const locations = [
   {
     slug: "fox-river-grove-il",
     name: "Fox River Grove",
+    core: true,
     zip: "60021",
     intro: "Pet care, close to home.",
     copy: "Fox River Grove is the home base for Drew’s Pet Care. That makes it a natural starting point for regular walks, midday drop-ins, and overnight care with a familiar local face.",
     context:
       "If your day starts with a commute or takes you away for a weekend, share the times your pet normally eats, walks, and rests. I’ll help you choose between a visit, a longer walk, and overnight company.",
     tip: "For walks near the river, tell me how your dog responds to water, wildlife, and other dogs. We’ll choose a comfortable route together.",
-    nearby: ["Cary", "Barrington"],
+    nearby: ["Cary", "Barrington", "Lake Barrington", "Island Lake"],
     faq: "Can we arrange recurring weekday visits?",
     answer:
       "Yes, include the weekdays and time windows you have in mind. Recurring visits are arranged around current availability and your pet’s routine.",
@@ -199,13 +200,14 @@ export const locations = [
   {
     slug: "cary-il",
     name: "Cary",
+    core: true,
     zip: "60013",
     intro: "A familiar routine for your Cary pet.",
     copy: "Just next to Fox River Grove, Cary is part of the core service area. Walks and check-ins can help bridge long workdays, while house sitting keeps pets in their familiar home during a trip.",
     context:
       "A quick potty break and a full hour of attention serve different needs. When you request care, include your commute, your dog’s energy level, and when someone will next be home so we can choose the right visit length.",
     tip: "Share your usual neighborhood route and any busy crossings you prefer to avoid. Familiar walks can help a new sitter feel less new.",
-    nearby: ["Fox River Grove", "Crystal Lake"],
+    nearby: ["Fox River Grove", "Crystal Lake", "Island Lake"],
     faq: "Can my cat stay home while I travel?",
     answer:
       "Yes. Cat visits cover meals, fresh water, litter, and a wellbeing check. We’ll agree on daily frequency and access before your trip.",
@@ -213,13 +215,14 @@ export const locations = [
   {
     slug: "barrington-il",
     name: "Barrington",
+    core: false,
     zip: "60010",
     intro: "Thoughtful care for days away in Barrington.",
     copy: "From a workday away to a longer trip, pet care should fit the home and routine you already have. Drew’s Pet Care considers Barrington requests individually, including overnight stays and scheduled visits.",
     context:
       "Barrington addresses cover a broad area. Start with your city or ZIP and dates. We’ll discuss your exact address privately when checking travel time and preferred visit windows.",
     tip: "For properties with gates or longer driveways, mention access arrangements during planning. Please save gate codes and keys for a secure conversation after confirmation.",
-    nearby: ["Fox River Grove", "Cary"],
+    nearby: ["Fox River Grove", "Cary", "Lake Barrington", "Wauconda"],
     faq: "Does my address fall within the service area?",
     answer:
       "The town name is a starting point, not a guarantee. Send your city or ZIP and dates; we’ll discuss your address privately and review travel time before confirming care.",
@@ -227,13 +230,14 @@ export const locations = [
   {
     slug: "crystal-lake-il",
     name: "Crystal Lake",
+    core: false,
     zip: "60014",
     intro: "Keep their day familiar in Crystal Lake.",
     copy: "Planning a weekend away or looking for help during the week? Crystal Lake families can request house sitting, dog walks, cat visits, and other personalized care from Drew’s Pet Care.",
     context:
       "For a regular walking arrangement, consistent time windows help make the route practical. For holiday travel, send your dates early so there’s time to discuss routines and arrange a meet & greet.",
     tip: "Tell me whether your dog prefers quiet residential walks or a little more activity. All outings are agreed around your pet’s comfort, not a one-size-fits-all route.",
-    nearby: ["Cary", "Lake in the Hills"],
+    nearby: ["Cary", "Lake in the Hills", "Huntley"],
     faq: "Can you care for both my dog and cat?",
     answer:
       "Yes. Add every pet to your request, including their separate feeding routines. Additional-pet pricing is confirmed in your personal quote.",
@@ -241,13 +245,14 @@ export const locations = [
   {
     slug: "algonquin-il",
     name: "Algonquin",
+    core: false,
     zip: "60102",
     intro: "Care that fits your Algonquin household.",
     copy: "Drew’s Pet Care welcomes requests from Algonquin for overnight stays, walks, and visits at home. The first step is a conversation about where you live, your dates, and what a normal day looks like for your pets.",
     context:
       "Travel time can vary across the area, so a flexible arrival window is useful for drop-ins. If medication or a puppy’s routine requires a precise time, tell me up front so I can check whether it’s workable.",
     tip: "For a multi-pet household, list who eats separately, who walks together, and any doors or rooms that need to stay closed.",
-    nearby: ["Lake in the Hills", "Cary"],
+    nearby: ["Lake in the Hills", "Cary", "Huntley"],
     faq: "Can you guarantee a specific arrival time?",
     answer:
       "Time-sensitive needs are reviewed before confirmation. Please state the required window; I’ll only agree to a schedule I can reasonably keep.",
@@ -255,22 +260,90 @@ export const locations = [
   {
     slug: "lake-in-the-hills-il",
     name: "Lake in the Hills",
+    core: false,
     zip: "60156",
     intro: "A little less worry. A well-cared-for pet.",
     copy: "For Lake in the Hills pet owners, Drew’s Pet Care offers a personal way to plan care at home or discuss daytime and overnight options. Your request is reviewed by Drew, with availability confirmed before you commit.",
     context:
       "If you’re considering care outside your home, we’ll discuss the setting and your pet’s comfort around unfamiliar places. For pets who prefer their own space, drop-ins or house sitting may be a better match.",
     tip: "Plan an introductory visit before an extended stay. It’s a useful time to practice entry, go over feeding, and see how your pet settles.",
-    nearby: ["Algonquin", "Crystal Lake"],
+    nearby: ["Algonquin", "Crystal Lake", "Huntley"],
     faq: "Can I request care at short notice?",
     answer:
       "You can always ask. Availability and the time needed for a meet & greet determine what’s possible; submitting a request doesn’t confirm a booking.",
   },
+  {
+    slug: "huntley-il",
+    name: "Huntley",
+    core: false,
+    zip: "60142",
+    intro: "A dog sitter for your time away from Huntley.",
+    copy: "Looking for dog sitting in Huntley, IL 60142? Drew welcomes requests for overnight house sitting, dog walks, drop-ins, and cat visits. Care is based from Fox River Grove, so travel time and your dates are checked before a booking is agreed.",
+    context:
+      "For a trip away from Huntley, share your departure and return times as well as the nights you need covered. An overnight stay and several separate drop-ins involve different schedules; we’ll work out which can meet your dog’s feeding, walking, and time-alone needs.",
+    tip: "If you need recurring midday walks in Huntley, include the days and arrival window. The drive from Fox River Grove needs to fit around existing visits, especially for puppies who cannot wait long between breaks.",
+    nearby: ["Lake in the Hills", "Algonquin", "Crystal Lake"],
+    faq: "Can I request overnight dog sitting in Huntley?",
+    answer:
+      "Yes. Send Huntley or 60142, your dates, and your pets’ needs. House sitting means an overnight stay in your home, with daytime visits and time alone agreed beforehand. Drew checks travel and availability before confirming; it does not include continuous 24-hour care.",
+  },
+  {
+    slug: "wauconda-il",
+    name: "Wauconda",
+    core: false,
+    zip: "60084",
+    intro: "Plan walks and stays for your Wauconda pet.",
+    copy: "Wauconda pet owners can request dog sitting, walks, and cat care from Drew. Whether you need company overnight or a visit during the day, your Wauconda, IL 60084 request is reviewed for travel from Fox River Grove and current availability.",
+    context:
+      "For care in Wauconda, tell me whether your dog needs a full walk or a shorter visit for meals and a potty break. If you live near busy roads or lakefront areas, we’ll discuss a familiar route and any places your dog finds overwhelming before the first walk.",
+    tip: "For a dog who is drawn to water or wildlife, explain their leash habits and the routes you normally use. Walks follow an agreed routine; swimming and off-leash outings are not assumed.",
+    nearby: ["Island Lake", "Lake Barrington", "Barrington"],
+    faq: "Can you arrange regular dog walks in Wauconda?",
+    answer:
+      "You can request them. Include Wauconda or 60084, the weekdays, and your preferred time window. Drew checks the route from Fox River Grove and existing commitments before agreeing to recurring walks. A listed town or ZIP does not guarantee availability.",
+  },
+  {
+    slug: "island-lake-il",
+    name: "Island Lake",
+    core: false,
+    zip: "60042",
+    intro: "Visits at home for Island Lake dogs and cats.",
+    copy: "Need a dog sitter or cat sitter in Island Lake, IL 60042? Drew’s Pet Care welcomes requests for visits, walks, and overnight care in your home. Coverage is checked individually from the Fox River Grove home base.",
+    context:
+      "If you are leaving Island Lake for a weekend, plan the first and last visits around when someone will actually be home. Cats may need feeding and litter visits while your dog needs walks and overnight company; list each pet so the plan covers the whole household.",
+    tip: "Tell me if your cat hides when someone arrives or your dog is wary at the door. We can go over a calm entry routine at a meet & greet before the first Island Lake visit.",
+    nearby: ["Wauconda", "Cary", "Fox River Grove"],
+    faq: "Can you visit my Island Lake cat while I’m away?",
+    answer:
+      "Yes, cat visits can be requested for Island Lake. They include meals, fresh water, litter care, and a wellbeing check. Send your dates and preferred visit frequency; travel time and availability are reviewed before the visits are confirmed.",
+  },
+  {
+    slug: "lake-barrington-il",
+    name: "Lake Barrington",
+    core: false,
+    zip: "60010",
+    intro: "Overnight care and visits in Lake Barrington.",
+    copy: "Drew welcomes dog sitting and pet-care requests in Lake Barrington, IL 60010. House sitting keeps pets at home with their familiar routines; walks and drop-ins can cover shorter periods away. Dates and coverage are confirmed personally.",
+    context:
+      "Lake Barrington and Barrington share the 60010 ZIP, so include your town as well when asking about coverage. For a home with visitor parking, shared entrances, or a gated driveway, we’ll review the practical access details privately before arranging visits.",
+    tip: "If building or community rules affect visitors or dogs, mention them when planning care. Save entry codes and keys for the secure access conversation after confirmation.",
+    nearby: ["Barrington", "Fox River Grove", "Wauconda"],
+    faq: "Does a 60010 address confirm Lake Barrington coverage?",
+    answer:
+      "No. The ZIP is a starting point and is also used by Barrington addresses. Include Lake Barrington and your dates in the request. Drew will discuss your address privately, check travel and access, and confirm whether your care schedule is possible.",
+  },
 ] as const
+export type Location = (typeof locations)[number]
+
+export const coverageSummary = `Fox River Grove and Cary are the core service area. Requests from ${locations
+  .filter((location) => !location.core)
+  .map((location) => location.name)
+  .join(", ")} are reviewed for travel time and availability.`
+
 export const faqs = [
   [
-    "Where does Drew offer pet sitting near me?",
-    "Drew’s Pet Care is based in Fox River Grove, Illinois (60021). Fox River Grove and Cary are the core service area; requests from Barrington, Crystal Lake, Algonquin, and Lake in the Hills are reviewed for travel time and availability. Send your city or ZIP, service, and dates to check coverage.",
+    "Where does Drew offer dog sitting and pet sitting near me?",
+    `Drew’s Pet Care is based in Fox River Grove, Illinois (60021). ${coverageSummary} Send your city or ZIP, service, and dates to check coverage.`,
   ],
   [
     "How much does pet sitting cost?",

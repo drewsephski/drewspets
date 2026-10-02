@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { Breadcrumbs, FAQ, FinalCTA, PageIntro } from "@/components/site/shared"
-import { services, money } from "@/lib/content"
+import { services, money, coverageSummary } from "@/lib/content"
 import { pageMetadata } from "@/lib/seo"
 
 export const metadata = pageMetadata(
@@ -134,11 +134,7 @@ export default function RatesGuide() {
           </div>
           <aside className="panel self-start">
             <h2>Care close to home.</h2>
-            <p>
-              Fox River Grove and Cary are the core service area. Barrington,
-              Crystal Lake, Algonquin, and Lake in the Hills requests are
-              reviewed for travel time and scheduling.
-            </p>
+            <p>{coverageSummary}</p>
             <p>
               <Link href="/locations" className="text-link">
                 Find care in your town

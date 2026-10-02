@@ -3,7 +3,7 @@ import { notFound } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { MapPin } from "lucide-react"
-import { pageMetadata } from "@/lib/seo"
+import { locationMetadata, locationSchema } from "@/lib/seo"
 import { locations } from "@/lib/content"
 import {
   Breadcrumbs,
@@ -11,7 +11,9 @@ import {
   FAQ,
   FinalCTA,
   ServiceLinks,
+  JsonLd,
 } from "@/components/site/shared"
+export const dynamicParams = false
 export const generateStaticParams = () =>
   locations.map((l) => ({ slug: l.slug }))
 export async function generateMetadata({
@@ -21,13 +23,8 @@ export async function generateMetadata({
 }) {
   const { slug } = await params
   const l = locations.find((l) => l.slug === slug)
-  return l
-    ? pageMetadata(
-        `Pet Sitting & Dog Walking in ${l.name}, IL`,
-        `Pet sitter Drew welcomes requests in ${l.name}, IL ${l.zip}. House sitting from $55/night, dog walking and cat visits from $22. Check dates and coverage.`,
-        `/locations/${slug}`
-      )
-    : {}
+  if (!l) notFound()
+  return locationMetadata(l)
 }
 export default async function Location({
   params,
@@ -39,6 +36,7 @@ export default async function Location({
   if (!l) notFound()
   return (
     <>
+      <JsonLd data={locationSchema(l)} />
       <div className="shell inner-page reading-page">
         <Breadcrumbs
           name={`${l.name}, IL`}
@@ -47,18 +45,29 @@ export default async function Location({
         />
         <PageIntro
           eyebrow={`DREW’S PET CARE · ${l.name.toUpperCase()}, ILLINOIS`}
-          title={`Pet sitting & dog walking in ${l.name}, IL`}
+          title={`Dog sitting & pet care in ${l.name}, IL`}
           description={l.copy}
         />
         <div className="content-grid reading-grid">
           <div>
             <h2>{l.intro}</h2>
             <p>
-              Looking for a pet sitter near {l.name} ({l.zip})? Drew personally
-              handles every visit and stay. House sitting starts at $55 per
-              night; dog walks, drop-ins, and cat visits start at $22. Coverage
-              depends on your address, dates, and travel time, and your exact
-              price is agreed before confirming.
+              Looking for a dog sitter or pet sitter near {l.name} ({l.zip})?
+              Drew personally handles every visit and stay. House sitting starts
+              at $55 per night; dog walks, drop-ins, and cat visits start at
+              $22. Coverage depends on your address, dates, and travel time, and
+              your exact price is agreed before confirming.
+            </p>
+            <p>
+              <strong>
+                {l.core
+                  ? "Core service area."
+                  : "Coverage reviewed by request."}
+              </strong>{" "}
+              Drew is based in Fox River Grove.{" "}
+              {l.core
+                ? "Regular walks, visits, and overnight stays are arranged around current availability."
+                : "Send your town, dates, and preferred visit times so travel can be checked before you make plans."}
             </p>
             <Link href="/guides/pet-sitting-rates" className="text-link">
               See rates and care options <ArrowUpRight size={16} />

@@ -3,6 +3,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { PageIntro } from "@/components/site/shared"
 import { InquiryForm } from "@/components/forms/inquiry-form"
+import { coverageSummary } from "@/lib/content"
 export const metadata = {
   title: "Contact Drew",
   description:
@@ -34,10 +35,7 @@ export default function Contact() {
             Request pet care <ArrowUpRight size={16} />
           </Button>
           <h3 style={{ marginTop: 35 }}>Close to home</h3>
-          <p>
-            Fox River Grove, Cary, Barrington, Crystal Lake, Algonquin, Lake in
-            the Hills, and nearby communities.
-          </p>
+          <p>{coverageSummary}</p>
           <h3 style={{ marginTop: 28 }}>A personal response</h3>
           <p>
             I review messages between care visits. If you have upcoming dates,
