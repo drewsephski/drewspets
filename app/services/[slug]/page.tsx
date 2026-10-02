@@ -80,27 +80,6 @@ export default async function ServicePage({
                 </Link>
               ))}
             </div>
-            <h2>Before we confirm</h2>
-            <p>
-              We’ll talk through your pet’s routine, any special needs, and your
-              dates. A meet & greet helps us make a comfortable plan. No payment
-              is required to send a request.
-            </p>
-            <FAQ
-              items={[
-                [s.question, s.answer],
-                [
-                  "How much will my booking cost?",
-                  s.price
-                    ? `Rates start at ${money(s.price)} per ${s.unit}. Holidays, additional pets, length of care, and special needs may change the total. You’ll receive an exact quote before confirming.`
-                    : "Daycare and boarding are personally quoted after we discuss the setting, dates, and your pet’s needs.",
-                ],
-                [
-                  "Where do you offer care?",
-                  `Drew’s Pet Care is based in Fox River Grove. ${coverageSummary} Address and schedule determine availability.`,
-                ],
-              ]}
-            />
           </div>
           <aside>
             <div className="content-image">
@@ -134,6 +113,23 @@ export default async function ServicePage({
             </div>
           </aside>
         </div>
+        <FAQ
+          title="Before we confirm"
+          description="We’ll talk through your pet’s routine, any special needs, and your dates. A meet & greet helps us make a comfortable plan. No payment is required to send a request."
+          items={[
+            [s.question, s.answer],
+            [
+              "How much will my booking cost?",
+              s.price
+                ? `Rates start at ${money(s.price)} per ${s.unit}. Holidays, additional pets, length of care, and special needs may change the total. You’ll receive an exact quote before confirming.`
+                : "Daycare and boarding are personally quoted after we discuss the setting, dates, and your pet’s needs.",
+            ],
+            [
+              "Where do you offer care?",
+              `Drew’s Pet Care is based in Fox River Grove. ${coverageSummary} Address and schedule determine availability.`,
+            ],
+          ]}
+        />
         <div style={{ paddingBottom: 60 }}>
           <span className="eyebrow">OTHER WAYS I CAN HELP</span>
           <div className="service-link-list">

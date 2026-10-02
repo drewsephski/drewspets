@@ -128,9 +128,6 @@ export default function RatesGuide() {
               obligation to request; care is confirmed together after we agree
               on the plan.
             </p>
-            <div className="pb-16">
-              <FAQ />
-            </div>
           </div>
           <aside className="panel self-start">
             <h2>Care close to home.</h2>
@@ -150,6 +147,7 @@ export default function RatesGuide() {
             </Link>
           </aside>
         </div>
+        <FAQ />
       </article>
       <FinalCTA />
     </>

@@ -84,20 +84,6 @@ export default async function Location({
               suit your pet, I’m happy to help you choose.
             </p>
             <ServiceLinks />
-            <h2>A few local details</h2>
-            <FAQ
-              items={[
-                [l.faq, l.answer],
-                [
-                  "What information do you need to check availability?",
-                  "Start with your dates, service, pets, and city or ZIP. No street address is needed yet. Please don’t send keys, alarm codes, or payment details in the request.",
-                ],
-                [
-                  "Is a request a confirmed booking?",
-                  "Not yet. I’ll get in touch to talk through your dates and price. We’ll confirm together once you’re happy with the plan.",
-                ],
-              ]}
-            />
           </div>
           <aside className="panel">
             <span className="eyebrow">A LOCAL STARTING POINT</span>
@@ -126,6 +112,20 @@ export default async function Location({
               ))}
           </aside>
         </div>
+        <FAQ
+          title="A few local details"
+          items={[
+            [l.faq, l.answer],
+            [
+              "What information do you need to check availability?",
+              "Start with your dates, service, pets, and city or ZIP. No street address is needed yet. Please don’t send keys, alarm codes, or payment details in the request.",
+            ],
+            [
+              "Is a request a confirmed booking?",
+              "Not yet. I’ll get in touch to talk through your dates and price. We’ll confirm together once you’re happy with the plan.",
+            ],
+          ]}
+        />
       </div>
       <FinalCTA />
     </>

@@ -761,14 +761,36 @@ summary:focus-visible {
   margin: 20px auto;
 }
 .faq-section {
-  display: grid;
-  grid-template-columns: 0.85fr 1.15fr;
-  gap: 80px;
+  max-width: 780px;
+}
+.faq-section > div {
+  max-width: 620px;
+  margin-inline: auto;
+  text-align: center;
 }
 .faq-section > div > p {
   margin-top: 24px;
   margin-bottom: 8px;
   font-size: 13px;
+}
+.faq-block {
+  width: 100%;
+  max-width: 780px;
+  margin-inline: auto;
+  padding-block: 48px;
+}
+.faq-intro {
+  margin-bottom: 32px;
+  text-align: center;
+}
+.faq-intro h2 {
+  margin: 0;
+  font-size: 28px;
+  text-wrap: balance;
+}
+.faq-intro p {
+  max-width: 620px;
+  margin: 16px auto 0;
 }
 .faq-item {
   border-bottom: 1px solid var(--border);
@@ -785,7 +807,7 @@ summary:focus-visible {
   align-items: center;
   gap: 20px;
   width: 100%;
-  padding: 20px 0;
+  padding: 24px 0;
   border: 0;
   background: transparent;
   color: inherit;
@@ -804,7 +826,7 @@ summary:focus-visible {
   color: var(--green);
 }
 .faq-item p {
-  padding: 0 0 20px;
+  padding: 0 0 24px;
 }
 .mobile-nav-reveal {
   display: none;
@@ -817,7 +839,7 @@ summary:focus-visible {
 .faq-list p {
   font-size: 13px;
   line-height: 1.8;
-  padding: 0 0 20px;
+  padding: 0 0 24px;
   max-width: 580px;
 }
 .final-cta {
@@ -1552,9 +1574,6 @@ summary:focus-visible {
   .service-card-body > p {
     min-height: 40px;
   }
-  .faq-section {
-    gap: 40px;
-  }
   .footer-main {
     gap: 25px;
   }
@@ -1872,9 +1891,11 @@ summary:focus-visible {
   .wide-only {
     display: none;
   }
-  .faq-section {
-    grid-template-columns: 1fr;
-    gap: 30px;
+  .faq-block {
+    padding-block: 32px;
+  }
+  .faq-intro {
+    margin-bottom: 24px;
   }
   .faq-section h2 {
     font-size: 34px;
@@ -1884,6 +1905,7 @@ summary:focus-visible {
   }
   .faq-item button {
     font-size: 12px;
+    padding-block: 22px;
   }
   .final-cta {
     padding: 37px 27px;

@@ -80,9 +80,7 @@ export default function Services() {
             </Link>
           </aside>
         </div>
-        <div className="pb-16">
-          <FAQ />
-        </div>
+        <FAQ />
       </div>
       <FinalCTA />
     </>

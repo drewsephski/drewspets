@@ -67,8 +67,8 @@ export default function Locations() {
             </Link>
           </aside>
         </div>
-        <h2>Choosing dog care near you</h2>
         <FAQ
+          title="Choosing dog care near you"
           items={[
             [
               "Can a dog sitter care for my dog in my own home?",
