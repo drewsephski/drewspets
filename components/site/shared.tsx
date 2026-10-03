@@ -34,7 +34,7 @@ export function Footer() {
           <Link href="/contact">Contact</Link>
           <PaymentCTA
             variant="text-link"
-            text="Owe Drew a payment? Pay through here."
+            text="Make a payment"
           />
           <Link href="/#faq">Common questions</Link>
           <Link href="/refer">Refer a friend</Link>
