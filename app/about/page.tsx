@@ -73,6 +73,7 @@ export default function AboutPage() {
               alt={aboutPhoto.alt}
               width={aboutPhoto.width}
               height={aboutPhoto.height}
+              loading="eager"
               sizes="(max-width: 700px) 100vw, 40vw"
               className="h-auto w-full rounded-2xl"
             />
