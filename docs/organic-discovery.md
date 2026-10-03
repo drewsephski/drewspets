@@ -9,6 +9,13 @@ the services and real service area. FAQ answers are rendered in the initial
 HTML, with matching FAQ structured data. Business, founder, service, starting
 offer, and breadcrumb markup use the same published facts.
 
+`/about` identifies Drew as the person providing care, describes the care
+process and coverage limits, and links to the confirmed Google listing and
+the owner-supplied Sitterfolio profile. The business's `sameAs` points to
+Google; the person's `sameAs` points to Sitterfolio. The rates guide includes
+a visible author link and matching Article markup. Neither markup implies
+an endorsement, review rating, or guaranteed search inclusion.
+
 The town pages cover Fox River Grove, Cary, Barrington, Crystal Lake,
 Algonquin, Lake in the Hills, Huntley, Wauconda, Island Lake, and Lake
 Barrington. Fox River Grove and Cary are core; all other towns are reviewed
@@ -61,6 +68,7 @@ No special AI text file is necessary for Google AI features.
 
 External account verification, sitemap submission, profile status, and
 indexing have not been completed or verified by these source changes.
+The October 3 live audit below establishes the narrower current observations.
 
 ## The local visibility work that matters next
 
@@ -156,10 +164,75 @@ skipped so normal unit tests do not depend on a running server.
 Use the production origin for the build, server, and HTTP checks: a local
 `.env.local` may otherwise set a localhost canonical for development.
 
+## October 3, 2026 live audit and next actions
+
+The production homepage, contact page, house-sitting page, Huntley page,
+robots file, and sitemap returned 200. Canonical URLs use the apex, www
+redirects to it, and an unknown town returned 404. The sitemap now includes
+all ten published towns. Requests bearing the OAI-SearchBot user agent
+received public HTML without a login challenge. This checks user-agent
+handling, not requests from OpenAI's actual crawler IP ranges.
+
+Dia showed the Google owner dashboard and a Drew’s Pet Care knowledge
+panel linking to `drewspets.com`. Branded Google results included the
+homepage and privacy page. This establishes that those URLs appear in
+Google, not that every town page is indexed or that generic local queries
+rank well. The results were personalized to the signed-in owner in Fox
+River Grove; this was not an independent local ranking measurement.
+
+Google's Profile Strength indicator and performance report were available.
+Google documents these as features for verified profiles, so the observed
+profile appears verified. The report showed five profile views and zero
+interactions for August through October 2026. The review dialog said
+“Get your first review.” These are dashboard observations at the audit time,
+not predictions of future traffic. The public listing had phone
+`+12243431711`, primary category “Pet boarding service,” and “Open 24 hours.”
+No Google profile fields, advertising settings, or hours were changed.
+
+The confirmed Google listing and official review link are now published
+constants in `lib/content.ts`; the existing public phone and review URL
+environment variables can override their defaults. Structured data and
+visible contact links use the same phone. The review request is neutral,
+for people whose pets Drew has actually cared for, with no incentives.
+
+Prioritize these next steps:
+
+1. Review the Google primary category. “Pet sitter” better describes the
+   site's primary positioning; confirm this matches actual business focus
+   and the categories available in the profile before changing it. Add
+   accurate secondary services rather than keywords to the business name.
+   Review the 24-hour listing against actual customer contact hours; an
+   overnight service does not establish continuous supervision or phone
+   availability.
+2. Align Sitterfolio's business identity. The owner-supplied profile at
+   `https://drew.sitterfolio.com/` currently calls the business “Cozy Paws.”
+   Use Drew’s Pet Care consistently if these represent the same business,
+   and add a link back to `https://drewspets.com`. Until aligned, the site
+   links it as Drew's personal sitter profile, not a business alias.
+3. Ask customers after completed care for an honest Google review using
+   `https://g.page/r/CUe9Duvb3Me-EBM/review`. No requests were sent by this
+   work, and no reviews were copied or invented.
+4. Confirm Search Console and Bing Webmaster Tools ownership and submit
+   the sitemap. Inspect each priority town URL's indexing separately.
+   These account and submission checks remain unverified in this audit.
+5. Publish the local site changes, then inspect `/about`, `/contact`, the
+   rates guide, sitemap, and homepage profile links on the production
+   domain. Existing live SEO and new local enhancements are separate states.
+
+For AI discovery, keep the existing allowed search crawlers, usable HTML,
+consistent identity, factual answers, and links from real local sources.
+Google states that its AI search features need no special AI text files or
+schema. OpenAI identifies OAI-SearchBot as its search crawler. Satisfying
+these discovery requirements does not guarantee a recommendation from
+Google, ChatGPT, Perplexity, or another provider.
+
 ## Primary references
 
 - [Google AI features and your website](https://developers.google.com/search/docs/appearance/ai-features)
 - [Google local ranking](https://support.google.com/business/answer/7091?hl=en)
+- [Google Business Profile performance and verification](https://support.google.com/business/answer/9918094?hl=en)
+- [OpenAI crawlers](https://developers.openai.com/api/docs/bots)
+- [Perplexity crawlers](https://docs.perplexity.ai/docs/resources/perplexity-crawlers)
 - [OpenAI publisher discovery and referral tracking](https://help.openai.com/en/articles/12627856-publishers-and-developers-faq)
 - [Google local business structured data](https://developers.google.com/search/docs/appearance/structured-data/local-business)
 - [Google doorway abuse policy](https://developers.google.com/search/docs/essentials/spam-policies#doorway-abuse)

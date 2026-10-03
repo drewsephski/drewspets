@@ -8,6 +8,7 @@ import { pageMetadata } from "@/lib/seo"
 import { PhotoGallery } from "@/components/site/photo-gallery"
 import { aboutPhoto } from "@/lib/gallery"
 import { FAQ, FinalCTA } from "@/components/site/shared"
+import { PaymentCTA } from "@/components/payment-cta"
 export const metadata = pageMetadata(
   "Dog Sitting & Pet Sitting in Fox River Grove & Cary, IL",
   site.description,
@@ -193,6 +194,10 @@ export default function Home() {
           Rates may vary for holidays, puppies, additional pets, or special care
           needs. Your final price is always agreed in advance.
         </p>
+        <PaymentCTA
+          className="mt-6 max-w-full text-center"
+          text="Settle an existing invoice -> Pay now"
+        />
       </section>
       <section id="reviews" className="shell review-section">
         <Heart size={28} strokeWidth={1.3} />
@@ -219,6 +224,17 @@ export default function Home() {
             </Link>
           </>
         )}
+        <p>
+          <a href={site.googleMapsUrl} className="text-link">
+            Find Drew’s Pet Care on Google <ArrowUpRight size={16} />
+          </a>
+        </p>
+        <p>
+          Have I cared for your pet?{" "}
+          <a href={site.googleReviewUrl} className="text-link">
+            Share an honest review <ArrowUpRight size={16} />
+          </a>
+        </p>
       </section>
       <section className="how-section" id="how-it-works">
         <div className="shell">
@@ -290,6 +306,9 @@ export default function Home() {
             Drew <Heart size={22} strokeWidth={1.2} />
           </div>
           <span className="founder-label">FOUNDER & YOUR LOCAL PET SITTER</span>
+          <Link href="/about" className="text-link">
+            Meet Drew & how care works <ArrowUpRight size={16} />
+          </Link>
           <Link href="/contact" className="text-link">
             Say hello <ArrowUpRight size={16} />
           </Link>

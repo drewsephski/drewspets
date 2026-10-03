@@ -1,17 +1,46 @@
 import Link from "next/link"
-import { Breadcrumbs, FAQ, FinalCTA, PageIntro } from "@/components/site/shared"
-import { services, money, coverageSummary } from "@/lib/content"
+import {
+  Breadcrumbs,
+  FAQ,
+  FinalCTA,
+  JsonLd,
+  PageIntro,
+} from "@/components/site/shared"
+import { services, money, coverageSummary, site } from "@/lib/content"
 import { pageMetadata } from "@/lib/seo"
+
+const headline = "How much does pet sitting cost near Fox River Grove?"
+const description =
+  "Drew’s Pet Care rates: house sitting from $55/night, dog walks and cat visits from $22, puppy care from $60/night. Compare options and get a personal quote."
 
 export const metadata = pageMetadata(
   "Pet Sitting Rates in Fox River Grove & Cary, IL",
-  "Drew’s Pet Care rates: house sitting from $55/night, dog walks and cat visits from $22, puppy care from $60/night. Compare options and get a personal quote.",
+  description,
   "/guides/pet-sitting-rates"
 )
 
 export default function RatesGuide() {
   return (
     <>
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "Article",
+          "@id": `${site.url}/guides/pet-sitting-rates#article`,
+          url: `${site.url}/guides/pet-sitting-rates`,
+          headline,
+          description,
+          author: {
+            "@type": "Person",
+            "@id": `${site.url}/#drew`,
+            name: "Drew",
+            url: `${site.url}/about`,
+          },
+          publisher: { "@id": `${site.url}/#business` },
+          mainEntityOfPage: `${site.url}/guides/pet-sitting-rates`,
+          inLanguage: "en-US",
+        }}
+      />
       <article className="shell inner-page reading-page">
         <Breadcrumbs
           name="Rates & care guide"
@@ -19,9 +48,15 @@ export default function RatesGuide() {
         />
         <PageIntro
           eyebrow="A GUIDE BY DREW"
-          title="How much does pet sitting cost near Fox River Grove?"
+          title={headline}
           description="At Drew’s Pet Care, house sitting starts at $55 per night, while dog walks, drop-ins, and cat visits start at $22. These are my starting rates for local care, with your exact quote agreed before booking."
         />
+        <p className="text-center">
+          By{" "}
+          <Link href="/about" className="text-link">
+            Drew, your local pet sitter
+          </Link>
+        </p>
         <div className="content-grid reading-grid">
           <div>
             <h2>Compare my starting rates.</h2>

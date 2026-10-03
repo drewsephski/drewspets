@@ -12,7 +12,7 @@ import {
   uniqueIndex,
 } from "drizzle-orm/pg-core"
 // Historical tables are retained to preserve existing records and migration history.
-// V1 writes only inquiries and rateLimits; no account or booking lifecycle is active.
+// V1 stores inquiries, rate limits, and payment alerts; no booking lifecycle is active.
 const statuses = [
   "new",
   "contacted",
@@ -230,6 +230,16 @@ export const stripeEvents = pgTable("stripe_events", {
   id: text("id").primaryKey(),
   createdAt: created(),
 })
+export const paymentNotifications = pgTable("payment_notifications", {
+  sessionId: text("session_id").primaryKey(),
+  eventId: text("event_id").notNull(),
+  amountCents: integer("amount_cents").notNull(),
+  currency: text("currency").notNull(),
+  smsAttemptedAt: timestamp("sms_attempted_at", { withTimezone: true }),
+  smsMessageSid: text("sms_message_sid"),
+  smsErrorCode: text("sms_error_code"),
+  createdAt: created(),
+})
 export const availabilityBlocks = pgTable("availability_blocks", {
   id: uuid("id").defaultRandom().primaryKey(),
   startDate: text("start_date").notNull(),
@@ -261,6 +271,9 @@ export const inquiries = pgTable("inquiries", {
   name: text("name").notNull(),
   email: text("email").notNull(),
   message: text("message").notNull(),
+  smsAttemptedAt: timestamp("sms_attempted_at", { withTimezone: true }),
+  smsMessageSid: text("sms_message_sid"),
+  smsErrorCode: text("sms_error_code"),
   createdAt: created(),
 })
 export const rateLimits = pgTable("rate_limits", {

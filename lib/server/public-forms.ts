@@ -11,6 +11,7 @@ import {
 import { services } from "@/lib/content"
 import { publicGuard, readJson, apiError, HttpError } from "./security"
 import { emailConfig, sendRequestEmails } from "./email"
+import { sendRequestSms } from "./sms"
 export async function submitPublicForm(
   request: Request,
   kind: "booking" | "application" | "inquiry"
@@ -110,6 +111,17 @@ export async function submitPublicForm(
       subject,
       body,
       confirmation,
+    })
+    await sendRequestSms({
+      requestId: input.requestId,
+      subject,
+      name: input.name,
+      summary:
+        input.kind === "booking"
+          ? details.filter((line) =>
+              /^(Service|Dates|City \/ ZIP|Phone):/.test(line)
+            )
+          : [`Email: ${input.email}`],
     })
     return Response.json({ received: true }, { status: 201 })
   } catch (error) {

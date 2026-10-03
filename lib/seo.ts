@@ -106,6 +106,9 @@ export function businessSchema() {
         url: site.url,
         description: site.description,
         image: `${site.url}/images/drew-walking-with-dog.jpg`,
+        logo: `${site.url}/brand/dog-portrait.png`,
+        sameAs: [site.googleMapsUrl],
+        telephone: site.phone,
         address: {
           "@type": "PostalAddress",
           addressLocality: "Fox River Grove",
@@ -115,9 +118,6 @@ export function businessSchema() {
         },
         areaServed: serviceAreas,
         founder: { "@id": `${site.url}/#drew` },
-        ...(process.env.NEXT_PUBLIC_CONTACT_PHONE
-          ? { telephone: process.env.NEXT_PUBLIC_CONTACT_PHONE }
-          : {}),
         ...(process.env.NEXT_PUBLIC_CONTACT_EMAIL
           ? { email: process.env.NEXT_PUBLIC_CONTACT_EMAIL }
           : {}),
@@ -126,7 +126,8 @@ export function businessSchema() {
         "@type": "Person",
         "@id": `${site.url}/#drew`,
         name: "Drew",
-        url: `${site.url}/#about`,
+        url: `${site.url}/about`,
+        sameAs: [site.sitterProfileUrl],
         jobTitle: "Pet sitter and dog walker",
         image: `${site.url}/images/drew-and-dog-at-home.jpg`,
         worksFor: { "@id": `${site.url}/#business` },
@@ -140,5 +141,18 @@ export function businessSchema() {
         inLanguage: "en-US",
       },
     ],
+  }
+}
+
+export function aboutSchema() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "@id": `${site.url}/about#webpage`,
+    url: `${site.url}/about`,
+    name: "Meet Drew, your local pet sitter",
+    isPartOf: { "@id": `${site.url}/#website` },
+    mainEntity: { "@id": `${site.url}/#drew` },
+    about: { "@id": `${site.url}/#business` },
   }
 }

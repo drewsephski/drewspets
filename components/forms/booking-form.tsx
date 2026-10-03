@@ -17,6 +17,7 @@ import {
 import { conversion } from "@/components/site/analytics"
 import { DateField, Field, Select, Textarea, Honeypot } from "./fields"
 import { Button } from "@/components/ui/button"
+import { PaymentCTA } from "@/components/payment-cta"
 export function BookingForm({
   initialService,
   initialReferral,
@@ -304,6 +305,11 @@ export function BookingForm({
           </form>
         </>
       )}
+      <PaymentCTA
+        variant="text-link"
+        className="mt-6"
+        text="Already booked and received your invoice? Pay through here."
+      />
     </div>
   )
 }

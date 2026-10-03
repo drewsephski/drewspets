@@ -27,12 +27,22 @@ export default function Privacy() {
         discuss care. Sitter information is used only for possible future
         opportunities. I do not sell your information.
       </p>
-      <h2>Storage and email</h2>
+      <h2>Storage and notifications</h2>
       <p>
         Requests are emailed to Drew and a confirmation is sent to you through
-        Resend. When database storage is configured, a copy is kept in Neon.
-        Vercel hosts the website. There are no customer accounts or online
-        checkout in the request flow.
+        Resend. A short request summary may also be sent to Drew’s phone through
+        Twilio. These text alerts go to Drew, not to you. When database storage
+        is configured, a copy is kept in Neon. Vercel hosts the website. There
+        are no customer accounts or online checkout in the request flow.
+      </p>
+      <h2>Payments</h2>
+      <p>
+        Existing invoices and custom payments use Stripe’s hosted checkout.
+        Stripe processes your payment details. After a successful payment, a
+        short summary with the amount and your name or email may be sent to
+        Drew’s phone through Twilio. The site stores payment and text delivery
+        identifiers to prevent duplicate alerts. Payment does not confirm a
+        booking.
       </p>
       <h2>Analytics</h2>
       <p>

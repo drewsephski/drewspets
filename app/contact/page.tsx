@@ -3,13 +3,13 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { PageIntro } from "@/components/site/shared"
 import { InquiryForm } from "@/components/forms/inquiry-form"
-import { coverageSummary } from "@/lib/content"
-export const metadata = {
-  title: "Contact Drew",
-  description:
-    "A question about pet care in Fox River Grove or nearby? Reach out to Drew personally.",
-  alternates: { canonical: "/contact" },
-}
+import { coverageSummary, site } from "@/lib/content"
+import { pageMetadata } from "@/lib/seo"
+export const metadata = pageMetadata(
+  "Contact Drew for Pet Sitting in Fox River Grove & Cary",
+  "Ask Drew about pet sitting, dog walks, overnight care and coverage in Fox River Grove, Cary and nearby Illinois towns. Call, text or send a care request.",
+  "/contact"
+)
 export default function Contact() {
   return (
     <div className="shell inner-page reading-page">
@@ -52,16 +52,21 @@ export default function Contact() {
               </a>
             </p>
           )}
-          {process.env.NEXT_PUBLIC_CONTACT_PHONE && (
-            <p>
-              <a
-                className="text-link"
-                href={`tel:${process.env.NEXT_PUBLIC_CONTACT_PHONE}`}
-              >
-                {process.env.NEXT_PUBLIC_CONTACT_PHONE}
-              </a>
-            </p>
-          )}
+          <p>
+            <a className="text-link" href={`tel:${site.phone}`}>
+              Call Drew: {site.phone}
+            </a>
+          </p>
+          <p>
+            <a className="text-link" href={`sms:${site.phone}`}>
+              Text Drew
+            </a>
+          </p>
+          <p>
+            <a className="text-link" href={site.googleMapsUrl}>
+              Find Drew’s Pet Care on Google
+            </a>
+          </p>
         </aside>
       </div>
     </div>

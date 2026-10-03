@@ -3,6 +3,7 @@ import { services, locations, site } from "@/lib/content"
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     "",
+    "/about",
     "/services",
     "/locations",
     "/guides/pet-sitting-rates",

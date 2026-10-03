@@ -6,6 +6,7 @@ import { MapPin } from "lucide-react"
 import { Brand } from "./header"
 import { Button } from "@/components/ui/button"
 import { services, site } from "@/lib/content"
+import { PaymentCTA } from "@/components/payment-cta"
 export function Footer() {
   return (
     <footer className="site-footer">
@@ -24,13 +25,17 @@ export function Footer() {
           <span className="eyebrow">EXPLORE</span>
           <Link href="/services">Services</Link>
           <Link href="/guides/pet-sitting-rates">Rates & care guide</Link>
-          <Link href="/#about">About Drew</Link>
+          <Link href="/about">About Drew</Link>
           <Link href="/locations">Service area</Link>
         </div>
         <div>
           <span className="eyebrow">LET’S TALK</span>
           <Link href="/book">Request care</Link>
           <Link href="/contact">Contact</Link>
+          <PaymentCTA
+            variant="text-link"
+            text="Owe Drew a payment? Pay through here."
+          />
           <Link href="/#faq">Common questions</Link>
           <Link href="/refer">Refer a friend</Link>
           <Link href="/apply">

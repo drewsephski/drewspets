@@ -9,6 +9,14 @@ export const site = {
   url: canonicalSiteUrl.origin,
   description:
     "Dog sitting, pet sitting and dog walking by Drew in Fox River Grove and Cary, IL. Huntley, Wauconda and nearby towns by request. Overnight care from $55/night.",
+  // Public listing and contact details checked in Google Business Profile.
+  phone: process.env.NEXT_PUBLIC_CONTACT_PHONE || "+12243431711",
+  googleMapsUrl:
+    "https://www.google.com/maps/place/Drew%E2%80%99s+Pet+Care/data=!4m2!3m1!1s0x0:0xbec7dcdbeb0ebd47",
+  googleReviewUrl:
+    process.env.NEXT_PUBLIC_GOOGLE_REVIEW_URL ||
+    "https://g.page/r/CUe9Duvb3Me-EBM/review",
+  sitterProfileUrl: "https://drew.sitterfolio.com/",
 }
 export const services = [
   {

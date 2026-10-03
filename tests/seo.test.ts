@@ -2,6 +2,7 @@ import { expect, test } from "bun:test"
 import sitemap from "../app/sitemap"
 import robots from "../app/robots"
 import {
+  aboutSchema,
   businessSchema,
   locationMetadata,
   locationSchema,
@@ -47,6 +48,7 @@ test("every acquisition page has a unique canonical sitemap URL", () => {
   expect(new Set(urls).size).toBe(urls.length)
   for (const path of [
     "/services",
+    "/about",
     "/locations",
     "/guides/pet-sitting-rates",
     ...services.map((s) => `/services/${s.slug}`),
@@ -93,6 +95,30 @@ test("business identity uses real service-area facts without invented endorsemen
   expect(
     business && "address" in business ? business.address : undefined
   ).not.toHaveProperty("streetAddress")
+})
+
+test("public profiles connect the business and sitter to the correct entities", () => {
+  const graph = businessSchema()["@graph"]
+  const business = graph.find((node) => node["@type"] === "LocalBusiness")
+  const sitter = graph.find((node) => node["@type"] === "Person")
+  expect(business).toMatchObject({
+    telephone: site.phone,
+    sameAs: [site.googleMapsUrl],
+    logo: `${site.url}/brand/dog-portrait.png`,
+  })
+  expect(sitter).toMatchObject({
+    url: `${site.url}/about`,
+    sameAs: ["https://drew.sitterfolio.com/"],
+  })
+  // Sitterfolio currently has a different business label. It identifies Drew,
+  // not a second local branch or a verified business name alias.
+  expect(business?.sameAs).not.toContain(site.sitterProfileUrl)
+  expect(aboutSchema()).toMatchObject({
+    "@type": "AboutPage",
+    url: `${site.url}/about`,
+    mainEntity: { "@id": `${site.url}/#drew` },
+    about: { "@id": `${site.url}/#business` },
+  })
 })
 
 test("expanded towns are discoverable with accurate coverage and no broken nearby links", () => {

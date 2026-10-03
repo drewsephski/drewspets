@@ -8,6 +8,7 @@ import {
 } from "@/components/site/shared"
 import { services, money } from "@/lib/content"
 import { pageMetadata, serviceSchema } from "@/lib/seo"
+import { PaymentCTA } from "@/components/payment-cta"
 
 export const metadata = pageMetadata(
   "Pet Sitting Services in Fox River Grove & Cary, IL",
@@ -80,6 +81,11 @@ export default function Services() {
             </Link>
           </aside>
         </div>
+        <PaymentCTA
+          variant="text-link"
+          className="panel mb-12 w-full"
+          text="Need to make a custom payment for a specialized service? Pay now."
+        />
         <FAQ />
       </div>
       <FinalCTA />

@@ -1,5 +1,5 @@
 import { beforeAll, describe, expect, test } from "bun:test"
-import { locations, site } from "../lib/content"
+import { locations, services, site } from "../lib/content"
 
 // Run against a local production build: SEO_TEST_BASE_URL=http://localhost:3000 bun test tests/seo-http.test.ts
 const baseUrl = process.env.SEO_TEST_BASE_URL
@@ -9,12 +9,13 @@ describe.skipIf(!baseUrl)("rendered local-search pages", () => {
   beforeAll(async () => {
     const paths = [
       "/",
+      "/about",
       "/locations",
       "/sitemap.xml",
       "/robots.txt",
       "/contact",
       "/guides/pet-sitting-rates",
-      "/services/house-sitting",
+      ...services.map((service) => `/services/${service.slug}`),
       ...locations.map((location) => `/locations/${location.slug}`),
       "/locations/not-a-service-area",
       "/services/not-a-service",
@@ -79,6 +80,59 @@ describe.skipIf(!baseUrl)("rendered local-search pages", () => {
       const page = pages.get(path)!
       expect(page.status).toBe(404)
       expect(page.html).toContain('content="noindex"')
+    }
+  })
+
+  test("sitter identity, contact links and guide authorship agree in rendered HTML", () => {
+    const about = pages.get("/about")!
+    const home = pages.get("/")!
+    const contact = pages.get("/contact")!
+    const rates = pages.get("/guides/pet-sitting-rates")!
+    const schemaOfType = (html: string, type: string) =>
+      [
+        ...html.matchAll(
+          /<script type="application\/ld\+json">([\s\S]*?)<\/script>/g
+        ),
+      ]
+        .map((match): Record<string, unknown> => JSON.parse(match[1]))
+        .find((schema) => schema["@type"] === type)
+    expect(about.status).toBe(200)
+    expect(about.html).toContain(`href="${site.url}/about"`)
+    expect(about.html).not.toMatch(/<meta[^>]+content="[^"]*noindex/)
+    expect(schemaOfType(about.html, "AboutPage")).toMatchObject({
+      url: `${site.url}/about`,
+      mainEntity: { "@id": `${site.url}/#drew` },
+    })
+    expect(about.html).toContain(`href="${site.sitterProfileUrl}"`)
+    for (const page of [about, home]) {
+      expect(page.html).toContain(`href="${site.googleReviewUrl}"`)
+      // Attribute encoding turns the ampersand into an HTML entity, when present.
+      expect(page.html).toContain(
+        `href="${site.googleMapsUrl.replaceAll("&", "&amp;")}"`
+      )
+    }
+    expect(contact.html).toContain(`href="tel:${site.phone}"`)
+    expect(contact.html).toContain(`href="sms:${site.phone}"`)
+    expect(contact.html).toContain(`"telephone":"${site.phone}"`)
+    expect(schemaOfType(rates.html, "Article")).toMatchObject({
+      url: `${site.url}/guides/pet-sitting-rates`,
+      author: {
+        "@type": "Person",
+        "@id": `${site.url}/#drew`,
+        name: "Drew",
+        url: `${site.url}/about`,
+      },
+    })
+    expect(home.html).toContain('href="/about"')
+    expect(rates.html).toContain('href="/about"')
+    expect(pages.get("/sitemap.xml")!.html).toContain(
+      `<loc>${site.url}/about</loc>`
+    )
+    for (const service of services) {
+      const page = pages.get(`/services/${service.slug}`)!
+      expect(page.status).toBe(200)
+      expect(page.html).toContain(`href="${site.url}/services/${service.slug}"`)
+      expect(page.html).toContain('"@type":"Service"')
     }
   })
 
