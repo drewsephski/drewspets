@@ -226,6 +226,15 @@ schema. OpenAI identifies OAI-SearchBot as its search crawler. Satisfying
 these discovery requirements does not guarantee a recommendation from
 Google, ChatGPT, Perplexity, or another provider.
 
+Local validation included lint, type checking, the production build, source
+tests, and rendered HTTP checks for all ten towns, seven services, identity,
+authorship, contact/profile links, crawler endpoints, and real 404s. Browser
+checks covered the About page at phone and desktop sizes and a working FAQ.
+Those checks caught invalid block wrappers in the shared animated arrows;
+both now use inline spans, removing paragraph nesting and hydration errors.
+The About, home, contact, and rates pages were then checked without browser
+console errors. Production publication of these new changes remains separate.
+
 ## Primary references
 
 - [Google AI features and your website](https://developers.google.com/search/docs/appearance/ai-features)
