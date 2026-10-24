@@ -46,7 +46,9 @@ const base = {
   website: z.string().max(0).default(""),
 }
 export const overnight = (service: string) =>
-  ["house-sitting", "boarding", "puppy-care"].includes(service)
+  ["house-sitting", "overnight-dog-sitting", "boarding", "puppy-care"].includes(
+    service
+  )
 export const visitService = (service: string) =>
   ["drop-ins", "dog-walking", "cat-sitting"].includes(service)
 export const timeWindows = [

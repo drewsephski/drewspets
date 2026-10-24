@@ -4,8 +4,14 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Check } from "lucide-react"
-import { pageMetadata, serviceSchema } from "@/lib/seo"
-import { services, locations, money, coverageSummary } from "@/lib/content"
+import { serviceMetadata, serviceSchema } from "@/lib/seo"
+import {
+  services,
+  locations,
+  money,
+  coverageSummary,
+  serviceSeo,
+} from "@/lib/content"
 import {
   Breadcrumbs,
   PageIntro,
@@ -24,11 +30,7 @@ export async function generateMetadata({
   const { slug } = await params
   const s = services.find((s) => s.slug === slug)
   if (!s) notFound()
-  return pageMetadata(
-    `${s.name} in Fox River Grove & Cary, IL`,
-    `${s.name} by Drew in Fox River Grove, Cary and nearby Illinois towns. ${s.price ? `From ${money(s.price)} per ${s.unit}.` : "Personally quoted."} Request dates and a meet & greet.`,
-    `/services/${slug}`
-  )
+  return serviceMetadata(s)
 }
 export default async function ServicePage({
   params,
@@ -38,6 +40,7 @@ export default async function ServicePage({
   const { slug } = await params
   const s = services.find((s) => s.slug === slug)
   if (!s) notFound()
+  const seo = serviceSeo[s.slug]
   return (
     <>
       <div className="shell inner-page">
@@ -47,8 +50,8 @@ export default async function ServicePage({
           parent={{ name: "Services", path: "/services" }}
         />
         <PageIntro
-          eyebrow="PERSONAL CARE, AT THEIR PACE."
-          title={`${s.name} in Fox River Grove & Cary`}
+          eyebrow={seo?.eyebrow ?? "PERSONAL CARE, AT THEIR PACE."}
+          title={seo?.heading ?? `${s.name} in Fox River Grove & Cary`}
           description={s.description}
         />
         <JsonLd
@@ -67,6 +70,14 @@ export default async function ServicePage({
                 </li>
               ))}
             </ul>
+            {seo?.sections?.map((section) => (
+              <div key={section.title}>
+                <h2>{section.title}</h2>
+                {section.paragraphs.map((paragraph) => (
+                  <p key={paragraph}>{paragraph}</p>
+                ))}
+              </div>
+            ))}
             <h2>Where I offer {s.name.toLowerCase()}</h2>
             <p>
               Based in Fox River Grove, Illinois, with Cary in the core service

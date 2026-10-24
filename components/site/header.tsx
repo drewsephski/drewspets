@@ -33,11 +33,12 @@ export function Brand() {
   )
 }
 const links = [
-  ["Services", "/#services"],
-  ["About Drew", "/#about"],
-  ["Nearby towns", "/#service-area"],
-  ["Rates", "/#rates"],
-  ["Reviews", "/#reviews"],
+  ["Services", "/services"],
+  ["Cat sitting", "/services/cat-sitting"],
+  ["Dog walking", "/services/dog-walking"],
+  ["Overnight", "/services/overnight-dog-sitting"],
+  ["Towns", "/locations"],
+  ["About", "/about"],
   ["FAQ", "/#faq"],
 ]
 export function Header() {

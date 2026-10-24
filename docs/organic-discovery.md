@@ -2,7 +2,7 @@
 
 ## What the site supports
 
-The homepage, seven service pages, ten town pages, service and coverage
+The homepage, eight service pages, ten town pages, service and coverage
 directories, and `/guides/pet-sitting-rates` provide crawlable local information.
 Titles, headings, canonical URLs, social previews, and internal links identify
 the services and real service area. FAQ answers are rendered in the initial
@@ -24,7 +24,7 @@ coverage FAQ derives its town list from the same content. Adding a town
 automatically updates the sitemap, homepage links, service-page links, and
 business/service coverage markup. Nearby links must resolve to published towns.
 
-Town titles and headings identify dog sitting and pet care. Each page has
+Town titles and headings identify dog sitting and pet sitting. Each page has
 distinct planning details and answers, starting rates, service links, and a
 clear way to request coverage. WebPage and Service markup connect the town
 to the single Fox River Grove business; there are no invented local branches.

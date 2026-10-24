@@ -40,7 +40,7 @@ describe.skipIf(!baseUrl)("rendered local-search pages", () => {
       const page = pages.get(path)!
       expect(page.status).toBe(200)
       expect(page.html).toContain(
-        `Dog Sitting &amp; Pet Care in ${location.name}, IL`
+        `Dog Sitting &amp; Pet Sitting in ${location.name}, IL`
       )
       expect(page.html).toContain(location.copy)
       expect(page.html).toContain(location.answer)

@@ -3,7 +3,11 @@ import { notFound } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { MapPin } from "lucide-react"
-import { locationMetadata, locationSchema } from "@/lib/seo"
+import {
+  locationMetadata,
+  locationPageTitle,
+  locationSchema,
+} from "@/lib/seo"
 import { locations } from "@/lib/content"
 import {
   Breadcrumbs,
@@ -45,7 +49,7 @@ export default async function Location({
         />
         <PageIntro
           eyebrow={`DREW’S PET CARE · ${l.name.toUpperCase()}, ILLINOIS`}
-          title={`Dog sitting & pet care in ${l.name}, IL`}
+          title={locationPageTitle(l)}
           description={l.copy}
         />
         <div className="content-grid reading-grid">

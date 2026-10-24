@@ -48,9 +48,20 @@ export default function Home() {
             >
               Check availability <ArrowUpRight size={18} />
             </Button>
-            <Link href="#services" className="text-link">
+            <Link href="/services" className="text-link">
               Explore services <ArrowRight size={17} />
             </Link>
+            <div className="hero-service-links">
+              <Link href="/services/cat-sitting" className="text-link">
+                Cat sitter near me <ArrowRight size={15} />
+              </Link>
+              <Link href="/services/dog-walking" className="text-link">
+                Dog walker near me <ArrowRight size={15} />
+              </Link>
+              <Link href="/services/overnight-dog-sitting" className="text-link">
+                Overnight dog sitter <ArrowRight size={15} />
+              </Link>
+            </div>
           </div>
           <div className="hero-local">
             <MapPin size={17} />
@@ -157,7 +168,7 @@ export default function Home() {
               unit: "/ night",
               copy: "House sitting in the comfort of your home.",
               extra: "Puppy overnights from $60",
-              slug: "house-sitting",
+              slug: "overnight-dog-sitting",
             },
             {
               title: "Drop-ins & walks",

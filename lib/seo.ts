@@ -1,5 +1,5 @@
 import type { Metadata } from "next"
-import { locations, services, site } from "./content"
+import { locations, services, site, serviceSeo, money } from "./content"
 import type { Location } from "./content"
 
 export function pageMetadata(
@@ -36,11 +36,34 @@ export const serviceAreas = locations.map((location) => ({
   url: `${site.url}/locations/${location.slug}`,
 }))
 
+export function locationPageTitle(location: Location) {
+  return `Dog Sitting & Pet Sitting in ${location.name}, IL`
+}
+
 export function locationMetadata(location: Location): Metadata {
+  const coverageNote = location.core
+    ? "Core service area—regular walks, visits, and overnight stays."
+    : "Coverage reviewed for travel time and availability."
   return pageMetadata(
-    `Dog Sitting & Pet Care in ${location.name}, IL`,
-    `Dog sitter Drew welcomes requests in ${location.name}, IL ${location.zip}. Overnight house sitting from $55/night; walks and cat visits from $22. Check coverage.`,
+    locationPageTitle(location),
+    `Dog sitting and pet sitting in ${location.name}, IL ${location.zip}. ${coverageNote} Overnight care from $55/night; walks and cat visits from $22. Request dates from Drew’s Pet Care.`,
     `/locations/${location.slug}`
+  )
+}
+
+export function serviceMetadata(service: (typeof services)[number]): Metadata {
+  const seo = serviceSeo[service.slug]
+  if (seo) {
+    return pageMetadata(
+      seo.title,
+      seo.description,
+      `/services/${service.slug}`
+    )
+  }
+  return pageMetadata(
+    `${service.name} in Fox River Grove & Cary, IL`,
+    `${service.name} by Drew in Fox River Grove, Cary and nearby Illinois towns. ${service.price ? `From ${money(service.price)} per ${service.unit}.` : "Personally quoted."} Request dates and a meet & greet.`,
+    `/services/${service.slug}`
   )
 }
 
@@ -51,7 +74,7 @@ export function locationSchema(location: Location) {
     "@type": "WebPage",
     "@id": `${url}#webpage`,
     url,
-    name: `Dog Sitting & Pet Care in ${location.name}, IL`,
+    name: locationPageTitle(location),
     description: location.copy,
     isPartOf: { "@id": `${site.url}/#website` },
     mainEntity: {
