@@ -24,6 +24,11 @@ export function Footer() {
         <div>
           <span className="eyebrow">EXPLORE</span>
           <Link href="/services">Services</Link>
+          <Link href="/services/cat-sitting">Cat sitting</Link>
+          <Link href="/services/dog-walking">Dog walking</Link>
+          <Link href="/services/overnight-dog-sitting">
+            Overnight dog sitting
+          </Link>
           <Link href="/guides/pet-sitting-rates">Rates & care guide</Link>
           <Link href="/about">About Drew</Link>
           <Link href="/locations">Service area</Link>

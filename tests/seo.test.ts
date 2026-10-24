@@ -5,8 +5,10 @@ import {
   aboutSchema,
   businessSchema,
   locationMetadata,
+  locationPageTitle,
   locationSchema,
   pageMetadata,
+  serviceMetadata,
   serviceSchema,
 } from "../lib/seo"
 import {
@@ -63,6 +65,16 @@ test("every acquisition page has a unique canonical sitemap URL", () => {
     })
     expect(metadata.twitter).toMatchObject({ description: "Care by Drew" })
   }
+})
+
+test("priority service pages target local search phrases in metadata", () => {
+  const cat = services.find((s) => s.slug === "cat-sitting")!
+  const walk = services.find((s) => s.slug === "dog-walking")!
+  const overnight = services.find((s) => s.slug === "overnight-dog-sitting")!
+  expect(serviceMetadata(cat).title).toContain("Cat Sitter Near Me")
+  expect(serviceMetadata(walk).title).toContain("Dog Walker Near Me")
+  expect(serviceMetadata(overnight).title).toMatch(/\$55/)
+  expect(serviceMetadata(overnight).title).toContain("Overnight Dog Sitter")
 })
 
 test("service offers use published prices and omit unquoted prices", () => {
@@ -162,9 +174,7 @@ test("town metadata and markup identify the service without inventing local bran
   for (const location of locations) {
     const url = `${site.url}/locations/${location.slug}`
     const metadata = locationMetadata(location)
-    expect(metadata.title).toBe(
-      `Dog Sitting & Pet Care in ${location.name}, IL`
-    )
+    expect(metadata.title).toBe(locationPageTitle(location))
     expect(metadata.description).toContain(location.zip)
     expect(metadata.alternates?.canonical).toBe(`/locations/${location.slug}`)
     expect(locationSchema(location)).toMatchObject({

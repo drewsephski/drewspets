@@ -20,6 +20,30 @@ export const site = {
 }
 export const services = [
   {
+    slug: "overnight-dog-sitting",
+    name: "Overnight Dog Sitting",
+    short: "Your dog at home. Company overnight from $55/night.",
+    description:
+      "In-home overnight dog sitting in Fox River Grove, Cary, and nearby Illinois towns. Your dog keeps familiar beds, meals, and walks while I stay overnight in your home and follow the routine you set.",
+    price: 5500,
+    unit: "night",
+    icon: "moon",
+    image: "/images/dogs-relaxing-at-home.jpg",
+    imageAlt: "Two dogs relaxing together at home",
+    imageWidth: 1650,
+    imageHeight: 2200,
+    imagePosition: "center",
+    includes: [
+      "Overnight stay in your home with your dog",
+      "Evening and morning walks on your schedule",
+      "Meals, water, and updates while you’re away",
+    ],
+    best: "Dogs who settle best at home and owners who want overnight company—not a kennel stay.",
+    question: "Is overnight dog sitting the same as 24-hour supervision?",
+    answer:
+      "Overnight dog sitting includes a stay in your home plus an agreed daytime routine. It is not continuous around-the-clock supervision. We’ll discuss time alone, extra visits, and walk times before confirming.",
+  },
+  {
     slug: "house-sitting",
     name: "House Sitting",
     short: "Their home. Their routine. Your peace of mind.",
@@ -72,7 +96,7 @@ export const services = [
     name: "Dog Walking",
     short: "Fresh air, happy noses, and a good stretch.",
     description:
-      "One-on-one neighborhood walks at your dog’s pace. From a leisurely sniff around the block to a longer outing, each walk is built around your dog.",
+      "Looking for a dog walker near Fox River Grove or Cary? I offer one-on-one neighborhood walks at your dog’s pace—from a quick potty break to a longer outing—personally handled by Drew.",
     price: 2200,
     unit: "walk",
     icon: "walk",
@@ -144,7 +168,7 @@ export const services = [
     name: "Cat Sitting",
     short: "Their space, their pace. Just how cats like it.",
     description:
-      "Quiet, attentive visits for your cat at home. Food, water, litter care, and company on their terms—whether that’s a game with a favorite toy or a respectful check-in.",
+      "In-home cat sitting for Fox River Grove, Cary, and nearby towns. Quiet visits cover food, water, litter care, and company on your cat’s terms—whether that’s playtime or a calm check-in while you’re away.",
     price: 2200,
     unit: "visit",
     icon: "cat",
@@ -189,17 +213,101 @@ export const services = [
   },
 ] as const
 export type ServiceSlug = (typeof services)[number]["slug"]
+
+export type ServiceSeo = {
+  title: string
+  description: string
+  heading: string
+  eyebrow?: string
+  sections?: { title: string; paragraphs: string[] }[]
+}
+
+export const serviceSeo: Partial<Record<ServiceSlug, ServiceSeo>> = {
+  "cat-sitting": {
+    title: "Cat Sitter Near Me | Fox River Grove, Cary & Nearby IL",
+    description:
+      "In-home cat sitter near Fox River Grove and Cary, IL. Visits from $22 with meals, litter care, and updates. Drew personally handles every cat visit in the core area and nearby towns by request.",
+    heading: "Cat sitter near Fox River Grove & Cary",
+    eyebrow: "IN-HOME CAT SITTING · FOX RIVER GROVE, IL",
+    sections: [
+      {
+        title: "Why choose in-home cat sitting?",
+        paragraphs: [
+          "Most cats do better in familiar surroundings than in a boarding setting. In-home cat sitting keeps litter boxes, feeding times, and hiding spots the same while you travel or work long hours.",
+          "I visit your home on a schedule we agree in advance—often once or twice a day for trips, or on recurring weekdays when you need a hand. Each visit includes fresh food and water, litter care, and a wellbeing check.",
+        ],
+      },
+      {
+        title: "Cat sitter near me in McHenry County",
+        paragraphs: [
+          "Drew’s Pet Care is based in Fox River Grove (60021), with Cary in the core service area. If you search for a cat sitter near me from Barrington, Crystal Lake, Algonquin, Lake in the Hills, Huntley, Wauconda, Island Lake, or Lake Barrington, send your city or ZIP and dates. Travel time and availability are reviewed before any visit is confirmed.",
+        ],
+      },
+    ],
+  },
+  "overnight-dog-sitting": {
+    title: "Overnight Dog Sitter — $55/Night | Fox River Grove & Cary, IL",
+    description:
+      "Overnight dog sitter in your Fox River Grove or Cary home from $55 per night. In-home stays with walks, meals, and photo updates. Drew personally provides care; request dates and a meet & greet.",
+    heading: "Overnight dog sitter from $55 per night",
+    eyebrow: "IN-HOME OVERNIGHT DOG SITTING · FROM $55/NIGHT",
+    sections: [
+      {
+        title: "What overnight dog sitting includes",
+        paragraphs: [
+          "Your dog stays at home with their usual bed, food, and yard or walk routine. I stay overnight in your home, handle evening and morning needs, and send updates so you know how the night went.",
+          "House sitting rates start at $55 per night for standard care. Puppy overnight care starts at $60 per night when extra breaks are needed. Holidays, additional pets, and special needs may change your quote—you’ll see the exact price before confirming.",
+        ],
+      },
+      {
+        title: "Overnight dog sitter near Fox River Grove",
+        paragraphs: [
+          "Fox River Grove and Cary are the core overnight service area. Requests from nearby towns—including Crystal Lake, Barrington, Algonquin, and Huntley—are considered when travel and scheduling allow. Overnight care is not continuous 24-hour supervision; we agree on time alone and any extra daytime visits upfront.",
+        ],
+      },
+    ],
+  },
+  "dog-walking": {
+    title: "Dog Walker Near Me | Fox River Grove, Cary & Nearby IL",
+    description:
+      "Dog walker near Fox River Grove and Cary, IL. One-on-one walks from $22 per 30-minute visit. Personally walked by Drew in the core area; nearby towns reviewed for travel and availability.",
+    heading: "Dog walker near Fox River Grove & Cary",
+    eyebrow: "NEIGHBORHOOD DOG WALKING · FOX RIVER GROVE, IL",
+    sections: [
+      {
+        title: "One-on-one walks, not a pack outing",
+        paragraphs: [
+          "Every walk is for your dog only—no group walks or unfamiliar dogs joining the leash. We match pace to your dog, whether that’s a brisk loop or a slow sniff through the neighborhood.",
+          "Visits are 30 or 60 minutes. Shorter outings work well for potty breaks and mid-day relief; longer walks suit high-energy dogs or owners who want extra exercise built into the day.",
+        ],
+      },
+      {
+        title: "Dog walker near me across the northwest suburbs",
+        paragraphs: [
+          "If you’re in Cary, Crystal Lake, Barrington, or another nearby community, include your city or ZIP when you request care. Regular weekday walks need a realistic time window from Fox River Grove; I’ll be upfront about what scheduling can support before you book.",
+        ],
+      },
+    ],
+  },
+  "house-sitting": {
+    title: "House Sitting & Overnight Pet Care from $55/Night",
+    description:
+      "House sitting and overnight pet care in Fox River Grove and Cary from $55 per night. Dogs, cats, and multi-pet homes welcome. Drew stays in your home and follows your instructions.",
+    heading: "House sitting & overnight pet care",
+    eyebrow: "OVERNIGHT CARE IN YOUR HOME · FROM $55/NIGHT",
+  },
+}
 export const locations = [
   {
     slug: "fox-river-grove-il",
     name: "Fox River Grove",
     core: true,
     zip: "60021",
-    intro: "Pet care, close to home.",
-    copy: "Fox River Grove is the home base for Drew’s Pet Care. That makes it a natural starting point for regular walks, midday drop-ins, and overnight care with a familiar local face.",
+    intro: "Dog sitting and pet sitting in Fox River Grove, IL 60021.",
+    copy: "Fox River Grove is the home base for Drew’s Pet Care—so dog sitting, pet sitting, dog walking, and overnight stays start here without a long drive across McHenry County. Whether you live near the Fox River, along Route 14, or closer to the Metra station, care is planned around your pet’s routine and your schedule.",
     context:
-      "If your day starts with a commute or takes you away for a weekend, share the times your pet normally eats, walks, and rests. I’ll help you choose between a visit, a longer walk, and overnight company.",
-    tip: "For walks near the river, tell me how your dog responds to water, wildlife, and other dogs. We’ll choose a comfortable route together.",
+      "Many Fox River Grove households split time between work in the city and evenings at home. Midday dog walks and drop-in visits can bridge a long shift; overnight dog sitting from $55 per night keeps dogs and cats in familiar rooms when you travel. Tell me your pet’s meal times, walk habits, and how they handle visitors so we can match house sitting, cat visits, or walks to what they need.",
+    tip: "For walks toward the river or park paths, mention how your dog reacts to bikes, other dogs, and wildlife. We’ll pick a route that feels safe for both of you.",
     nearby: ["Cary", "Barrington", "Lake Barrington", "Island Lake"],
     faq: "Can we arrange recurring weekday visits?",
     answer:
@@ -210,11 +318,11 @@ export const locations = [
     name: "Cary",
     core: true,
     zip: "60013",
-    intro: "A familiar routine for your Cary pet.",
-    copy: "Just next to Fox River Grove, Cary is part of the core service area. Walks and check-ins can help bridge long workdays, while house sitting keeps pets in their familiar home during a trip.",
+    intro: "Dog sitting and pet sitting in Cary, IL 60013.",
+    copy: "Cary sits right beside Fox River Grove, so it’s part of the core service area for Drew’s Pet Care. Dog walkers, cat sitters, and overnight sitters can reach Cary neighborhoods quickly—helpful when you need reliable midday walks or in-home care while you’re out of town.",
     context:
-      "A quick potty break and a full hour of attention serve different needs. When you request care, include your commute, your dog’s energy level, and when someone will next be home so we can choose the right visit length.",
-    tip: "Share your usual neighborhood route and any busy crossings you prefer to avoid. Familiar walks can help a new sitter feel less new.",
+      "Cary owners often ask for recurring weekday dog walks, vacation cat sitting, or overnight dog sitting while visiting family. Share whether you’re near downtown Cary, along Main Street, or in surrounding subdivisions, plus the dates and times you need covered. House sitting starts at $55 per night; walks and cat visits start at $22.",
+    tip: "If your dog knows a specific loop past Cary-Grove High School or quieter side streets, describe it when you request care. Matching your usual route can make the first walk feel familiar.",
     nearby: ["Fox River Grove", "Crystal Lake", "Island Lake"],
     faq: "Can my cat stay home while I travel?",
     answer:
