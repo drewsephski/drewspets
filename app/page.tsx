@@ -9,6 +9,7 @@ import { PhotoGallery } from "@/components/site/photo-gallery"
 import { aboutPhoto } from "@/lib/gallery"
 import { FAQ, FinalCTA } from "@/components/site/shared"
 import { PaymentCTA } from "@/components/payment-cta"
+import { SoftwareSection } from "@/components/site/software-section"
 export const metadata = pageMetadata(
   "Dog Sitting & Pet Sitting in Fox River Grove & Cary, IL",
   site.description,
@@ -58,7 +59,10 @@ export default function Home() {
               <Link href="/services/dog-walking" className="text-link">
                 Dog walker near me <ArrowRight size={15} />
               </Link>
-              <Link href="/services/overnight-dog-sitting" className="text-link">
+              <Link
+                href="/services/overnight-dog-sitting"
+                className="text-link"
+              >
                 Overnight dog sitter <ArrowRight size={15} />
               </Link>
             </div>
@@ -206,10 +210,7 @@ export default function Home() {
           needs. Your final price is always agreed in advance.
         </p>
         <div className="mt-4 flex justify-center">
-          <PaymentCTA
-            variant="text-link"
-            text="Have an invoice? Pay it here"
-          />
+          <PaymentCTA variant="text-link" text="Have an invoice? Pay it here" />
         </div>
       </section>
       <section id="reviews" className="shell review-section">
@@ -393,6 +394,7 @@ export default function Home() {
         <FAQ />
       </section>
       <FinalCTA />
+      <SoftwareSection />
     </>
   )
 }

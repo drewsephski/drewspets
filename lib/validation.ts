@@ -123,6 +123,16 @@ export const inquirySchema = z.object({
   ...base,
   message: required("Message", 2000),
 })
+export const softwareServices = [
+  "Business website",
+  "Voice agent",
+  "Other software",
+] as const
+export const softwareInquirySchema = z.object({
+  ...base,
+  service: z.enum(softwareServices),
+  message: required("A little about your project", 2000),
+})
 export const applicationSchema = z.object({
   ...base,
   city: required("City", 100),

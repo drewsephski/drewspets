@@ -51,6 +51,7 @@ test("every acquisition page has a unique canonical sitemap URL", () => {
   for (const path of [
     "/services",
     "/about",
+    "/software",
     "/locations",
     "/guides/pet-sitting-rates",
     ...services.map((s) => `/services/${s.slug}`),

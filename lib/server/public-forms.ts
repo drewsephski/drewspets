@@ -5,6 +5,7 @@ import { inquiries } from "@/lib/db/schema"
 import {
   applicationSchema,
   inquirySchema,
+  softwareInquirySchema,
   bookingSchema,
   visitService,
 } from "@/lib/validation"
@@ -14,7 +15,7 @@ import { emailConfig, sendRequestEmails } from "./email"
 import { sendRequestSms } from "./sms"
 export async function submitPublicForm(
   request: Request,
-  kind: "booking" | "application" | "inquiry"
+  kind: "booking" | "application" | "inquiry" | "software"
 ) {
   try {
     await publicGuard(request, kind)
@@ -28,9 +29,13 @@ export async function submitPublicForm(
           ? applicationSchema
               .transform((data) => ({ ...data, kind: "application" as const }))
               .safeParse(raw)
-          : inquirySchema
-              .transform((data) => ({ ...data, kind: "inquiry" as const }))
-              .safeParse(raw)
+          : kind === "software"
+            ? softwareInquirySchema
+                .transform((data) => ({ ...data, kind: "software" as const }))
+                .safeParse(raw)
+            : inquirySchema
+                .transform((data) => ({ ...data, kind: "inquiry" as const }))
+                .safeParse(raw)
     if (!parsed.success)
       return Response.json(
         { error: parsed.error.issues[0].message },
@@ -43,7 +48,9 @@ export async function submitPublicForm(
         ? "New pet care request"
         : kind === "application"
           ? "Future sitter interest"
-          : "New message for Drew"
+          : kind === "software"
+            ? "New software project inquiry"
+            : "New message for Drew"
     const details =
       input.kind === "booking"
         ? [
@@ -68,7 +75,9 @@ export async function submitPublicForm(
           ]
         : input.kind === "application"
           ? [`City: ${input.city}`]
-          : []
+          : input.kind === "software"
+            ? [`Service: ${input.service}`]
+            : []
     const body = [
       subject,
       `Name: ${input.name}`,
@@ -102,7 +111,9 @@ export async function submitPublicForm(
         ? "Thanks — I’ll personally review your request and get back to you shortly.\n\nYour dates aren’t confirmed yet. We’ll discuss the details and price together. No payment is needed now.\n\nDrew"
         : kind === "application"
           ? "Thanks for introducing yourself. I’ll keep your information for possible future opportunities and reach out if there’s a fit.\n\nDrew"
-          : "Thanks for your message. I’ll get back to you personally shortly.\n\nDrew"
+          : kind === "software"
+            ? "Thanks for telling me about your project. I’ll review your idea and get back to you personally to discuss what you need.\n\nDrew"
+            : "Thanks for your message. I’ll get back to you personally shortly.\n\nDrew"
     await sendRequestEmails({
       id: createHash("sha256")
         .update(`${input.requestId}:${body}`)
@@ -111,6 +122,9 @@ export async function submitPublicForm(
       subject,
       body,
       confirmation,
+      ...(kind === "software"
+        ? { confirmationSubject: "Thanks for sharing your project with Drew" }
+        : {}),
     })
     await sendRequestSms({
       requestId: input.requestId,

@@ -60,12 +60,17 @@ reserve dates, or create booking records.
 
 ## Inquiry delivery
 
-Booking and contact forms send a customer confirmation and a request email to
+Booking, contact, sitter interest, and software inquiry forms send a customer confirmation and a request email to
 Drew through Resend. Set RESEND_API_KEY, EMAIL_FROM (on a verified Resend
 domain), and ADMIN_EMAIL. DATABASE_URL is optional; when configured, the
 existing inquiry table stores the request summary and rate limiting is
 persistent. Without it, requests are delivered by email and rate limiting is
 best-effort per running instance.
+
+The `/software` page lists projects from `lib/software-projects.ts` and accepts
+website, voice agent, and other software inquiries through `/api/software`.
+It uses the same delivery configuration, with a software-specific email subject
+and service interest included in the saved request. No new migration is needed.
 
 Optional text alerts to Drew use Twilio. Set TWILIO_ACCOUNT_SID,
 TWILIO_AUTH_TOKEN, TWILIO_FROM_NUMBER, and ADMIN_SMS_TO as server-only
