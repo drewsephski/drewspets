@@ -30,6 +30,7 @@ export function Footer() {
             Overnight dog sitting
           </Link>
           <Link href="/guides/pet-sitting-rates">Rates & care guide</Link>
+          <Link href="/blog">Pet care blog</Link>
           <Link href="/about">About Drew</Link>
           <Link href="/locations">Service area</Link>
         </div>
