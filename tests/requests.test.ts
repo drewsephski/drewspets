@@ -3,6 +3,8 @@ import {
   bookingSchema,
   applicationSchema,
   inquirySchema,
+  softwareInquirySchema,
+  softwareServices,
 } from "../lib/validation"
 const base = {
   requestId: "c6a38f44-af3f-4517-8666-fd5edc674be1",
@@ -20,6 +22,36 @@ const valid = {
   cityZip: "60021",
   phone: "312-555-0123",
 }
+describe("software inquiries", () => {
+  const message = {
+    ...base,
+    service: "Business website",
+    message: "A site for my shop.",
+  }
+  test("accepts each supported service without requiring phone or budget", () => {
+    for (const service of softwareServices) {
+      expect(
+        softwareInquirySchema.safeParse({ ...message, service }).success
+      ).toBe(true)
+    }
+  })
+  test("rejects missing or unknown services, invalid contact details, spam and oversized messages", () => {
+    for (const change of [
+      { service: undefined },
+      { service: "Pet care" },
+      { name: " " },
+      { email: "invalid" },
+      { message: " " },
+      { message: "a".repeat(2001) },
+      { website: "spam.example" },
+      { requestId: "invalid" },
+    ]) {
+      expect(
+        softwareInquirySchema.safeParse({ ...message, ...change }).success
+      ).toBe(false)
+    }
+  })
+})
 describe("short care request", () => {
   test("requires no address, account, routine, medication or payment", () => {
     const result = bookingSchema.parse(valid)

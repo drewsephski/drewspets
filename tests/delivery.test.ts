@@ -43,6 +43,7 @@ mock.module("resend", () => ({
   },
 }))
 const { submitPublicForm } = await import("../lib/server/public-forms")
+const { POST: submitSoftware } = await import("../app/api/software/route")
 const { formatRequestSms, sendRequestSms } = await import("../lib/server/sms")
 const { notifyPayment } = await import("../lib/server/payment-notifications")
 const twilioSend = mock(
@@ -99,6 +100,99 @@ function request(body: unknown, origin = new URL(site.url).origin) {
     body: JSON.stringify(body),
   })
 }
+const softwareInput = {
+  requestId: input.requestId,
+  name: "Business Owner",
+  email: "owner@example.com",
+  service: "Voice agent",
+  message: "Help answer calls for my business.",
+}
+function softwareRequest(body: unknown, origin = new URL(site.url).origin) {
+  return new Request(`${origin}/api/software`, {
+    method: "POST",
+    headers: { origin, "content-type": "application/json" },
+    body: JSON.stringify(body),
+  })
+}
+test("software route stores service interest and sends relevant emails with safe retries", async () => {
+  expect((await submitSoftware(softwareRequest(softwareInput))).status).toBe(
+    201
+  )
+  expect(send.mock.calls[0][0]).toMatchObject({
+    subject: "New software project inquiry",
+    replyTo: softwareInput.email,
+    text: expect.stringContaining("Service: Voice agent"),
+  })
+  expect(send.mock.calls[1][0]).toMatchObject({
+    to: softwareInput.email,
+    subject: "Thanks for sharing your project with Drew",
+    text: expect.stringContaining("your project"),
+  })
+  expect((await submitSoftware(softwareRequest(softwareInput))).status).toBe(
+    201
+  )
+  expect(send.mock.calls[0][1]).toEqual(send.mock.calls[2][1])
+  expect(send.mock.calls[1][1]).toEqual(send.mock.calls[3][1])
+  const rows = await db.select().from(inquiries)
+  expect(rows).toHaveLength(1)
+  expect(rows[0].message).toContain(softwareInput.message)
+  expect(rows[0].message).toContain("Service: Voice agent")
+  expect(
+    (
+      await submitSoftware(
+        softwareRequest({ ...softwareInput, service: "Business website" })
+      )
+    ).status
+  ).toBe(409)
+  expect(send).toHaveBeenCalledTimes(4)
+})
+test("software route rejects invalid, spam and cross-origin requests before delivery", async () => {
+  for (const change of [
+    { service: "unknown" },
+    { message: "" },
+    { website: "spam" },
+  ]) {
+    expect(
+      (await submitSoftware(softwareRequest({ ...softwareInput, ...change })))
+        .status
+    ).toBe(400)
+  }
+  expect(
+    (
+      await submitSoftware(
+        softwareRequest(softwareInput, "https://untrusted.example")
+      )
+    ).status
+  ).toBe(403)
+  expect(send).not.toHaveBeenCalled()
+  expect(await db.select().from(inquiries)).toHaveLength(0)
+})
+test("software delivery failures remain visible and can be retried", async () => {
+  send.mockResolvedValueOnce({ error: { message: "delivery failed" } })
+  expect((await submitSoftware(softwareRequest(softwareInput))).status).toBe(
+    503
+  )
+  expect((await submitSoftware(softwareRequest(softwareInput))).status).toBe(
+    201
+  )
+  expect(send.mock.calls[0][1]).toEqual(send.mock.calls[1][1])
+  expect(await db.select().from(inquiries)).toHaveLength(1)
+})
+test("software rate limits use the existing public form guard", async () => {
+  for (let attempt = 0; attempt < 8; attempt++) {
+    expect(
+      (
+        await submitSoftware(
+          softwareRequest({ ...softwareInput, service: "invalid" })
+        )
+      ).status
+    ).toBe(400)
+  }
+  expect((await submitSoftware(softwareRequest(softwareInput))).status).toBe(
+    429
+  )
+  expect(send).not.toHaveBeenCalled()
+})
 test("database-free request sends details to Drew and confirmation to customer", async () => {
   delete process.env.DATABASE_URL
   const response = await submitPublicForm(request(input), "booking")

@@ -11,6 +11,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/guides/pet-sitting-rates",
     "/book",
     "/contact",
+    "/software",
     "/privacy",
     "/terms",
     ...services.map((s) => `/services/${s.slug}`),

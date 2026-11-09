@@ -16,6 +16,7 @@ export async function sendRequestEmails(input: {
   subject: string
   body: string
   confirmation: string
+  confirmationSubject?: string
 }) {
   const { key, from, to } = emailConfig()
   const resend = new Resend(key)
@@ -31,7 +32,8 @@ export async function sendRequestEmails(input: {
     {
       to: input.email,
       replyTo: to,
-      subject: "Thanks for contacting Drew’s Pet Care",
+      subject:
+        input.confirmationSubject ?? "Thanks for contacting Drew’s Pet Care",
       text: input.confirmation,
       suffix: "customer",
     },

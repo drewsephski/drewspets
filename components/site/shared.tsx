@@ -38,15 +38,13 @@ export function Footer() {
           <span className="eyebrow">LET’S TALK</span>
           <Link href="/book">Request care</Link>
           <Link href="/contact">Contact</Link>
-          <PaymentCTA
-            variant="text-link"
-            text="Make a payment"
-          />
+          <PaymentCTA variant="text-link" text="Make a payment" />
           <Link href="/#faq">Common questions</Link>
           <Link href="/refer">Refer a friend</Link>
           <Link href="/apply">
             Future sitter opportunities <ArrowUpRight size={13} />
           </Link>
+          <Link href="/software">Software & websites</Link>
         </div>
         <div className="footer-note">
           <span className="eyebrow">YOUR LOCAL PET PERSON.</span>
