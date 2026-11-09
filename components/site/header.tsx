@@ -4,7 +4,7 @@ import { ArrowUpRight } from "@/components/site/arrows"
 import Image from "next/image"
 import Link from "next/link"
 import { useTheme } from "next-themes"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Menu, X, MapPin, Sun, Moon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
@@ -44,9 +44,40 @@ const links = [
 ]
 export function Header() {
   const [open, setOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
   const { resolvedTheme, setTheme } = useTheme()
+  const headerRef = useRef<HTMLElement>(null)
+  useEffect(() => {
+    const update = () => setScrolled(window.scrollY > 8)
+    update()
+    window.addEventListener("scroll", update, { passive: true })
+    return () => window.removeEventListener("scroll", update)
+  }, [])
+  // The nav sits between the brand and the actions; its offset from the
+  // header's center is half their width difference. Expose it so the
+  // scrolled pill can slide to the true center.
+  useEffect(() => {
+    const header = headerRef.current
+    const brand = header?.querySelector<HTMLElement>(".brand")
+    const actions = header?.querySelector<HTMLElement>(".header-actions")
+    if (!header || !brand || !actions) return
+    const measure = () =>
+      header.style.setProperty(
+        "--nav-shift",
+        `${(actions.offsetWidth - brand.offsetWidth) / 2}px`
+      )
+    measure()
+    const observer = new ResizeObserver(measure)
+    observer.observe(brand)
+    observer.observe(actions)
+    return () => observer.disconnect()
+  }, [])
   return (
-    <header className="site-header">
+    <header
+      ref={headerRef}
+      className="site-header"
+      data-scrolled={scrolled || undefined}
+    >
       <div className="shell header-inner">
         <Brand />
         <nav className="desktop-nav" aria-label="Main navigation">
