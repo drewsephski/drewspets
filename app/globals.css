@@ -2553,3 +2553,238 @@ summary:focus-visible {
   margin: 48px auto 0;
   padding-bottom: 60px;
 }
+
+/* ------------------------------------------------------------------
+   Dark theme overrides
+   The light palette above uses hard-coded colors in many components.
+   These rules remap them for .dark so surfaces, text and accents stay
+   readable. Light mode is untouched.
+   ------------------------------------------------------------------ */
+.dark {
+  color-scheme: dark;
+  --band: #1b2019;
+  --surface: #283027;
+  --surface-raised: #2d352c;
+  --text-strong: #e6ecdc;
+  --text-soft: #aab29f;
+  --text-accent: #a9bf93;
+}
+.dark ::selection {
+  background: #4a5c3e;
+}
+.dark a:focus-visible,
+.dark button:focus-visible,
+.dark summary:focus-visible {
+  outline-color: #a3b98e;
+}
+
+/* Type accents */
+.dark .eyebrow,
+.dark .area-list small,
+.dark .step-number,
+.dark .more-services > a {
+  color: var(--text-accent);
+}
+.dark .serif-italic,
+.dark .founder-signature {
+  color: #b3c79e;
+}
+.dark .hero-local,
+.dark .desktop-nav,
+.dark .service-card-body li,
+.dark .service-rate,
+.dark .more-services span,
+.dark .quiet-note,
+.dark .founder-label,
+.dark .area-footnote,
+.dark .rate-price > span,
+.dark .rate-card > small,
+.dark .location-label,
+.dark .footer-bottom,
+.dark .breadcrumbs,
+.dark .field small,
+.dark .service-option span,
+.dark .plain-button,
+.dark .review-row > span:first-child,
+.dark .consent,
+.dark .detail-list dt,
+.dark .calendar-label,
+.dark .loading-state {
+  color: var(--text-soft);
+}
+.dark .brand,
+.dark .text-link,
+.dark .service-rate strong,
+.dark .service-rate > span,
+.dark .form-card legend {
+  color: var(--text-strong);
+}
+
+/* Buttons */
+.dark .button {
+  color: var(--primary-foreground);
+}
+.dark .button:hover {
+  background: #d5dfca;
+}
+.dark .button.secondary {
+  background: transparent;
+  color: var(--primary);
+}
+.dark .button.secondary:hover {
+  background: var(--secondary);
+}
+.dark .button.cream {
+  background: #f4f2e7;
+  border-color: #f4f2e7;
+  color: #283429;
+}
+.dark .skip-link {
+  background: var(--card);
+  color: var(--foreground);
+}
+
+/* Header */
+.dark .site-header {
+  background: rgba(32, 37, 31, 0.97);
+}
+.dark .status-dot {
+  background: #8fae78;
+  box-shadow: 0 0 0 4px #2f3a2b;
+}
+
+/* Cards and surfaces */
+.dark .service-card,
+.dark .panel,
+.dark .form-card,
+.dark .pet-card,
+.dark .rate-card {
+  background: var(--surface);
+}
+.dark .service-card:hover {
+  box-shadow: 0 12px 24px rgb(0 0 0 / 30%);
+}
+.dark .form-card {
+  box-shadow: 0 12px 40px rgb(0 0 0 / 25%);
+}
+.dark .service-photo-icon {
+  background: rgba(32, 37, 31, 0.9);
+  color: var(--text-strong);
+}
+.dark .check-list svg,
+.dark .review-section > svg {
+  color: var(--text-accent);
+}
+
+/* Section bands */
+.dark .how-section,
+.dark .area-section,
+.dark .review-section {
+  background: var(--band);
+}
+.dark .step-number {
+  border-top-color: var(--border);
+}
+.dark .area-list > a {
+  border-bottom-color: var(--border);
+}
+.dark .area-list > a:hover {
+  border-color: #6f8060;
+}
+.dark .area-dot {
+  background: #7d9168;
+}
+
+/* Final CTA */
+.dark .final-cta {
+  background: #2c3d2d;
+}
+
+/* Forms */
+.dark .field [data-slot="input"],
+.dark .field [data-slot="select-trigger"],
+.dark .field [data-slot="textarea"],
+.dark .date-trigger,
+.dark .service-option {
+  background: var(--surface-raised);
+}
+.dark .service-option:has(input:checked) {
+  border-color: #a3b98e;
+  background: #34422f;
+  box-shadow: 0 0 0 1px #a3b98e;
+}
+.dark .service-option input,
+.dark .consent input {
+  accent-color: #a3b98e;
+}
+.dark .field-error {
+  color: #f08b80;
+}
+.dark .form-error {
+  color: #f6b3aa;
+  background: #3d2522;
+}
+.dark .form-info,
+.dark .status-badge,
+.dark .success-icon {
+  background: #2f3a2b;
+  color: #c4d1b8;
+}
+.dark .status-badge {
+  border-color: #46523f;
+}
+.dark .empty-state {
+  border-color: var(--border);
+}
+
+/* Calendar and loading */
+.dark .calendar-day.unavailable {
+  background: #3f2a25;
+}
+.dark .calendar-day.partial {
+  background: #3b3822;
+}
+.dark .loading-dot {
+  border-color: #3c4439;
+  border-top-color: #a3b98e;
+}
+
+/* ------------------------------------------------------------------
+   Custom scrollbar
+   Standard properties for Chrome 121+, Edge and Firefox; the
+   ::-webkit-scrollbar fallback covers Safari. (Chrome ignores the
+   webkit rules whenever scrollbar-color is supported, hence @supports.)
+   ------------------------------------------------------------------ */
+:root {
+  --scrollbar-track: var(--background);
+  --scrollbar-thumb: #c9cfbd;
+  --scrollbar-thumb-hover: #9aa68c;
+}
+.dark {
+  --scrollbar-thumb: #485245;
+  --scrollbar-thumb-hover: #6f8060;
+}
+html {
+  scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  scrollbar-width: thin;
+}
+@supports not (scrollbar-color: auto) {
+  ::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border: 3px solid var(--scrollbar-track);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+  }
+  ::-webkit-scrollbar-corner {
+    background: var(--scrollbar-track);
+  }
+}
