@@ -1,3 +1,4 @@
+import { ThemeProvider } from "@/components/theme-provider"
 import type { Metadata } from "next"
 import { DM_Sans, Manrope, Lora } from "next/font/google"
 import { Header } from "@/components/site/header"
@@ -63,17 +64,20 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${body.variable} ${heading.variable} ${editorial.variable}`}
     >
       <body>
-        <a href="#main" className="skip-link">
-          Skip to content
-        </a>
-        <JsonLd data={businessSchema()} />
-        <Header />
-        <main id="main">{children}</main>
-        <Footer />
-        <AnalyticsProvider />
+        <ThemeProvider>
+          <a href="#main" className="skip-link">
+            Skip to content
+          </a>
+          <JsonLd data={businessSchema()} />
+          <Header />
+          <main id="main">{children}</main>
+          <Footer />
+          <AnalyticsProvider />
+        </ThemeProvider>
       </body>
     </html>
   )

@@ -3,8 +3,9 @@
 import { ArrowUpRight } from "@/components/site/arrows"
 import Image from "next/image"
 import Link from "next/link"
+import { useTheme } from "next-themes"
 import { useState } from "react"
-import { Menu, X, MapPin } from "lucide-react"
+import { Menu, X, MapPin, Sun, Moon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
@@ -43,6 +44,7 @@ const links = [
 ]
 export function Header() {
   const [open, setOpen] = useState(false)
+  const { resolvedTheme, setTheme } = useTheme()
   return (
     <header className="site-header">
       <div className="shell header-inner">
@@ -55,6 +57,18 @@ export function Header() {
           ))}
         </nav>
         <div className="header-actions">
+          <Button
+            variant="ghost"
+            size="icon-lg"
+            aria-label="Toggle color theme"
+            title="Toggle color theme"
+            onClick={() =>
+              setTheme(resolvedTheme === "dark" ? "light" : "dark")
+            }
+          >
+            <Sun className="hidden dark:block" aria-hidden="true" />
+            <Moon className="dark:hidden" aria-hidden="true" />
+          </Button>
           <Button
             nativeButton={false}
             render={<Link href="/book" />}
