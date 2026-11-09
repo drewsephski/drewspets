@@ -2429,3 +2429,97 @@ summary:focus-visible {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+/* Blog: a single reading column that reuses the guide's warm palette. */
+.post-list {
+  display: grid;
+  gap: 24px;
+  padding: 0 0 60px;
+  list-style: none;
+}
+.post-list h2 {
+  margin: 8px 0 12px;
+  font-size: clamp(24px, 2.6vw, 32px);
+}
+.post-list h2 a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.post-list .text-link {
+  margin-top: 18px;
+}
+.post-meta {
+  font-size: 13px;
+}
+.post-body {
+  max-width: 680px;
+  margin: 40px auto 0;
+}
+.post-body h2 {
+  margin: 48px 0 16px;
+  font-size: clamp(26px, 2.8vw, 34px);
+}
+.post-body h3,
+.post-body h4 {
+  margin: 32px 0 12px;
+}
+.post-body p,
+.post-body ul,
+.post-body ol,
+.post-body blockquote {
+  margin: 0 0 18px;
+  line-height: 1.7;
+}
+.post-body ul,
+.post-body ol {
+  padding-left: 1.25rem;
+  color: var(--muted-foreground);
+}
+.post-body ul {
+  list-style: disc;
+}
+.post-body ol {
+  list-style: decimal;
+}
+.post-body li + li {
+  margin-top: 8px;
+}
+.post-body strong {
+  color: var(--foreground);
+  font-weight: 600;
+}
+.post-body a {
+  color: var(--primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.post-body blockquote {
+  border-left: 3px solid var(--border);
+  padding-left: 16px;
+}
+.post-body table {
+  width: 100%;
+  margin: 0 0 18px;
+  text-align: left;
+}
+.post-body th,
+.post-body td {
+  padding: 10px 8px;
+  border-top: 1px solid var(--border);
+}
+.post-aside {
+  max-width: 680px;
+  margin: 48px auto 0;
+}
+.post-aside h2 {
+  margin: 0 0 12px;
+  font-size: clamp(24px, 2.6vw, 30px);
+}
+.post-aside .service-link-list {
+  margin: 20px 0;
+}
+.post-more {
+  max-width: 680px;
+  margin: 48px auto 0;
+  padding-bottom: 60px;
+}

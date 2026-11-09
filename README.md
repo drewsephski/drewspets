@@ -146,6 +146,32 @@ remain to preserve data; they do not activate accounts, CRM, sitter management,
 or booking lifecycle features. Payment alert records are independent of those
 historical tables.
 
+## Blog and daily drafts
+
+Posts are Markdown files in `content/blog/<slug>.md` and publish at `/blog`,
+in the sitemap (with `lastmod`), and in the RSS feed at `/blog/feed.xml`. The
+blog index stays `noindex` and out of the sitemap until the first post exists.
+Set `draft: true` in a post's frontmatter to hide it without deleting it.
+
+`.github/workflows/blog-draft.yml` runs every morning. It asks Claude to
+draft one post from the first idea in `content/blog/_topics.md` (or a seasonal
+topic when the queue is empty) and opens a pull request labelled
+`blog-draft`. The PR body lists claims to double-check. Review the Vercel
+preview, edit freely, then merge to publish or close to skip. The job does
+nothing while three drafts are already open (`BLOG_MAX_OPEN_DRAFTS`), so
+unreviewed drafts never pile up, and nothing reaches `main` without a merge.
+
+Drafts may only use facts from `lib/content.ts`: no invented stories,
+reviews, credentials, or availability promises. `bun test` rejects any post
+with links to unknown pages, dollar amounts other than published prices,
+raw HTML, a `#` heading, or fewer than 500 words. That includes posts edited
+by hand.
+
+Setup: add the `ANTHROPIC_API_KEY` repository secret, and enable Settings →
+Actions → General → "Allow GitHub Actions to create and approve pull
+requests". Run it on demand from the Actions tab (optionally with a topic),
+or locally with `bun --env-file=.env.local run blog:draft --dry-run`.
+
 ## Local checks
 
 ```sh

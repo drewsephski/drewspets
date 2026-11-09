@@ -1,0 +1,98 @@
+# Drafts one blog post a day with Claude and opens a pull request for review.
+# Merging the PR publishes the post (Vercel deploys main); closing it skips it.
+#
+# Setup:
+#   1. Repo Settings → Secrets and variables → Actions → add ANTHROPIC_API_KEY.
+#   2. Repo Settings → Actions → General → Workflow permissions: enable
+#      "Allow GitHub Actions to create and approve pull requests".
+#   3. Optional: Actions variable BLOG_MAX_OPEN_DRAFTS (default 3).
+name: Daily blog draft
+
+on:
+  schedule:
+    # 13:15 UTC = 7:15 a.m. Central (CST) / 8:15 a.m. (CDT).
+    - cron: "15 13 * * *"
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: "Topic to write about (leave empty to use the queue)"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: blog-draft
+  cancel-in-progress: false
+
+jobs:
+  draft:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        shell: bash # adds -o pipefail so a failed draft stops the job
+    env:
+      GH_TOKEN: ${{ github.token }}
+      MAX_OPEN: ${{ vars.BLOG_MAX_OPEN_DRAFTS || '3' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Skip when enough drafts are waiting for review
+        id: gate
+        env:
+          TOPIC: ${{ inputs.topic }}
+        run: |
+          gh label create blog-draft --color C2E0C6 \
+            --description "Automated blog draft awaiting review" 2>/dev/null || true
+          open=$(gh pr list --label blog-draft --state open --json number --jq length)
+          echo "Open blog drafts: $open (limit $MAX_OPEN)"
+          if [ "$open" -ge "$MAX_OPEN" ] && [ -z "$TOPIC" ]; then
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - uses: oven-sh/setup-bun@v2
+        if: steps.gate.outputs.skip != 'true'
+
+      - name: Install dependencies
+        if: steps.gate.outputs.skip != 'true'
+        run: bun install --frozen-lockfile
+
+      - name: Draft a post
+        id: draft
+        if: steps.gate.outputs.skip != 'true'
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          NEXT_PUBLIC_SITE_URL: https://drewspets.com
+          TOPIC: ${{ inputs.topic }}
+        run: |
+          args=(--pr-body "$RUNNER_TEMP/pr-body.md")
+          if [ -n "$TOPIC" ]; then args+=(--topic "$TOPIC"); fi
+          result=$(bun scripts/blog/draft-post.ts "${args[@]}" | tail -n 1)
+          echo "slug=$(jq -r .slug <<<"$result")" >> "$GITHUB_OUTPUT"
+          echo "title=$(jq -r .title <<<"$result")" >> "$GITHUB_OUTPUT"
+
+      - name: Check the draft
+        if: steps.gate.outputs.skip != 'true'
+        env:
+          NEXT_PUBLIC_SITE_URL: https://drewspets.com
+        run: bun test tests/blog.test.ts
+
+      - name: Open a pull request
+        if: steps.gate.outputs.skip != 'true'
+        env:
+          SLUG: ${{ steps.draft.outputs.slug }}
+          TITLE: ${{ steps.draft.outputs.title }}
+        run: |
+          branch="blog/$(date -u +%Y-%m-%d)-$SLUG"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git switch -c "$branch"
+          git add content/blog
+          git commit -m "Draft blog post: $TITLE"
+          git push origin "$branch"
+          gh pr create --base "${{ github.event.repository.default_branch }}" \
+            --head "$branch" --label blog-draft \
+            --title "Blog draft: $TITLE" --body-file "$RUNNER_TEMP/pr-body.md"
