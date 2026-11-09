@@ -281,8 +281,24 @@ summary:focus-visible {
   font-size: 12px;
   color: #565b50;
 }
-.desktop-nav a:hover {
+.desktop-nav a {
+  position: relative;
+  isolation: isolate;
+  transition: color 0.2s ease;
+}
+.desktop-nav a:hover,
+.desktop-nav a:focus-visible {
   color: var(--primary);
+}
+.nav-hover-pill {
+  position: absolute;
+  inset: -4px -11px;
+  z-index: -1;
+  border-radius: 999px;
+  background: var(--accent);
+}
+.nav-link-label {
+  position: relative;
 }
 .header-actions {
   display: flex;

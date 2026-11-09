@@ -6,6 +6,7 @@ import Link from "next/link"
 import { useTheme } from "next-themes"
 import { useEffect, useRef, useState } from "react"
 import { Menu, X, MapPin, Sun, Moon } from "lucide-react"
+import { AnimatePresence, motion, useReducedMotion } from "motion/react"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
@@ -42,6 +43,57 @@ const links = [
   ["About", "/about"],
   ["FAQ", "/#faq"],
 ]
+const hoverSpring = {
+  type: "spring",
+  stiffness: 520,
+  damping: 38,
+  mass: 0.8,
+} as const
+
+// A soft pill follows the pointer (or keyboard focus) between links,
+// springing from one to the next and fading out when you leave the nav.
+function DesktopNav() {
+  const [active, setActive] = useState<string | null>(null)
+  const reduceMotion = useReducedMotion()
+  return (
+    <nav
+      className="desktop-nav"
+      aria-label="Main navigation"
+      onMouseLeave={() => setActive(null)}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setActive(null)
+      }}
+    >
+      {links.map(([name, href]) => (
+        <Link
+          key={name}
+          href={href}
+          onMouseEnter={() => setActive(name)}
+          onFocus={() => setActive(name)}
+        >
+          <AnimatePresence>
+            {active === name && (
+              <motion.span
+                layoutId="desktop-nav-hover"
+                className="nav-hover-pill"
+                aria-hidden="true"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={
+                  reduceMotion
+                    ? { duration: 0 }
+                    : { ...hoverSpring, opacity: { duration: 0.15 } }
+                }
+              />
+            )}
+          </AnimatePresence>
+          <span className="nav-link-label">{name}</span>
+        </Link>
+      ))}
+    </nav>
+  )
+}
 export function Header() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -80,13 +132,7 @@ export function Header() {
     >
       <div className="shell header-inner">
         <Brand />
-        <nav className="desktop-nav" aria-label="Main navigation">
-          {links.map(([name, href]) => (
-            <Link key={name} href={href}>
-              {name}
-            </Link>
-          ))}
-        </nav>
+        <DesktopNav />
         <div className="header-actions">
           <Button
             variant="ghost"
