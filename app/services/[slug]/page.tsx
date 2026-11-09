@@ -50,79 +50,91 @@ export default async function ServicePage({
           parent={{ name: "Services", path: "/services" }}
         />
         <PageIntro
-          eyebrow={seo?.eyebrow ?? "PERSONAL CARE, AT THEIR PACE."}
           title={seo?.heading ?? `${s.name} in Fox River Grove & Cary`}
           description={s.description}
         />
         <JsonLd
           data={{ "@context": "https://schema.org", ...serviceSchema(s) }}
         />
-        <div className="content-grid">
-          <div>
-            <h2>Is this right for your pet?</h2>
-            <p>{s.best}</p>
-            <h2>What’s included</h2>
+        <div className="service-overview">
+          <div className="service-overview-image">
+            <Image
+              src={s.image}
+              alt={s.imageAlt}
+              fill
+              priority
+              sizes="(max-width: 760px) 100vw, 520px"
+              style={{ objectPosition: s.imagePosition ?? "center" }}
+            />
+          </div>
+          <div className="booking-card">
+            {s.price ? (
+              <p className="booking-price">
+                <span className="booking-from">From</span>
+                <span className="booking-amount">{money(s.price)}</span>
+                <span className="booking-unit">per {s.unit}</span>
+              </p>
+            ) : (
+              <p className="booking-price">
+                <span className="booking-amount booking-amount-text">
+                  Personally quoted
+                </span>
+              </p>
+            )}
+            <p className="booking-best">
+              <strong>Best for</strong> {s.best}
+            </p>
+            <h2 className="booking-label">What’s included</h2>
             <ul className="check-list">
               {s.includes.map((i) => (
                 <li key={i}>
-                  <Check size={17} />
+                  <Check size={17} aria-hidden="true" />
                   {i}
                 </li>
               ))}
             </ul>
-            {seo?.sections?.map((section) => (
-              <div key={section.title}>
-                <h2>{section.title}</h2>
-                {section.paragraphs.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
-              </div>
-            ))}
+            <Button
+              nativeButton={false}
+              render={<Link href={`/book?service=${slug}`} />}
+              className="site-button booking-button"
+              size="lg"
+            >
+              Check availability <ArrowUpRight size={16} />
+            </Button>
+            <p className="booking-note">
+              Free to ask. No payment until we agree on a plan.
+            </p>
+          </div>
+        </div>
+        <div className="service-details">
+          {seo?.sections?.map((section) => (
+            <section key={section.title}>
+              <h2>{section.title}</h2>
+              {section.paragraphs.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
+              ))}
+            </section>
+          ))}
+          <section>
             <h2>Where I offer {s.name.toLowerCase()}</h2>
             <p>
               Based in Fox River Grove, Illinois, with Cary in the core service
               area. Requests from nearby towns are reviewed for travel time and
               availability.
             </p>
-            <div className="service-link-list">
+            <ul className="pill-list" aria-label="Service towns">
               {locations.map((location) => (
-                <Link key={location.slug} href={`/locations/${location.slug}`}>
-                  {location.name}, IL <ArrowUpRight size={16} />
-                </Link>
+                <li key={location.slug}>
+                  <Link
+                    href={`/locations/${location.slug}`}
+                    data-core={location.core || undefined}
+                  >
+                    {location.name}
+                  </Link>
+                </li>
               ))}
-            </div>
-          </div>
-          <aside>
-            <div className="content-image">
-              <Image
-                src={s.image}
-                alt={s.imageAlt}
-                fill
-                sizes="(max-width:700px) 100vw, 40vw"
-                style={{ objectPosition: s.imagePosition ?? "center" }}
-              />
-            </div>
-            <div className="panel">
-              <span className="eyebrow">LET’S MAKE A PLAN.</span>
-              <h3>
-                {s.price
-                  ? `From ${money(s.price)} / ${s.unit}`
-                  : "Personally quoted"}
-              </h3>
-              <p>
-                Send me your dates and a little about your pets. I’ll get back
-                to you personally.
-              </p>
-              <Button
-                nativeButton={false}
-                render={<Link href={`/book?service=${slug}`} />}
-                className="site-button mt-5"
-                size="lg"
-              >
-                Check availability <ArrowUpRight size={16} />
-              </Button>
-            </div>
-          </aside>
+            </ul>
+          </section>
         </div>
         <FAQ
           title="Before we confirm"
@@ -141,19 +153,18 @@ export default async function ServicePage({
             ],
           ]}
         />
-        <div style={{ paddingBottom: 60 }}>
-          <span className="eyebrow">OTHER WAYS I CAN HELP</span>
-          <div className="service-link-list">
+        <nav className="related-services" aria-label="Other services">
+          <h2>Other ways I can help</h2>
+          <ul className="pill-list">
             {services
               .filter((x) => x.slug !== slug)
               .map((x) => (
-                <Link key={x.slug} href={`/services/${x.slug}`}>
-                  {x.name}
-                  <ArrowUpRight size={16} />
-                </Link>
+                <li key={x.slug}>
+                  <Link href={`/services/${x.slug}`}>{x.name}</Link>
+                </li>
               ))}
-          </div>
-        </div>
+          </ul>
+        </nav>
       </div>
       <FinalCTA />
     </>

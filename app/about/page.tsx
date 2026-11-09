@@ -25,7 +25,6 @@ export default function AboutPage() {
       <article className="shell inner-page reading-page">
         <Breadcrumbs name="About Drew" path="/about" />
         <PageIntro
-          eyebrow="YOUR LOCAL PET PERSON"
           title="Hi, I’m Drew. I’ll be your pet’s sitter."
           description="I run Drew’s Pet Care from Fox River Grove, Illinois, and personally handle every visit and stay. We’ll talk directly about your pet’s routine, your dates, and the care you need."
         />
@@ -77,35 +76,33 @@ export default function AboutPage() {
               sizes="(max-width: 700px) 100vw, 40vw"
               className="h-auto w-full rounded-2xl"
             />
-            <div className="panel mt-6">
-              <h2>Find me and get in touch.</h2>
-              <p>
-                <a href={site.googleMapsUrl} className="text-link">
-                  Drew’s Pet Care on Google <ArrowUpRight size={16} />
-                </a>
-              </p>
-              <p>
-                <a href={site.sitterProfileUrl} className="text-link">
-                  My Sitterfolio profile <ArrowUpRight size={16} />
-                </a>
-              </p>
-              <p>
-                <a href={`tel:${site.phone}`} className="text-link">
-                  Call Drew: {site.phone}
-                </a>
-              </p>
-              <p>
-                <Link href="/contact" className="text-link">
-                  Send me a question <ArrowUpRight size={16} />
-                </Link>
-              </p>
-              <p>
-                Have I cared for your pet? You can share an honest review on
-                Google.
-              </p>
-              <a href={site.googleReviewUrl} className="text-link">
-                Review your experience <ArrowUpRight size={16} />
+            <div className="booking-card about-contact">
+              <h2 className="booking-label">Get in touch</h2>
+              <a href={`tel:${site.phone}`} className="about-phone">
+                {site.phone.replace(/^\+1(\d{3})(\d{3})(\d{4})$/, "($1) $2-$3")}
               </a>
+              <ul className="about-links">
+                <li>
+                  <Link href="/contact" className="text-link">
+                    Send me a question <ArrowUpRight size={16} />
+                  </Link>
+                </li>
+                <li>
+                  <a href={site.googleMapsUrl} className="text-link">
+                    Drew’s Pet Care on Google <ArrowUpRight size={16} />
+                  </a>
+                </li>
+                <li>
+                  <a href={site.sitterProfileUrl} className="text-link">
+                    My Sitterfolio profile <ArrowUpRight size={16} />
+                  </a>
+                </li>
+                <li>
+                  <a href={site.googleReviewUrl} className="text-link">
+                    Leave an honest review <ArrowUpRight size={16} />
+                  </a>
+                </li>
+              </ul>
             </div>
           </aside>
         </div>

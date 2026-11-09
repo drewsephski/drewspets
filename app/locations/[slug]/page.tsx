@@ -48,73 +48,80 @@ export default async function Location({
           parent={{ name: "Service area", path: "/locations" }}
         />
         <PageIntro
-          eyebrow={`DREW’S PET CARE · ${l.name.toUpperCase()}, ILLINOIS`}
           title={locationPageTitle(l)}
           description={l.copy}
         />
-        <div className="content-grid reading-grid">
-          <div>
+        <div className="location-facts">
+          <div className="location-facts-row">
+            <div>
+              <span className="location-facts-label">Coverage</span>
+              <strong>
+                {l.core ? "Core service area" : "Reviewed by request"}
+              </strong>
+            </div>
+            <div>
+              <span className="location-facts-label">House sitting</span>
+              <strong>From $55 / night</strong>
+            </div>
+            <div>
+              <span className="location-facts-label">Walks & visits</span>
+              <strong>From $22</strong>
+            </div>
+          </div>
+          <Button
+            nativeButton={false}
+            render={<Link href="/book" />}
+            className="site-button"
+            size="lg"
+          >
+            Request your dates <ArrowUpRight size={16} />
+          </Button>
+        </div>
+        <div className="service-details">
+          <section>
             <h2>{l.intro}</h2>
             <p>
               Looking for a dog sitter or pet sitter near {l.name} ({l.zip})?
-              Drew personally handles every visit and stay. House sitting starts
-              at $55 per night; dog walks, drop-ins, and cat visits start at
-              $22. Coverage depends on your address, dates, and travel time, and
-              your exact price is agreed before confirming.
+              Drew personally handles every visit and stay. Coverage depends on
+              your address, dates, and travel time, and your exact price is
+              agreed before confirming.
             </p>
             <p>
-              <strong>
-                {l.core
-                  ? "Core service area."
-                  : "Coverage reviewed by request."}
-              </strong>{" "}
               Drew is based in Fox River Grove.{" "}
               {l.core
                 ? "Regular walks, visits, and overnight stays are arranged around current availability."
                 : "Send your town, dates, and preferred visit times so travel can be checked before you make plans."}
             </p>
-            <Link href="/guides/pet-sitting-rates" className="text-link">
-              See rates and care options <ArrowUpRight size={16} />
-            </Link>
-            <h2>Plan care around your day.</h2>
+          </section>
+          <section>
+            <h2>Plan care around your day</h2>
             <p>{l.context}</p>
             <div className="form-info">
               <MapPin size={19} aria-hidden="true" />
               <p>{l.tip}</p>
             </div>
+          </section>
+          <section>
             <h2>Services in {l.name}</h2>
-            <p>
-              Take a look at the options below. If you’re not sure what would
-              suit your pet, I’m happy to help you choose.
-            </p>
             <ServiceLinks />
-          </div>
-          <aside className="panel">
-            <span className="eyebrow">A LOCAL STARTING POINT</span>
-            <h3>Let’s meet your pet.</h3>
-            <p>
-              Tell me what a good day looks like for them. We’ll work out the
-              rest together.
+            <p className="mt-6">
+              <Link href="/guides/pet-sitting-rates" className="text-link">
+                See rates and care options <ArrowUpRight size={16} />
+              </Link>
             </p>
-            <Button
-              nativeButton={false}
-              render={<Link href="/book" />}
-              className="site-button mt-5"
-              size="lg"
-            >
-              Request your dates <ArrowUpRight size={16} />
-            </Button>
-            <h3 style={{ marginTop: 35, fontSize: 15 }}>Nearby communities</h3>
-            {locations
-              .filter((x) => l.nearby.some((n) => n === x.name))
-              .map((x) => (
-                <p key={x.slug}>
-                  <Link className="text-link" href={`/locations/${x.slug}`}>
-                    {x.name} <ArrowUpRight size={14} />
-                  </Link>
-                </p>
-              ))}
-          </aside>
+          </section>
+          <section>
+            <h2>Nearby communities</h2>
+            <ul className="pill-list">
+              {locations
+                .filter((x) => l.nearby.some((n) => n === x.name))
+                .map((x) => (
+                  <li key={x.slug}>
+                    <Link href={`/locations/${x.slug}`}>{x.name}</Link>
+                  </li>
+                ))}
+            </ul>
+          </section>
         </div>
         <FAQ
           title="A few local details"

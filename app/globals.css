@@ -2788,3 +2788,344 @@ html {
     background: var(--scrollbar-track);
   }
 }
+
+/* ------------------------------------------------------------------
+   Inner-page hierarchy: price, inclusions and the booking action sit
+   together above the fold; supporting copy follows in one reading
+   column; towns and related services collapse into compact pills.
+   ------------------------------------------------------------------ */
+.page-intro {
+  padding-bottom: 40px;
+}
+.page-intro p {
+  max-width: 600px;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.service-overview {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 20px;
+  align-items: stretch;
+}
+.service-overview-image {
+  position: relative;
+  min-height: 480px;
+  overflow: hidden;
+  border-radius: 14px;
+  background: var(--muted);
+}
+.service-overview-image img {
+  object-fit: cover;
+}
+.booking-card,
+.service-index-card,
+.location-facts {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--surface, #f8f7f1);
+}
+.booking-card {
+  display: flex;
+  flex-direction: column;
+  padding: 36px;
+}
+.booking-price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 10px;
+  color: var(--foreground);
+}
+.booking-from,
+.booking-unit {
+  font-size: 15px;
+  color: var(--muted-foreground);
+}
+.booking-amount {
+  font-family: var(--font-display), sans-serif;
+  font-size: 60px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+.booking-amount-text {
+  font-size: 36px;
+}
+.booking-best {
+  margin-top: 22px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+  line-height: 1.6;
+}
+.booking-best strong,
+.booking-label {
+  display: block;
+  margin-bottom: 6px;
+  font-family: var(--font-body), sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1.4;
+  color: var(--foreground);
+}
+.booking-label {
+  margin: 24px 0 14px;
+}
+.booking-card .check-list {
+  margin: 0 0 32px;
+}
+.booking-card .check-list li {
+  font-size: 15px;
+  color: var(--foreground);
+}
+.booking-button {
+  width: 100%;
+  margin-top: auto;
+}
+.booking-note {
+  margin-top: 12px;
+  font-size: 13px;
+  text-align: center;
+}
+
+.service-details {
+  max-width: 680px;
+  margin: 80px auto 0;
+  padding-bottom: 72px;
+}
+.reading-page .service-details {
+  margin-top: 56px;
+}
+.service-details section + section {
+  margin-top: 52px;
+}
+.service-details h2 {
+  margin-bottom: 14px;
+  font-size: 27px;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+.service-details p {
+  font-size: 16px;
+  line-height: 1.75;
+}
+.service-details p + p {
+  margin-top: 14px;
+}
+.service-details .form-info {
+  margin-top: 22px;
+}
+.service-details .form-info p {
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.pill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.pill-list a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 38px;
+  padding: 0 15px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 14px;
+  color: var(--foreground);
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease;
+}
+.pill-list a[data-core] {
+  background: var(--accent);
+  font-weight: 600;
+}
+.pill-list a:hover {
+  border-color: var(--ring);
+  background: var(--accent);
+}
+
+.related-services {
+  max-width: 680px;
+  margin: 0 auto;
+  padding-bottom: 88px;
+}
+.related-services h2 {
+  font-size: 22px;
+  letter-spacing: -0.035em;
+}
+
+.service-index {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.service-index-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 28px 60px 26px 28px;
+  transition: border-color 0.2s ease;
+}
+.service-index-card:hover {
+  border-color: var(--ring);
+}
+.service-index-card h2 {
+  font-size: 24px;
+  letter-spacing: -0.04em;
+}
+.service-index-card p {
+  margin-top: 6px;
+  font-size: 15px;
+}
+.service-index-price {
+  margin-top: auto;
+  padding-top: 22px;
+  font-size: 14px;
+  color: var(--muted-foreground);
+}
+.service-index-price strong {
+  font-size: 19px;
+  font-weight: 600;
+  color: var(--foreground);
+  font-variant-numeric: tabular-nums;
+}
+.service-index-card > :last-child {
+  position: absolute;
+  top: 31px;
+  right: 26px;
+  display: inline-flex;
+  color: var(--muted-foreground);
+  transition: color 0.2s ease;
+}
+.service-index-card:hover > :last-child {
+  color: var(--foreground);
+}
+.page-note {
+  max-width: 620px;
+  margin: 52px auto 84px;
+  text-align: center;
+}
+.page-note p {
+  font-size: 15px;
+  line-height: 1.7;
+}
+.page-note-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 28px;
+  margin-top: 16px;
+}
+
+.location-facts {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 22px 24px 22px 28px;
+}
+.location-facts-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 36px;
+}
+.location-facts-label {
+  display: block;
+  font-size: 12px;
+  color: var(--muted-foreground);
+}
+.location-facts strong {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--foreground);
+}
+.location-facts .site-button {
+  flex-shrink: 0;
+}
+
+@media (max-width: 760px) {
+  .service-overview {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .service-overview-image {
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+  }
+  .booking-card {
+    padding: 26px 22px;
+  }
+  .booking-amount {
+    font-size: 50px;
+  }
+  .service-details {
+    margin-top: 52px;
+  }
+  .service-details section + section {
+    margin-top: 42px;
+  }
+  .service-index {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .location-facts {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 22px;
+  }
+  .location-facts .site-button {
+    width: 100%;
+  }
+}
+
+.about-contact {
+  margin-top: 20px;
+  padding: 28px;
+}
+.about-contact .booking-label {
+  margin: 0 0 6px;
+}
+.about-phone {
+  font-family: var(--font-display), sans-serif;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--foreground);
+  font-variant-numeric: tabular-nums;
+}
+.about-phone:hover {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.about-links {
+  display: grid;
+  gap: 12px;
+  margin: 20px 0 0;
+  padding: 20px 0 0;
+  border-top: 1px solid var(--border);
+  list-style: none;
+}
+.pricing-note {
+  font-size: 12px;
+}
+@media (max-width: 760px) {
+  .service-index-card {
+    padding: 22px 52px 20px 22px;
+  }
+  .service-index-card > :last-child {
+    top: 25px;
+    right: 20px;
+  }
+}

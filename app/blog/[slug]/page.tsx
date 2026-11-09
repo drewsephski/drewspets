@@ -85,7 +85,6 @@ export default async function BlogPost({
           parent={{ name: "Blog", path: "/blog" }}
         />
         <PageIntro
-          eyebrow="NOTES FROM DREW"
           title={post.title}
           description={post.description}
         />

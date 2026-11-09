@@ -205,10 +205,12 @@ export default function Home() {
           Rates may vary for holidays, puppies, additional pets, or special care
           needs. Your final price is always agreed in advance.
         </p>
-        <PaymentCTA
-          className="mt-6 max-w-full text-center"
-          text="Settle an existing invoice -> Pay now"
-        />
+        <div className="mt-4 flex justify-center">
+          <PaymentCTA
+            variant="text-link"
+            text="Have an invoice? Pay it here"
+          />
+        </div>
       </section>
       <section id="reviews" className="shell review-section">
         <Heart size={28} strokeWidth={1.3} />

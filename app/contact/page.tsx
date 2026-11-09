@@ -14,7 +14,6 @@ export default function Contact() {
   return (
     <div className="shell inner-page reading-page">
       <PageIntro
-        eyebrow="CONTACT DREW"
         title="Questions about pet care?"
         description="Ask about dates, services, or whether I cover your neighborhood. I’ll get back to you personally."
       />

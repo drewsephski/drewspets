@@ -54,7 +54,6 @@ export default function BlogIndex() {
       <div className="shell inner-page reading-page">
         <Breadcrumbs name="Blog" path="/blog" />
         <PageIntro
-          eyebrow="NOTES FROM DREW"
           title="Pet care tips from Fox River Grove"
           description="Short, practical guides on routines, seasons, travel prep, and choosing the right kind of care for your dog or cat."
         />

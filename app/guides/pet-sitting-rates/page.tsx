@@ -47,7 +47,6 @@ export default function RatesGuide() {
           path="/guides/pet-sitting-rates"
         />
         <PageIntro
-          eyebrow="A GUIDE BY DREW"
           title={headline}
           description="At Drew’s Pet Care, house sitting starts at $55 per night, while dog walks, drop-ins, and cat visits start at $22. These are my starting rates for local care, with your exact quote agreed before booking."
         />

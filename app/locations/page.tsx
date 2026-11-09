@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { ArrowUpRight } from "@/components/site/arrows"
 import { Breadcrumbs, FAQ, FinalCTA, PageIntro } from "@/components/site/shared"
 import { coverageSummary, locations } from "@/lib/content"
 import { pageMetadata } from "@/lib/seo"
@@ -15,57 +16,48 @@ export default function Locations() {
       <div className="shell inner-page">
         <Breadcrumbs name="Service area" path="/locations" />
         <PageIntro
-          eyebrow="YOUR LOCAL PET PERSON"
           title="Looking for a dog sitter near you?"
           description={`Drew’s Pet Care is based in Fox River Grove, Illinois (60021). ${coverageSummary}`}
         />
-        <div className="content-grid directory-layout">
-          <div className="directory-grid">
-            {locations.map((location) => (
-              <section key={location.slug} className="panel directory-card">
+        <ul className="service-index">
+          {locations.map((location) => (
+            <li key={location.slug}>
+              <Link
+                href={`/locations/${location.slug}`}
+                className="service-index-card"
+              >
                 <h2>
-                  <Link href={`/locations/${location.slug}`}>
-                    Dog sitting & pet care in {location.name}, IL
-                  </Link>
+                  <span className="sr-only">Dog sitting & pet care in </span>
+                  {location.name}, IL
                 </h2>
-                <p>
-                  <strong>
-                    {location.zip} ·{" "}
-                    {location.core
-                      ? "Core service area"
-                      : "Coverage reviewed by request"}
-                  </strong>
-                </p>
-                <p>{location.copy}</p>
-                <Link
-                  href={`/locations/${location.slug}`}
-                  className="text-link"
-                >
-                  Explore care in {location.name}
-                </Link>
-              </section>
-            ))}
-          </div>
-          <aside className="panel self-start">
-            <h2>Check your neighborhood.</h2>
-            <p>
-              Send your city or ZIP, dates, and the service you need. We’ll
-              discuss your exact address privately when planning travel and
-              access. Please keep keys and entry codes out of the request form.
-            </p>
-            <p>
-              House sitting starts at $55 per night. Dog walks, drop-ins, and
-              cat visits start at $22, with your total confirmed before booking.
-            </p>
-            <p>
-              <Link href="/services" className="text-link">
-                Compare pet-care services
+                <p>{location.intro}</p>
+                <span className="service-index-price">
+                  {location.zip} ·{" "}
+                  {location.core ? (
+                    <strong>Core service area</strong>
+                  ) : (
+                    "Reviewed by request"
+                  )}
+                </span>
+                <ArrowUpRight size={18} aria-hidden="true" />
               </Link>
-            </p>
+            </li>
+          ))}
+        </ul>
+        <div className="page-note">
+          <p>
+            Send your city or ZIP, dates, and the service you need. We’ll
+            discuss your exact address privately. House sitting starts at $55
+            per night; walks, drop-ins, and cat visits start at $22.
+          </p>
+          <div className="page-note-links">
+            <Link href="/services" className="text-link">
+              Compare services
+            </Link>
             <Link href="/book" className="text-link">
               Check dates and coverage
             </Link>
-          </aside>
+          </div>
         </div>
         <FAQ
           title="Choosing dog care near you"

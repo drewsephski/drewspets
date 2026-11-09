@@ -10,7 +10,6 @@ export default function Terms() {
   return (
     <div className="shell prose">
       <PageIntro
-        eyebrow="SERVICE TERMS"
         title="Service terms"
         description="A good care arrangement starts with clear expectations. These terms apply to requests made through Drew’s Pet Care."
       />

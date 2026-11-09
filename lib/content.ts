@@ -28,11 +28,11 @@ export const services = [
     price: 5500,
     unit: "night",
     icon: "moon",
-    image: "/images/dogs-relaxing-at-home.jpg",
-    imageAlt: "Two dogs relaxing together at home",
+    image: "/images/dogs-resting-by-the-window.jpg",
+    imageAlt: "Two dogs settled on a sofa at home",
     imageWidth: 1650,
     imageHeight: 2200,
-    imagePosition: "center",
+    imagePosition: "50% 85%",
     includes: [
       "Overnight stay in your home with your dog",
       "Evening and morning walks on your schedule",
@@ -124,11 +124,11 @@ export const services = [
     price: null,
     unit: "day",
     icon: "sun",
-    image: "/images/dogs-resting-by-the-window.jpg",
-    imageAlt: "Two dogs resting together at home",
-    imageWidth: 1650,
-    imageHeight: 2200,
-    imagePosition: "center",
+    image: "/images/gallery/two-dogs-playing.webp",
+    imageAlt: "Two dogs playing tug with a toy at home",
+    imageWidth: 1125,
+    imageHeight: 2000,
+    imagePosition: "50% 65%",
     includes: [
       "An agreed daytime care window",
       "Play, potty breaks & downtime",
@@ -148,11 +148,11 @@ export const services = [
     price: null,
     unit: "night",
     icon: "moon",
-    image: "/images/dogs-relaxing-at-home.jpg",
-    imageAlt: "Two dogs relaxing together at home",
-    imageWidth: 1650,
-    imageHeight: 2200,
-    imagePosition: "center",
+    image: "/images/gallery/three-dogs-patio.webp",
+    imageAlt: "Three black dogs sitting together on a patio",
+    imageWidth: 1092,
+    imageHeight: 2000,
+    imagePosition: "50% 70%",
     includes: [
       "Individually reviewed stays",
       "Familiar food & bedtime routines",
@@ -218,7 +218,6 @@ export type ServiceSeo = {
   title: string
   description: string
   heading: string
-  eyebrow?: string
   sections?: { title: string; paragraphs: string[] }[]
 }
 
@@ -228,7 +227,6 @@ export const serviceSeo: Partial<Record<ServiceSlug, ServiceSeo>> = {
     description:
       "In-home cat sitter near Fox River Grove and Cary, IL. Visits from $22 with meals, litter care, and updates. Drew personally handles every cat visit in the core area and nearby towns by request.",
     heading: "Cat sitter near Fox River Grove & Cary",
-    eyebrow: "IN-HOME CAT SITTING · FOX RIVER GROVE, IL",
     sections: [
       {
         title: "Why choose in-home cat sitting?",
@@ -250,7 +248,6 @@ export const serviceSeo: Partial<Record<ServiceSlug, ServiceSeo>> = {
     description:
       "Overnight dog sitter in your Fox River Grove or Cary home from $55 per night. In-home stays with walks, meals, and photo updates. Drew personally provides care; request dates and a meet & greet.",
     heading: "Overnight dog sitter from $55 per night",
-    eyebrow: "IN-HOME OVERNIGHT DOG SITTING · FROM $55/NIGHT",
     sections: [
       {
         title: "What overnight dog sitting includes",
@@ -272,7 +269,6 @@ export const serviceSeo: Partial<Record<ServiceSlug, ServiceSeo>> = {
     description:
       "Dog walker near Fox River Grove and Cary, IL. One-on-one walks from $22 per 30-minute visit. Personally walked by Drew in the core area; nearby towns reviewed for travel and availability.",
     heading: "Dog walker near Fox River Grove & Cary",
-    eyebrow: "NEIGHBORHOOD DOG WALKING · FOX RIVER GROVE, IL",
     sections: [
       {
         title: "One-on-one walks, not a pack outing",
@@ -294,7 +290,6 @@ export const serviceSeo: Partial<Record<ServiceSlug, ServiceSeo>> = {
     description:
       "House sitting and overnight pet care in Fox River Grove and Cary from $55 per night. Dogs, cats, and multi-pet homes welcome. Drew stays in your home and follows your instructions.",
     heading: "House sitting & overnight pet care",
-    eyebrow: "OVERNIGHT CARE IN YOUR HOME · FROM $55/NIGHT",
   },
 }
 export const locations = [
