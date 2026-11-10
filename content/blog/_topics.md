@@ -6,7 +6,6 @@ the list is empty, the job picks a seasonal topic that no post covers yet.
 
 Add notes after a dash to steer the draft, e.g. "- Topic — mention X, skip Y".
 
-- Booking pet care for Thanksgiving and December travel — why to request early, what to send, how quotes work
 - Winter walks and paw care near the Fox River — salt, ice, short days, cold-sensitive dogs; ask your vet about specifics
 - House sitting vs. boarding vs. drop-in visits: choosing for your pet's personality
 - What happens at a meet & greet with a new pet sitter
